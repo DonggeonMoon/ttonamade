@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="productMapper">
+  
+  <select id="selectAll" resultType="prodDto">
+  	select * from product_info order by prod_id asc
+  </select>
+  
+  <select id="select" parameterType= "String" resultType="prodDto">
+  	select * from product_info where prod_id = #{prod_id}
+  </select>
+  
+  <insert id="insert" parameterType="prodDto">
+  	insert into product_info
+  	values (#{prod_id}, #{prod_price}, #{prod_rating}, #{prod_desc}, #{prod_count}, #{prod_date})
+  </insert>  
+  
+  <update id="update" parameterType="prodDto">
+  	update product_info
+  	set prod_price = #{prod_price}, 
+  	    prod_rating = #{prod_rating},
+  	    prod_desc = #{prod_desc},
+  	    prod_count = #{prod_count},
+  	    prod_date = #{prod_date}
+  	where prod_id = #{prod_id}
+  </update>  
+  
+  <delete id="delete" parameterType="String" >
+  	delete from product_info
+  	where prod_id = #{prod_id}
+   </delete>  
+  
+  </mapper>

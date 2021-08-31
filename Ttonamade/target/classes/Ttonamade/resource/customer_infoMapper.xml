@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="customer_infoMapper">
+  
+   <select id="selectAll" resultType="custDto">
+  	select * from Customer_info order by cust_id asc
+  </select>
+  
+  <select id="select" parameterType= "int" resultType="custDto">
+  	select * from Customer_info where cust_id = #{cust_id}
+  </select>
+  
+   <insert id="insert" parameterType="custDto">
+  	insert into Customer_info
+  	values (#{cust_id}, #{cust_name}, #{cust_password}, #{cust_sex}, #{cust_birthday}, #{cust_telephone}, #{cust_manager}, #{cust_date})
+  </insert>  
+  
+  <update id="update" parameterType="custDto">
+  	update Customer_info
+  	set cust_id = #{cust_id},
+	    cust_name = #{cust_name},
+		cust_password = #{cust_password},
+		cust_sex = #{cust_sex},
+		cust_birthday = #{cust_birthday},
+		cust_telephone = #{cust_telephone},
+		cust_manager = #{cust_manager},
+		cust_date = #{cust_date}
+  </update>  
+  
+  <delete id="delete" parameterType="int" >
+  	delete from Customer_info
+  	where id=#{id}
+   </delete>  
+  
+  </mapper>
