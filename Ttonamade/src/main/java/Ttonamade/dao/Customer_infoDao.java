@@ -15,19 +15,19 @@ public class Customer_infoDao {
 	@Inject
 	SqlSession ss;
 	
-	private static final String NameSpace = "customer_infoMapper";
+	private static final String NameSpace = "customer_infoMapper.";
 	
 	public void setSss(SqlSession ss) {
 		this.ss = ss;
 	}
 	
 
-	public List<Customer_infoDto> selectAll(int cust_id) throws Exception{
+	public List<Customer_infoDto> selectAll(String cust_id) throws Exception{
 		
 		return ss.selectList(NameSpace + "selectAll" + cust_id);
 	}
 	
-	public Customer_infoDto selectOne(int cust_id) throws Exception{
+	public Customer_infoDto selectOne(String cust_id) throws Exception{
 			
 			return ss.selectOne(NameSpace + "selectOne", cust_id);
 		}
@@ -37,7 +37,7 @@ public class Customer_infoDao {
 		ss.insert(NameSpace + "insertOne" + custDto);
 		
 	}
-	public void deleteOne(int cust_id) throws Exception{
+	public void deleteOne(String cust_id) throws Exception{
 		
 		ss.delete(NameSpace + "deleteOne", cust_id);
 		

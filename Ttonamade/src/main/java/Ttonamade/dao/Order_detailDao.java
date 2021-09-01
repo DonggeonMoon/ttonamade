@@ -5,11 +5,12 @@ import java.util.List;
 import javax.inject.Inject;
 
 import org.apache.ibatis.session.SqlSession;
+import org.springframework.stereotype.Repository;
 
 import Ttonamade.dto.Order_detailDto;
 
-
-public class Order_DetailDao {
+@Repository
+public class Order_detailDao {
 	
 	@Inject
 	SqlSession ss;

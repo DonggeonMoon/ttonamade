@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class Customer_infoDto {
 	
-	private int cust_id;
+	private String cust_id;
 	private String cust_name;
 	private String cust_password;
 	private char cust_sex;
@@ -19,7 +19,7 @@ public class Customer_infoDto {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Customer_infoDto(int cust_id, String cust_name, String cust_password, char cust_sex, String cust_birthday,
+	public Customer_infoDto(String cust_id, String cust_name, String cust_password, char cust_sex, String cust_birthday,
 			String cust_telephone, char cust_manager, Date cust_date) {
 		super();
 		this.cust_id = cust_id;
@@ -32,10 +32,10 @@ public class Customer_infoDto {
 		this.cust_date = cust_date;
 	}
 	
-	public int getCust_id() {
+	public String getCust_id() {
 		return cust_id;
 	}
-	public void setCust_id(int cust_id) {
+	public void setCust_id(String cust_id) {
 		this.cust_id = cust_id;
 	}
 	public String getCust_name() {

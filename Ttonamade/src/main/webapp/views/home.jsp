@@ -7,7 +7,7 @@
 <title>또나메이드</title>
 </head>
 <body>
-<div style="float:right;"><a href="/Ttonamade/login">로그인</a> <a href="/Ttonamade/insertCustInfo">회원가입</a> <a href="/Ttonamade/cartView">장바구니</a></div>
+<div style="float:right;"><a href="/Ttonamade/login">로그인</a> <a href="/Ttonamade/insertCustInfo">회원가입</a> <a href="/Ttonamade/cartView">장바구니</a> <a href="/Ttonamade/myPage">마이 페이지</a></div>
 <h2>홈</h2>
 <input type="button" value="상품목록" onclick="location.href='/Ttonamade/prodList'">
 </body>

@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-  <mapper namespace="cartMapper">
+  <mapper namespace="cart_infoMapper">
   
   <select id="selectAll" resultType= "cartDto" parameterType ="int">
   	 	select  * from cart_info  where cust_id =#{cust_id} 

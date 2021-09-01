@@ -16,7 +16,7 @@ public class Cart_infoDao {
 	@Inject
 	SqlSession ss;
 	
-	private static final String NameSpace ="CartMapper.";
+	private static final String NameSpace ="cart_infoMapper.";
 
 	public void setSs(SqlSession ss) {
 		this.ss = ss;
