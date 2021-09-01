@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class Order_infoDto {
 
-	private int order_id;
+	private String order_id;
 	private int cust_id;
 	private int order_totalAmount;
 	private Date order_date;
@@ -19,7 +19,7 @@ public class Order_infoDto {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Order_infoDto(int order_id, int cust_id, int order_totalAmount, Date order_date, String cus_zipcode,
+	public Order_infoDto(String order_id, int cust_id, int order_totalAmount, Date order_date, String cus_zipcode,
 			String order_add1, String order_add2, String order_telephone, char order_status) {
 		super();
 		this.order_id = order_id;
@@ -33,11 +33,11 @@ public class Order_infoDto {
 		this.order_status = order_status;
 	}
 
-	public int getOrder_id() {
+	public String getOrder_id() {
 		return order_id;
 	}
 
-	public void setOrder_id(int order_id) {
+	public void setOrder_id(String order_id) {
 		this.order_id = order_id;
 	}
 
