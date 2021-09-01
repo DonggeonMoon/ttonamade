@@ -25,20 +25,20 @@ public class Order_infoDao {
 		return ss.selectList(NameSpace + "selectAll");
 	}
 	
-	public Order_infoDto selectOne(int order_id) throws Exception {
+	public Order_infoDto selectOne(String order_id) throws Exception {
 		return ss.selectOne(NameSpace + "selectOne", order_id);
 	}
 	
 	public void insert(Order_infoDto oiDto) throws Exception {
-		ss.insert(NameSpace + "insert", oiDto);
+		ss.insert(NameSpace + "insertOne", oiDto);
 	}
 	
 	public void update(Order_infoDto oiDto) throws Exception {
-		ss.update(NameSpace + "update", oiDto);
+		ss.update(NameSpace + "updateOne", oiDto);
 	}
 	
-	public void delete(int order_id) throws Exception {
-		ss.delete(NameSpace + "delete", order_id);
+	public void delete(String order_id) throws Exception {
+		ss.delete(NameSpace + "deleteOne", order_id);
 	}
 
 }

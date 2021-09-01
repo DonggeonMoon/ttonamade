@@ -21,6 +21,7 @@ public class Customer_infoDao {
 		this.ss = ss;
 	}
 	
+<<<<<<< HEAD
 	public List<Customer_infoDto> selectAll() throws Exception{
 		
 		return ss.selectList(NameSpace + "selectAll");
@@ -45,6 +46,32 @@ public class Customer_infoDao {
 	public void update(Customer_infoDto custDto) throws Exception{
 		
 		ss.update(NameSpace + "update", custDto);
+=======
+	public List<Customer_infoDto> selectAll(int cust_id) throws Exception{
+		
+		return ss.selectList(NameSpace + "selectAll" + cust_id);
+	}
+	
+	public Customer_infoDto selectOne(int cust_id) throws Exception{
+			
+			return ss.selectOne(NameSpace + "selectOne", cust_id);
+		}
+	
+	public void insertOne(Customer_infoDto  custDto) throws Exception{
+		
+		ss.insert(NameSpace + "insertOne" + custDto);
+		
+	}
+	public void deleteOne(int cust_id) throws Exception{
+		
+		ss.delete(NameSpace + "deleteOne", cust_id);
+		
+	}
+	
+	public void updateOne(Customer_infoDto custDto) throws Exception{
+		
+		ss.update(NameSpace + "updateOne", custDto);
+>>>>>>> branch 'main' of https://github.com/DonggeonMoon/Ttonamade.git
 	
 }
 
