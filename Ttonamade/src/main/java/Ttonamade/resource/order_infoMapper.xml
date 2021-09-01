@@ -13,11 +13,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		from order_info
 		where order_id = #{order_id}
 	</select>
-	<insert id="insert" parameterType="oiDto">
+	<insert id="insertOne" parameterType="oiDto">
 		insert into order_info(order_id, cust_id, order_totalAmount, order_date, cus_zipcode, order_add1, order_add2, order_telephone, order_status)
 		values (#{order_id}, #{cust_id}, #{order_totalAmount}, #{order_date}, #{cus_zipcode}, #{order_add1}, #{order_add2}, #{order_telephone}, #{order_status})
 	</insert>
-	<update id="update" parameterType="oiDto">
+	<update id="updateOne" parameterType="oiDto">
 		update order_info
 		set cust_id = #{cust_id}
 		, order_totalAmount = #{order_totalAmount}
@@ -29,7 +29,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		, order_status = #{order_status}
 		where order_id = #{order_id}
 	</update>
-	<delete id="delete" parameterType="String">
+	<delete id="deleteOne" parameterType="String">
 		delete
 		from order_info
 		where order_id = #{order_id}
