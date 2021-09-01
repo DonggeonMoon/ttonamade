@@ -87,10 +87,18 @@ select * from order_info;
 select * from order_detail;
 
 
+<<<<<<< HEAD
 insert into product_info values(prod_id_seq.nextval, 'ì œí’ˆ1', 10000, 100, 'ì œí’ˆìž…ë‹ˆë‹¤.', 4.5, sysdate);
 insert into customer_info values('test', 'í™ê¸¸ë™', '11', 'M', '010-0000-0000', '00/01/01', 'U', sysdate);
 insert into cart_info values(cart_id_seq.nextval, 'test', 1, 'ì œí’ˆ1', 100, 10000);
 insert into order_info values('vvvv', 'test', 1000000, '00100', 'ì„œìš¸ì‹œ ê°•ë‚¨êµ¬', 'ê°œí¬ë™', '010-0000-0000', 'M', sysdate);
 insert into order_detail values(order_detail_seq.nextval, 'vvvv', 1, 'ì œí’ˆ1', 100, 10000);
+=======
+insert into product_info values(prod_id_seq.nextval, 'Á¦Ç°1', 10000, 100, 'Á¦Ç°1ÀÔ´Ï´Ù.', 4.5, sysdate);
+insert into customer_info values('test', 'È«±æµ¿', '11', 'M', '010-0000-0000', '00/01/01', 'U', sysdate);
+insert into cart_info values(cart_id_seq.nextval, 'test', 1, 'Á¦Ç°1', 100, 10000);
+insert into order_info values('vvvv', 'test', 1000000, '00100', '¼­¿ï½Ã °­³²±¸', '°³Æ÷µ¿', '010-0000-0000', 'M', sysdate);
+insert into order_detail values(order_detail_seq.nextval, 'vvvv', 1, 'Á¦Ç°1', 100, 10000);
+>>>>>>> branch 'main' of https://github.com/DonggeonMoon/Ttonamade.git
  
 commit;

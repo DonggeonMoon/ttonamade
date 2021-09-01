@@ -9,7 +9,6 @@
 </head>
 <body>
 <div style="float:right;"><a href="/Ttonamade/login">로그인</a> <a href="/Ttonamade/insertCustInfo">회원가입</a>${customer.cust_name} (${customer.cust_id })님 <a href="/Ttonamade/cartView">장바구니</a> <a href="/Ttonamade/myPage">마이 페이지</a></div>
- 
 <h2>상품 목록</h2>
 <table>
 	<tr>

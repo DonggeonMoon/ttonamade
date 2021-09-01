@@ -144,5 +144,4 @@ public class TtonamadeController {
 	public String error() {
 		return "error";
 	}
-	
 }

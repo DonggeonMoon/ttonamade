@@ -22,19 +22,16 @@ public class Cart_infoDao {
 		this.ss = ss;
 	}
 	
-	
 	public  List<Cart_infoDto> selectAll(String cust_id) throws Exception {
 		return ss.selectList(NameSpace+ "selectAll" + cust_id);
 		
 	} 
-	
-	
+		
 	public Cart_infoDto selectOne(String cart_id) throws Exception{
 		
 		return ss.selectOne(NameSpace + "selectOne", cart_id);
 	}
-	
-	
+		
 	public void insertOne(Cart_infoDto cartDto) throws  Exception{
 		ss.insert(NameSpace+ "insertOne"+ cartDto);
 		
