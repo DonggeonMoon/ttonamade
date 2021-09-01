@@ -29,12 +29,12 @@ public class Order_infoDao {
 		return ss.selectOne(NameSpace + "selectOne", order_id);
 	}
 	
-	public void insert(Order_infoDto dto) throws Exception {
-		ss.insert(NameSpace + "insert", dto);
+	public void insert(Order_infoDto oiDto) throws Exception {
+		ss.insert(NameSpace + "insert", oiDto);
 	}
 	
-	public void update(Order_infoDto dto) throws Exception {
-		ss.update(NameSpace + "update", dto);
+	public void update(Order_infoDto oiDto) throws Exception {
+		ss.update(NameSpace + "update", oiDto);
 	}
 	
 	public void delete(int order_id) throws Exception {
