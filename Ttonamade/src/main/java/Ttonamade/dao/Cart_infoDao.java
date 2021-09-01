@@ -35,20 +35,20 @@ public class Cart_infoDao {
 	}
 	
 	
-	public void insert(Cart_infoDto cartDto) throws  Exception{
+	public void insertOne(Cart_infoDto cartDto) throws  Exception{
 		ss.insert(NameSpace+ "insertOne"+ cartDto);
 		
 	}
 		
 	
 	//   선택적으로 지우거나 
-	public void delete(int cart_id) throws Exception{
+	public void deleteOne(int cart_id) throws Exception{
 		
 		ss.delete(NameSpace + "deleteOne", cart_id);
 		
 	}
 	//전부지우거나 
-	public void deleteAll(int cust_id ) throws Exception {
+	public void deleteAll(int cust_id) throws Exception {
 		 ss.delete(NameSpace + "deleteAll" + cust_id);
 	}
 	

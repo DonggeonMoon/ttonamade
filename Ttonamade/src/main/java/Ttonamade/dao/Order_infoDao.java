@@ -29,15 +29,15 @@ public class Order_infoDao {
 		return ss.selectOne(NameSpace + "selectOne", order_id);
 	}
 	
-	public void insert(Order_infoDto oiDto) throws Exception {
+	public void insertOne(Order_infoDto oiDto) throws Exception {
 		ss.insert(NameSpace + "insertOne", oiDto);
 	}
 	
-	public void update(Order_infoDto oiDto) throws Exception {
+	public void updateOne(Order_infoDto oiDto) throws Exception {
 		ss.update(NameSpace + "updateOne", oiDto);
 	}
 	
-	public void delete(String order_id) throws Exception {
+	public void deleteOne(String order_id) throws Exception {
 		ss.delete(NameSpace + "deleteOne", order_id);
 	}
 

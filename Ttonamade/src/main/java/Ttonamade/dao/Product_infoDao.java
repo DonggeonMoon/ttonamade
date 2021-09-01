@@ -30,16 +30,16 @@ public class Product_infoDao {
 			return ss.selectOne(NameSpace + "selectOne", prod_id);
 		}
 		
-		public void insert(Product_infoDto prodDto) throws Exception {
-			ss.insert(NameSpace + "insert", prodDto);
+		public void insertOne(Product_infoDto prodDto) throws Exception {
+			ss.insert(NameSpace + "insertOne", prodDto);
 		}
 		
 		public void update(Product_infoDto prodDto) throws Exception{
-			ss.update(NameSpace + "update", prodDto);
+			ss.update(NameSpace + "updateOne", prodDto);
 		}
 		
-		public void delete(String prod_id) throws Exception {
-			ss.delete(NameSpace + "delete", prod_id);
+		public void deleteOne(String prod_id) throws Exception {
+			ss.delete(NameSpace + "deleteOne", prod_id);
 		}
 	}
 }
