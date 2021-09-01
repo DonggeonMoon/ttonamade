@@ -13,14 +13,14 @@
 		from order_detail
 		where order_id = #{order_id} and order_seq=#{order_seq}
 	</select>
-	<insert id="insert" parameterType="String" >
+	<insert id="insertOne" parameterType="String" >
 		insert into order_detail(order_id, order_seq, prod_id, prod_name, prod_price, order_count)
 		select #{order_id}, order_detail_seq.nextval, prod_id, prod_name, prod_price, order_count
 		from cart_info
 		where cust_id =#{cust_id}		 
 	</insert>
 	
-	<update id="update" parameterType="odDto">
+	<update id="updateOne" parameterType="odDto">
 		update order_detail
 		set order_id = #{password}
 		, prod_id = #{prod_id}
@@ -29,7 +29,7 @@
 		, order_count =#{order_count}
 		where order_id = #{order_id} and order_seq=#{order_seq}
 	</update>
-	<delete id="delete" parameterType="String">
+	<delete id="deleteOne" parameterType="String">
 		delete
 		from order_detail
 		where order_id = #{order_id} and order_seq=#{order_seq}
