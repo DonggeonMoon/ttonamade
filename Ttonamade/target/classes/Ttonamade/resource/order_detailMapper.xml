@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="order_detailMapper">
+	<select id="selectAll" resultType="odDto">
+		select order_id, order_seq, prod_id, prod_name, prod_price, order_count
+		from order_detail
+		order by order_id, order_seq desc
+	</select>
+	<select id="selectOne" parameterType="String" resultType="odDto">
+		select order_id, order_seq, prod_id, prod_name, prod_price, order_count
+		from order_detail
+		where order_id = #{order_id} and order_seq=#{order_seq}
+	</select>
+	<insert id="insertOne" parameterType="String" >
+		insert into order_detail(order_id, order_seq, prod_id, prod_name, prod_price, order_count)
+		select #{order_id}, order_detail_seq.nextval, prod_id, prod_name, prod_price, order_count
+		from cart_info
+		where cust_id =#{cust_id}		 
+	</insert>
+	
+	<update id="updateOne" parameterType="odDto">
+		update order_detail
+		set order_id = #{password}
+		, prod_id = #{prod_id}
+		, prod_name = #{prod_name}
+		, prod_price = #{prod_price}
+		, order_count =#{order_count}
+		where order_id = #{order_id} and order_seq=#{order_seq}
+	</update>
+	<delete id="deleteOne" parameterType="String">
+		delete
+		from order_detail
+		where order_id = #{order_id} and order_seq=#{order_seq}
+	</delete>
+	
+</mapper>
