@@ -21,30 +21,30 @@ public class Customer_infoDao {
 		this.ss = ss;
 	}
 	
-	public List<Customer_infoDto> selectAll() throws Exception{
+	public List<Customer_infoDto> selectAll(int cust_id) throws Exception{
 		
-		return ss.selectList(NameSpace + "selectAll");
+		return ss.selectList(NameSpace + "selectAll" + cust_id);
 	}
 	
 	public Customer_infoDto selectOne(int cust_id) throws Exception{
 			
-			return ss.selectOne(NameSpace + "select", cust_id);
+			return ss.selectOne(NameSpace + "selectOne", cust_id);
 		}
 	
-	public void insert(Customer_infoDto  custDto) throws Exception{
+	public void insertOne(Customer_infoDto  custDto) throws Exception{
 		
-		ss.insert(NameSpace + "insert", custDto);
+		ss.insert(NameSpace + "insertOne" + custDto);
 		
 	}
-	public void delete(int cust_id) throws Exception{
+	public void deleteOne(int cust_id) throws Exception{
 		
-		ss.delete(NameSpace + "delete", cust_id);
+		ss.delete(NameSpace + "deleteOne", cust_id);
 		
 	}
 	
-	public void update(Customer_infoDto custDto) throws Exception{
+	public void updateOne(Customer_infoDto custDto) throws Exception{
 		
-		ss.update(NameSpace + "update", custDto);
+		ss.update(NameSpace + "updateOne", custDto);
 	
 }
 
