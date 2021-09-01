@@ -8,16 +8,16 @@
   	select * from Customer_info order by cust_id asc
   </select>
   
-  <select id="select" parameterType= "int" resultType="custDto">
+  <select id="selectOne" parameterType= "int" resultType="custDto">
   	select * from Customer_info where cust_id = #{cust_id}
   </select>
   
-   <insert id="insert" parameterType="custDto">
+   <insert id="insertOne" parameterType="custDto">
   	insert into Customer_info
   	values (#{cust_id}, #{cust_name}, #{cust_password}, #{cust_sex}, #{cust_birthday}, #{cust_telephone}, #{cust_manager}, #{cust_date})
   </insert>  
   
-  <update id="update" parameterType="custDto">
+  <update id="updateOne" parameterType="custDto">
   	update Customer_info
   	set cust_id = #{cust_id},
 	    cust_name = #{cust_name},
@@ -29,9 +29,10 @@
 		cust_date = #{cust_date}
   </update>  
   
-  <delete id="delete" parameterType="int" >
+  <delete id="deleteOne" parameterType="int" >
   	delete from Customer_info
   	where id=#{id}
-   </delete>  
+   </delete> 
+   
   
   </mapper>
