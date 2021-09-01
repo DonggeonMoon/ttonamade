@@ -25,7 +25,7 @@ public class Order_infoDao {
 		return ss.selectList(NameSpace + "selectAll");
 	}
 	
-	public Order_infoDto selectOne(int order_id) throws Exception {
+	public Order_infoDto selectOne(String order_id) throws Exception {
 		return ss.selectOne(NameSpace + "selectOne", order_id);
 	}
 	
@@ -37,7 +37,7 @@ public class Order_infoDao {
 		ss.update(NameSpace + "update", oiDto);
 	}
 	
-	public void delete(int order_id) throws Exception {
+	public void delete(String order_id) throws Exception {
 		ss.delete(NameSpace + "delete", order_id);
 	}
 
