@@ -23,13 +23,13 @@ public class Cart_infoDao {
 	}
 	
 	public  List<Cart_infoDto> selectAll(String cust_id) throws Exception {
-		return ss.selectList(NameSpace+ "selectAll" + cust_id);
+		return ss.selectList(NameSpace+ "selectAll", cust_id);
 		
 	} 
 		
-	public Cart_infoDto selectOne(String cart_id) throws Exception{
+	public Cart_infoDto selectOne(String cust_id) throws Exception{
 		
-		return ss.selectOne(NameSpace + "selectOne", cart_id);
+		return ss.selectOne(NameSpace + "selectOne", cust_id);
 	}
 		
 	public void insertOne(Cart_infoDto cartDto) throws  Exception{

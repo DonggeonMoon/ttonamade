@@ -1,13 +1,15 @@
 package Ttonamade.dto;
 
-import java.util.Date;
+import java.sql.Date;
 
 public class Product_infoDto {
 	
-	private String prod_id;
+	private int prod_id;
+	private String prod_name;
 	private int prod_price;
-	private int prod_rating;
+	private float prod_rating;
 	private String prod_desc;
+	private String prod_imgsrc;
 	private int prod_count; 
 	private Date prod_date;
 	
@@ -15,23 +17,33 @@ public class Product_infoDto {
 		super();
 	}
 
-	public Product_infoDto(String prod_id, int prod_price, int prod_rating, String prod_desc, int prod_count,
-			Date prod_date) {
+	public Product_infoDto(int prod_id, String prod_name, int prod_price, float prod_rating, String prod_desc,
+			String prod_imgsrc, int prod_count, Date prod_date) {
 		super();
 		this.prod_id = prod_id;
+		this.prod_name = prod_name;
 		this.prod_price = prod_price;
 		this.prod_rating = prod_rating;
 		this.prod_desc = prod_desc;
+		this.prod_imgsrc = prod_imgsrc;
 		this.prod_count = prod_count;
 		this.prod_date = prod_date;
 	}
 
-	public String getProd_id() {
+	public int getProd_id() {
 		return prod_id;
 	}
 
-	public void setProd_id(String prod_id) {
+	public void setProd_id(int prod_id) {
 		this.prod_id = prod_id;
+	}
+
+	public String getProd_name() {
+		return prod_name;
+	}
+
+	public void setProd_name(String prod_name) {
+		this.prod_name = prod_name;
 	}
 
 	public int getProd_price() {
@@ -42,11 +54,11 @@ public class Product_infoDto {
 		this.prod_price = prod_price;
 	}
 
-	public int getProd_rating() {
+	public float getProd_rating() {
 		return prod_rating;
 	}
 
-	public void setProd_rating(int prod_rating) {
+	public void setProd_rating(float prod_rating) {
 		this.prod_rating = prod_rating;
 	}
 
@@ -56,6 +68,14 @@ public class Product_infoDto {
 
 	public void setProd_desc(String prod_desc) {
 		this.prod_desc = prod_desc;
+	}
+
+	public String getProd_imgsrc() {
+		return prod_imgsrc;
+	}
+
+	public void setProd_imgsrc(String prod_imgsrc) {
+		this.prod_imgsrc = prod_imgsrc;
 	}
 
 	public int getProd_count() {
@@ -72,5 +92,5 @@ public class Product_infoDto {
 
 	public void setProd_date(Date prod_date) {
 		this.prod_date = prod_date;
-	}	
+	}
 }

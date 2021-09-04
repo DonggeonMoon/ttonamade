@@ -4,20 +4,19 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   <mapper namespace="cart_infoMapper">
   
-  <select id="selectAll" resultType= "cartDto" parameterType ="String">
-  	 	select  * from cart_info  where cust_id = #{cust_id} 
+  <select id="selectAll" parameterType ="String" resultType= "cartDto" >
+  	 	select  * from cart_info where cust_id = #{cust_id} 
   </select>
   	 
-  <select id="selectOne" parameterType= "int" resultType="cartDto">
-  		select  * from cart_info   where cart_id  = #{cart_id}
+  <select id="selectOne" parameterType= "String" resultType="cartDto">
+  		select  * from cart_info where cust_id = #{cust_id}
   </select>
   
   <insert id="insertOne" parameterType="cartDto">
 	  	insert into cart_info (cart_id, cust_id, prod_id, prod_name, prod_count, prod_price )
-	  	values ( cart_seq.nextval, #{cust_id}, #{prod_id}, #{prod_name}, #{prod_count}, #{prod_price})
+	  	values (cart_id_seq.nextval, #{cust_id}, #{prod_id}, #{prod_name}, #{prod_count}, #{prod_price})
   	
-  </insert>   
-  
+  </insert>
    
    <delete id="deleteOne" parameterType="int" >
   		delete from cart_info where cart_id = #{cart_id}

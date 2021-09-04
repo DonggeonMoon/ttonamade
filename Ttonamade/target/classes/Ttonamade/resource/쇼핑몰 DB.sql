@@ -28,8 +28,8 @@ create table Order_Info (
     cust_id varchar(50) NOT NULL ,
     order_totalAmount number,
     order_zipcode varchar(10) ,
-    order_add1 varchar(50),
-    order_add2 varchar(50) ,
+    order_add1 varchar(100),
+    order_add2 varchar(100) ,
     order_telephone varchar(20) ,
     order_status char(2) ,
     order_date date default sysdate,
@@ -44,6 +44,7 @@ create table Product_Info(
     prod_price number,
     prod_count int ,
     prod_desc varchar2(4000),
+    prod_imgsrc varchar2(100),
     prod_rating number(2,1) DEFAULT 0,
     prod_date date default sysdate,
     constraint prod_id_pk primary key(prod_id)
@@ -86,19 +87,10 @@ select * from cart_info;
 select * from order_info;
 select * from order_detail;
 
-
-<<<<<<< HEAD
-insert into product_info values(prod_id_seq.nextval, 'ì œí’ˆ1', 10000, 100, 'ì œí’ˆìž…ë‹ˆë‹¤.', 4.5, sysdate);
+insert into product_info values(prod_id_seq.nextval, 'ì œí’ˆ1', 10000, 100, 'ì œí’ˆìž…ë‹ˆë‹¤.', 'b9ca692e-b8a5-4e3d-a85b-a58430b889c9_1_jhaUd018svc1tgyk4h5vol5f_yj6is8.jpg',  4.5, sysdate);
 insert into customer_info values('test', 'í™ê¸¸ë™', '11', 'M', '010-0000-0000', '00/01/01', 'U', sysdate);
 insert into cart_info values(cart_id_seq.nextval, 'test', 1, 'ì œí’ˆ1', 100, 10000);
-insert into order_info values('vvvv', 'test', 1000000, '00100', 'ì„œìš¸ì‹œ ê°•ë‚¨êµ¬', 'ê°œí¬ë™', '010-0000-0000', 'M', sysdate);
+insert into order_info values('vvvv', 'test', 1000000, '00100', 'ì„œìš¸ì‹œ ê°•ë‚¨êµ¬', 'ê°œí¬ë™', '010-0000-0000', 'T', sysdate);
 insert into order_detail values(order_detail_seq.nextval, 'vvvv', 1, 'ì œí’ˆ1', 100, 10000);
-=======
-insert into product_info values(prod_id_seq.nextval, 'Á¦Ç°1', 10000, 100, 'Á¦Ç°1ÀÔ´Ï´Ù.', 4.5, sysdate);
-insert into customer_info values('test', 'È«±æµ¿', '11', 'M', '010-0000-0000', '00/01/01', 'U', sysdate);
-insert into cart_info values(cart_id_seq.nextval, 'test', 1, 'Á¦Ç°1', 100, 10000);
-insert into order_info values('vvvv', 'test', 1000000, '00100', '¼­¿ï½Ã °­³²±¸', '°³Æ÷µ¿', '010-0000-0000', 'M', sysdate);
-insert into order_detail values(order_detail_seq.nextval, 'vvvv', 1, 'Á¦Ç°1', 100, 10000);
->>>>>>> branch 'main' of https://github.com/DonggeonMoon/Ttonamade.git
  
 commit;

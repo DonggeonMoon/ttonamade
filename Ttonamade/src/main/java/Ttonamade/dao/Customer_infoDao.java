@@ -1,5 +1,6 @@
 package Ttonamade.dao;
 
+import java.util.HashMap;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -23,18 +24,24 @@ public class Customer_infoDao {
 	
 
 	public List<Customer_infoDto> selectAll(String cust_id) throws Exception{
-		
 		return ss.selectList(NameSpace + "selectAll" + cust_id);
 	}
 	
 	public Customer_infoDto selectOne(String cust_id) throws Exception{
-			
-			return ss.selectOne(NameSpace + "selectOne", cust_id);
-		}
+		return ss.selectOne(NameSpace + "selectOne", cust_id);
+	}
 	
-	public void insertOne(Customer_infoDto  custDto) throws Exception{
+	public Customer_infoDto selectOneByNTB(HashMap<String, String> map) {
+		return ss.selectOne(NameSpace + "selectOneByNTB");
+	}
+	
+	public Customer_infoDto selectOneByNTBI(HashMap<String, String> map) {
+		return ss.selectOne(NameSpace + "selectOneByNTBI");
+	}
+	
+	public void insertOne(Customer_infoDto custDto) throws Exception{
 		
-		ss.insert(NameSpace + "insertOne" + custDto);
+		ss.insert(NameSpace + "insertOne", custDto);
 		
 	}
 	public void deleteOne(String cust_id) throws Exception{

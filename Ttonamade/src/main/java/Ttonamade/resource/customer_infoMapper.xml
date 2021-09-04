@@ -12,27 +12,34 @@
   	select * from Customer_info where cust_id = #{cust_id}
   </select>
   
+  <select id="selectOneByNTB" parameterType="hashMap" resultType="custDto">
+  	select * from Customer_info where cust_name = #{name} and cust_telephone=#{telephone} and cust_birthday=#{birthday}
+  </select>
+  
+  <select id="selectOneByNTBI" parameterType="hashMap" resultType="custDto">
+  	select * from Customer_info where cust_name = #{name} and #{telephone} and #{birthday} and #{cust_id}
+  </select>  
+  
    <insert id="insertOne" parameterType="custDto">
   	insert into Customer_info
-  	values (#{cust_id}, #{cust_name}, #{cust_password}, #{cust_sex}, #{cust_birthday}, #{cust_telephone}, #{cust_manager}, #{cust_date})
-  </insert>  
+  	values (#{cust_id}, #{cust_name}, #{cust_password}, #{cust_sex}, #{cust_birthday}, #{cust_telephone}, #{cust_manager}, sysdate)
+  </insert>
   
   <update id="updateOne" parameterType="custDto">
   	update Customer_info
-  	set cust_id = #{cust_id},
-	    cust_name = #{cust_name},
+  	set cust_name = #{cust_name},
 		cust_password = #{cust_password},
 		cust_sex = #{cust_sex},
 		cust_birthday = #{cust_birthday},
 		cust_telephone = #{cust_telephone},
 		cust_manager = #{cust_manager},
-		cust_date = #{cust_date}
+		cust_date = sysdate
+	where cust_id = #{cust_id}
   </update>  
   
   <delete id="deleteOne" parameterType="String" >
-  	delete from Customer_info
-  	where id=#{id}
+  	delete Customer_info
+  	where cust_id = #{cust_id}
    </delete> 
    
-  
   </mapper>

@@ -8,13 +8,13 @@
   	select * from product_info order by prod_id asc
   </select>
   
-  <select id="selectOne" parameterType= "String" resultType="prodDto">
+  <select id="selectOne" parameterType= "int" resultType="prodDto">
   	select * from product_info where prod_id = #{prod_id}
   </select>
   
   <insert id="insertOne" parameterType="prodDto">
-  	insert into product_info
-  	values (#{prod_id}, #{prod_price}, #{prod_rating}, #{prod_desc}, #{prod_count}, #{prod_date})
+  	insert into product_info(prod_id, prod_name, prod_price, prod_rating, prod_desc, prod_imgsrc, prod_count, prod_date)
+  	values(prod_id_seq.nextval, #{prod_name}, #{prod_price}, #{prod_rating}, #{prod_desc}, #{prod_imgsrc}, #{prod_count}, sysdate)
   </insert>  
   
   <update id="updateOne" parameterType="prodDto">
@@ -27,7 +27,7 @@
   	where prod_id = #{prod_id}
   </update>  
   
-  <delete id="deleteOne" parameterType="String" >
+  <delete id="deleteOne" parameterType="int" >
   	delete from product_info
   	where prod_id = #{prod_id}
    </delete>  

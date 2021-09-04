@@ -21,9 +21,9 @@ public class Order_detailDao {
 		this.ss = ss;
 	}
 	
-	public List<Order_detailDto> selectAll() throws Exception{
+	public List<Order_detailDto> selectAll(String order_id, int order_seq) throws Exception{
 		
-		return ss.selectList(NameSpace +"selectAll");
+		return ss.selectList(NameSpace +"selectAll", order_id);
 	}
 	
 	public void insertOne(Order_detailDto odDto) throws Exception{

@@ -1,6 +1,6 @@
 package Ttonamade.dto;
 
-import java.util.Date;
+import java.sql.Date;
 
 public class Customer_infoDto {
 	
@@ -13,7 +13,6 @@ public class Customer_infoDto {
 	private char cust_manager;
 	private Date cust_date;
 	
-
 	public Customer_infoDto() {
 		super();
 	}
@@ -94,6 +93,5 @@ public class Customer_infoDto {
 	public void setCust_date(Date cust_date) {
 		this.cust_date = cust_date;
 	}
-
 }
 	

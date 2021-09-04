@@ -22,7 +22,7 @@ public class Order_infoDao {
 	}
 	
 	public List<Order_infoDto> selectAll(String cust_id) throws Exception {
-		return ss.selectList(NameSpace + "selectAll");
+		return ss.selectList(NameSpace + "selectAll", cust_id);
 	}
 	
 	public Order_infoDto selectOne(String order_id) throws Exception {

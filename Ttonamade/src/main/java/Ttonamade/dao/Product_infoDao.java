@@ -25,7 +25,7 @@ public class Product_infoDao {
 		return ss.selectList(NameSpace + "selectAll");
 	}
 	
-	public Product_infoDto selectOne(String prod_id) throws Exception {
+	public Product_infoDto selectOne(int prod_id) throws Exception {
 		return ss.selectOne(NameSpace + "selectOne", prod_id);
 	}
 	
@@ -37,7 +37,7 @@ public class Product_infoDao {
 		ss.update(NameSpace + "updateOne", prodDto);
 	}
 	
-	public void deleteOne(String prod_id) throws Exception {
+	public void deleteOne(int prod_id) throws Exception {
 		ss.delete(NameSpace + "deleteOne", prod_id);
 	}
 }
