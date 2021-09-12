@@ -7,6 +7,7 @@ import javax.inject.Inject;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
+import Ttonamade.dto.ProductSearchDto;
 import Ttonamade.dto.Product_infoDto;
 
 @Repository
@@ -33,11 +34,32 @@ public class Product_infoDao {
 		ss.insert(NameSpace + "insertOne", prodDto);
 	}
 	
-	public void update(Product_infoDto prodDto) throws Exception{
+	public void updateOne(Product_infoDto prodDto) throws Exception{
 		ss.update(NameSpace + "updateOne", prodDto);
 	}
 	
 	public void deleteOne(int prod_id) throws Exception {
 		ss.delete(NameSpace + "deleteOne", prod_id);
 	}
+	
+	public List<Product_infoDto> selectConditioS(ProductSearchDto PSDto) 
+			throws Exception {
+		return ss.selectList(NameSpace + "selectConditioS" , PSDto);
+	} 
+	
+	public void UpdateProductCount(String prod_id ) throws Exception{
+		ss.update(NameSpace + "prodCountUpdate", prod_id);
+	}
+	
+	public int selectData(String cust_id) throws Exception {
+		 
+		return ss.selectOne(NameSpace + "selectEqualsData" , cust_id); 
+	}
+	
+	public void update(Product_infoDto prodDto) throws Exception{
+		ss.update(NameSpace + "updateOne", prodDto);
+	}
+	
+	
+	
 }

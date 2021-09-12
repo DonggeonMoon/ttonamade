@@ -8,7 +8,8 @@
   	<typeAlias type="Ttonamade.dto.Customer_infoDto" alias="custDto"/>
   	<typeAlias type="Ttonamade.dto.Order_detailDto" alias="odDto"/>
   	<typeAlias type="Ttonamade.dto.Order_infoDto" alias="oiDto"/>
-  	<typeAlias type="Ttonamade.dto.Product_infoDto" alias="prodDto"/>
+  	<typeAlias type="Ttonamade.dto.Product_infoDto" alias="prodDto"/>  	
+  	<typeAlias type="Ttonamade.dto.ProductSearchDto" alias="PSDto"/>
   </typeAliases>  
   <mappers>
   	<mapper resource="Ttonamade/resource/cart_infoMapper.xml"/>

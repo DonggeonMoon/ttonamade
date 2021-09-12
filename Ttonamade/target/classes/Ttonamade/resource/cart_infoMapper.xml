@@ -4,26 +4,63 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   <mapper namespace="cart_infoMapper">
   
-  <select id="selectAll" parameterType ="String" resultType= "cartDto" >
-  	 	select  * from cart_info where cust_id = #{cust_id} 
-  </select>
-  	 
-  <select id="selectOne" parameterType= "String" resultType="cartDto">
-  		select  * from cart_info where cust_id = #{cust_id}
-  </select>
-  
-  <insert id="insertOne" parameterType="cartDto">
-	  	insert into cart_info (cart_id, cust_id, prod_id, prod_name, prod_count, prod_price )
-	  	values (cart_id_seq.nextval, #{cust_id}, #{prod_id}, #{prod_name}, #{prod_count}, #{prod_price})
   	
-  </insert>
+  		<!-- 고객의 총 카트정보를 가지고 온다. -->
+	  <select id="selectAll" resultType= "cartDto" parameterType ="String">
+	  	 	select  * from cart_info  where cust_id =#{cust_id} 
+	  </select>
+  	
+	  <!--하나의 카트정보를 가지고 온다. -->
+	  <select id="selectOne" parameterType= "int" resultType="cartDto">
+	  		select  * from cart_info  where cart_id  = #{cart_id}
+	  </select>
+  
+  
+	   <!-- 동일한 상품 존재여부를 묻다 -->
+	   <select id="countCart"  resultType="int"  parameterType ="map">
+	  		select  
+	  			count(*) as count
+	  		from cart_info   
+	  		where cust_id  = #{cust_id}
+	  		and prod_id = #{prod_id}
+	  </select>
+  
+  
+	  <!-- 주문의 총금액을 가지고 온다. -->
+	  <select id="sumMoney" parameterType="String"  resultType ="int">
+	  	select nvl(sum(prod_price),0) as money
+	  	from cart_info
+	  	where cust_id = #{cust_id}
+	  	
+	  </select>
+  
+  
+	  <!-- 카드에 담다. -->
+	  <insert id="insertOne" parameterType="cartDto">
+		  	insert into cart_info (cart_id, cust_id, prod_id, prod_name, prod_count, prod_price )
+		  	values ( cart_id_seq.nextval, #{cust_id}, #{prod_id}, #{prod_name}, #{prod_count}, #{prod_price} )
+	  </insert>   
    
-   <delete id="deleteOne" parameterType="int" >
-  		delete from cart_info where cart_id = #{cart_id}
-   </delete>  
+	   <!-- 선택한 상품을 제거한다. -->
+	   <delete id="deleteOne" parameterType="int" >
+	  		delete from cart_info 
+	  		where cart_id = #{cart_id}
+	   </delete>  
    
-   <delete id="deleteAll" parameterType ="int"  >
-  		delete from cart_info where cust_id =#{cust_id}
-   </delete>  
+	   <!-- 카트를 비운다 -->
+	   <delete id="deleteAll" parameterType ="String"  >
+	  		delete from cart_info where cust_id =#{cust_id}
+	   </delete> 
+   
+	   <!-- 해당고객의 주문상품이 중복이 될경우  -->
+	   <update id ="updateCart" parameterType ="cartDto" >
+	   		update cart_info
+	   		set prod_count = prod_count + #{prod_count},
+	   			prod_price = prod_price + #{prod_price}  
+	   		where cust_id=#{cust_id}
+	   		and prod_id =#{prod_id}
+	   </update>
+  
+  
   
   </mapper>

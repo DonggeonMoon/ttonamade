@@ -1,5 +1,7 @@
 package Ttonamade.dao;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -22,18 +24,21 @@ public class Cart_infoDao {
 		this.ss = ss;
 	}
 	
+	
 	public  List<Cart_infoDto> selectAll(String cust_id) throws Exception {
 		return ss.selectList(NameSpace+ "selectAll", cust_id);
 		
 	} 
+	
+	
+	public Cart_infoDto selectOne(int cart_id) throws Exception{
 		
-	public Cart_infoDto selectOne(String cust_id) throws Exception{
-		
-		return ss.selectOne(NameSpace + "selectOne", cust_id);
+		return ss.selectOne(NameSpace + "selectOne", cart_id);
 	}
-		
-	public void insertOne(Cart_infoDto cartDto) throws  Exception{
-		ss.insert(NameSpace+ "insertOne"+ cartDto);
+	
+	
+	public void insertOne(Cart_infoDto dto) throws  Exception{
+		ss.insert(NameSpace+ "insertOne", dto);
 		
 	}
 		
@@ -46,8 +51,29 @@ public class Cart_infoDao {
 	}
 	//전부지우거나 
 	public void deleteAll(String cust_id) throws Exception {
-		 ss.delete(NameSpace + "deleteAll" + cust_id);
+		 ss.delete(NameSpace + "deleteAll", cust_id);
 	}
 	
+	
+	//주문상품이 중복되는지 여부를 묻는다.
+	public int countCart(int prod_id, String cust_id) throws Exception {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("cust_id", cust_id);
+		map.put("prod_id", prod_id);
+		
+		return ss.selectOne(NameSpace + "countCart", map);
+		   
+		  
+	}
 
+	public void updateCart(Cart_infoDto dto) throws Exception{
+		ss.update(NameSpace + "updateCart", dto);
+	}
+	
+	
+	public int sumMoney( String cust_id) {
+		return ss.selectOne(NameSpace + "sumMoney", cust_id);
+		
+	}
+	 
 }

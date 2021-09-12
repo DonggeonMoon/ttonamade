@@ -9,6 +9,12 @@
 </head>
 <body>
 <c:import url="header.jsp"/>
+<header class="masthead2 bg-primary text-center" style="height:350px">
+		<div class="">
+			<!-- Masthead Avatar Image-->
+			<img class="masthead-avatar" src="/Ttonamade/img/Ttonamade.jpg" style="width:200px; height:200px;">
+		</div>
+</header>
 <h2>주문 저장</h2>
 
 <form action="insertOrder">
@@ -51,5 +57,6 @@
 	
 </form>
 <input type="button" value="주문 확정" onclick="location.href='/Ttonamade/orderSuccess'">
+<c:import url="footer.jsp"/>
 </body>
 </html>

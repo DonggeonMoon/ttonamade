@@ -10,5 +10,6 @@
 <body>
 <c:import url="header.jsp"/>
 <h2>에러</h2>
+<c:import url="footer.jsp"/>
 </body>
 </html>

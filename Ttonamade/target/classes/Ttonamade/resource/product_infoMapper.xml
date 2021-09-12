@@ -5,7 +5,13 @@
   <mapper namespace="product_infoMapper">
   
   <select id="selectAll" resultType="prodDto">
-  	select * from product_info order by prod_id asc
+     <![CDATA[ 
+		  	select * 
+		    from product_info 
+		    where prod_count > 0
+		    order by prod_id desc
+	 	]]>	    
+    
   </select>
   
   <select id="selectOne" parameterType= "int" resultType="prodDto">
@@ -22,8 +28,7 @@
   	set prod_price = #{prod_price}, 
   	    prod_rating = #{prod_rating},
   	    prod_desc = #{prod_desc},
-  	    prod_count = #{prod_count},
-  	    prod_date = #{prod_date}
+  	    prod_count = #{prod_count}
   	where prod_id = #{prod_id}
   </update>  
   
@@ -31,5 +36,56 @@
   	delete from product_info
   	where prod_id = #{prod_id}
    </delete>  
+   
+   
+  <update id  ="prodCountUpdate" parameterType ="String"  >
+  		
+	
+	update product_info a
+	set prod_count  = prod_count- ( select prod_count
+	                    from cart_info b
+	                    where a.prod_id = b.prod_id  and cust_id = #{cust_id} )
+	   WHERE EXISTS (  select prod_count
+	                    from cart_info b
+	                    where a.prod_id = b.prod_id  and cust_id = #{cust_id}) 
+  
+  </update>
+  
+  
+  <select id ="selectEqualsData" parameterType ="String" resultType ="int">
+	   <![CDATA[ 
+	 	 	select count(a.prod_id) as Equalscount
+		    from cart_info a, product_info b 
+		    where a.prod_id = b.prod_id
+		    and a.cust_id = #{cust_id} 
+		    and a.prod_count <= b.prod_count
+ 	  
+ 	  ]]>
+  </select>
+  
+  
+   <sql id="search">
+   	<if test ="SearchOption != null">
+   		<if test="SearchOption =='All'.toString()">
+   			And prod_name is not null
+   		</if>
+   		<if test="SearchOption =='prod_name'.toString()">
+   			And prod_name Like '%'||#{keyword}||'%'
+   		</if>
+   		<if test="SearchOption =='prod_price'.toString()">
+   			And prod_price = #{keyword} 
+   		</if>
+   		  ORDER BY PROD_ID DESC
+   	</if>
+   </sql>
+   
+  <select id="selectConditioS"  parameterType ="PSDto" resultType="prodDto">
+  	 <![CDATA[ 
+	 	 select * 
+	 	 from product_info
+	 	  where prod_id is not null  
+ 	 ]]> 	 
+ 	 <include refid ="search"></include>  	
+  </select>
   
   </mapper>

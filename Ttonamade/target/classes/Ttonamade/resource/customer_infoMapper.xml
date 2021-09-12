@@ -12,12 +12,12 @@
   	select * from Customer_info where cust_id = #{cust_id}
   </select>
   
-  <select id="selectOneByNTB" parameterType="hashMap" resultType="custDto">
-  	select * from Customer_info where cust_name = #{name} and cust_telephone=#{telephone} and cust_birthday=#{birthday}
+  <select id="selectOneByNTB" parameterType="hashmap" resultType="custDto">
+  	select * from Customer_info where cust_name = #{custdto.cust_name} and cust_telephone = #{custdto.cust_telephone} and cust_birthday = #{custdto.cust_birthday}
   </select>
   
-  <select id="selectOneByNTBI" parameterType="hashMap" resultType="custDto">
-  	select * from Customer_info where cust_name = #{name} and #{telephone} and #{birthday} and #{cust_id}
+  <select id="selectOneByNTBI" parameterType="hashmap" resultType="custDto">
+  	select * from Customer_info where cust_name = #{custdto.cust_name} and cust_telephone = #{custdto.cust_telephone} and cust_birthday = #{custdto.cust_birthday} and cust_id = #{custdto.cust_id}
   </select>  
   
    <insert id="insertOne" parameterType="custDto">

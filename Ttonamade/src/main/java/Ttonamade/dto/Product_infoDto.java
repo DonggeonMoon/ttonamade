@@ -2,6 +2,8 @@ package Ttonamade.dto;
 
 import java.sql.Date;
 
+import org.springframework.web.multipart.MultipartFile;
+
 public class Product_infoDto {
 	
 	private int prod_id;
@@ -12,13 +14,14 @@ public class Product_infoDto {
 	private String prod_imgsrc;
 	private int prod_count; 
 	private Date prod_date;
+	private MultipartFile picture;
 	
 	public Product_infoDto() {
 		super();
 	}
 
 	public Product_infoDto(int prod_id, String prod_name, int prod_price, float prod_rating, String prod_desc,
-			String prod_imgsrc, int prod_count, Date prod_date) {
+			String prod_imgsrc, int prod_count, Date prod_date, MultipartFile picture) {
 		super();
 		this.prod_id = prod_id;
 		this.prod_name = prod_name;
@@ -28,6 +31,7 @@ public class Product_infoDto {
 		this.prod_imgsrc = prod_imgsrc;
 		this.prod_count = prod_count;
 		this.prod_date = prod_date;
+		this.picture = picture;
 	}
 
 	public int getProd_id() {
@@ -92,5 +96,13 @@ public class Product_infoDto {
 
 	public void setProd_date(Date prod_date) {
 		this.prod_date = prod_date;
+	}
+
+	public MultipartFile getPicture() {
+		return picture;
+	}
+
+	public void setPicture(MultipartFile picture) {
+		this.picture = picture;
 	}
 }
