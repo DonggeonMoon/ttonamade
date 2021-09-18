@@ -6,7 +6,6 @@
 <head>
 <meta charset="UTF-8">
 <title>회원가입</title>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <style type="text/css">
 * {
   margin: 0px;
@@ -105,6 +104,16 @@ body {
   background: none;
 }
 
+.cust_birthday {
+  width: 100%;
+  border:none;
+  outline:none;
+  color: #636e72;
+  font-size:16px;
+  height:25px;
+  background: none;
+}
+
 
 .submitBtn {
     position:relative;
@@ -128,9 +137,11 @@ body {
   background-position: right;
 }
 </style>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
 var idChk = false;
 $(document).ready(function() {
+	
 	$("#idCheck").click(function() {
 		var cust_id = $("#cust_id").val();
 		
@@ -166,7 +177,7 @@ function submitForm(){
 	if (idChk) {
 		$("#form1").submit();
 	}
-	else {-
+	else {
 		alert("아이디 중복 확인을 해주세요.");
 	}
 }
@@ -180,10 +191,10 @@ function submitForm(){
 			<img class="masthead-avatar" src="/Ttonamade/img/Ttonamade.jpg" style="width:200px; height:200px;">
 		</div>
 </header>
-<section class="page-section portfolio" style="height:1000px;">
-<div class="container">
+<section class="page-section portfolio" style="height:1050px;">
 <center>
 <h2>🌷회원가입🌷</h2>
+
 <form id="form1" name="form1" action="insertCustInfo2" method="POST" class="joinForm" >
       <div class="textForm">
         <input id="cust_id" name="cust_id" type="text" class="cust_id" placeholder="ෆ아이디">
@@ -193,7 +204,7 @@ function submitForm(){
         <input name="cust_password" type="password" class="cust_password" placeholder="ෆ비밀번호">
       </div>
        <div class="textForm">
-        <input name="loginPwConfirm" type="password2" class="cust_password" placeholder="ෆ비밀번호 확인">
+        <input name="loginPwConfirm" type="password" class="cust_password" placeholder="ෆ비밀번호 확인">
       </div>
       <div class="textForm">
         <input name="cust_name" type="text" class="cust_name" placeholder="ෆ이름">
@@ -207,11 +218,17 @@ function submitForm(){
       <div class="textForm">
         <input name="cust_birthday" type="text" class="cust_birthday" placeholder="ෆ생년월일">
       </div>
-      <input type="submit" class="btn" value="J O I N" onclick="submitForm();"/>
-      <input type = "hidden" value = "U">
+      <input type="button" class="btn" value="J O I N" onclick="submitForm();"/>
+      <div>관리자로 가입하려면 기존 관리자 아이디와 관리자 비밀번호를 입력하세요.</div>
+      <div class="textForm">
+        <input name="cust_manager_id" type="text" class="cust_birthday" placeholder="ෆ관리자_아이디">
+      </div>
+      <div class="textForm">
+        <input name="cust_manager_pw" type="text" class="cust_birthday" placeholder="ෆ관리자 비밀번호">
+      </div>
+      <input type="hidden" name="cust_manager" value = "B">
     </form>
 </center>
-</div>
 </section>
 <c:import url="footer.jsp"/>
 </body>

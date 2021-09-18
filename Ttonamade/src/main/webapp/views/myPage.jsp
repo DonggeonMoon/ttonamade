@@ -18,6 +18,7 @@
 <h2>마이 페이지</h2>
 <input type="button" value="회원정보 수정/탈퇴" onclick="location.href='/Ttonamade/editCustInfo'">
 <input type="button" value="주문 조회/취소" onclick="location.href='/Ttonamade/findOrderAndCancel'">
+<input type="button" value="찜한 상품 보기" onclick="location.href='/Ttonamade/choiceView'">
 <c:import url="footer.jsp"/>
 </body>
 </html>

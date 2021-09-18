@@ -4,18 +4,21 @@
   "http://mybatis.org/dtd/mybatis-3-config.dtd">
   <configuration>
   <typeAliases>
-  	<typeAlias type="Ttonamade.dto.Cart_infoDto" alias="cartDto"/>
-  	<typeAlias type="Ttonamade.dto.Customer_infoDto" alias="custDto"/>
-  	<typeAlias type="Ttonamade.dto.Order_detailDto" alias="odDto"/>
-  	<typeAlias type="Ttonamade.dto.Order_infoDto" alias="oiDto"/>
-  	<typeAlias type="Ttonamade.dto.Product_infoDto" alias="prodDto"/>  	
-  	<typeAlias type="Ttonamade.dto.ProductSearchDto" alias="PSDto"/>
-  </typeAliases>  
+  	<typeAlias type="Ttonamade.dto.Cart_infoDto" alias="cartDto" />
+  	<typeAlias type="Ttonamade.dto.Customer_infoDto" alias="custDto" />
+  	<typeAlias type="Ttonamade.dto.Order_detailDto" alias="odDto" />
+  	<typeAlias type="Ttonamade.dto.Order_infoDto" alias="oiDto" />
+  	<typeAlias type="Ttonamade.dto.Product_infoDto" alias="prodDto" />  	
+  	<typeAlias type="Ttonamade.dto.ProductSearchDto" alias="PSDto" />
+  	<typeAlias type="Ttonamade.dto.Product_choiceDto" alias="pcDto" />
+
+  </typeAliases>
   <mappers>
   	<mapper resource="Ttonamade/resource/cart_infoMapper.xml"/>
   	<mapper resource="Ttonamade/resource/customer_infoMapper.xml"/>
   	<mapper resource="Ttonamade/resource/order_detailMapper.xml"/>
   	<mapper resource="Ttonamade/resource/order_infoMapper.xml"/>
   	<mapper resource="Ttonamade/resource/product_infoMapper.xml"/>
+  	<mapper resource="Ttonamade/resource/product_choiceMapper.xml"/>
   </mappers>  
   </configuration>

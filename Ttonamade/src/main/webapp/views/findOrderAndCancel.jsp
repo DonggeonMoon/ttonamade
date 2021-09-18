@@ -52,17 +52,19 @@
 					<p>${customer.cust_name } 님의 주문내역입니다.</p>
 					 <table class="list-table">
 				      <thead>
-				        <tr>
-		<th>주문번호</th>
-		<th>주문금액</th>
-		<th>주문일</th>
-		<th>우편번호</th>
-		<th>주소</th>
-		<th>상세주소</th>
-		<th>전화번호</th>
-	</tr>
+				        
 	<c:forEach var="i" items="${list }">
+		
 		<c:if test="${String.valueOf(i.order_status) == 'T' }">
+		<tr>
+			<th>주문번호</th>
+			<th>주문금액</th>
+			<th>주문일</th>
+			<th>우편번호</th>
+			<th>주소</th>
+			<th>상세주소</th>
+			<th>전화번호</th>
+		</tr>
 		<tr>
 			<td>${i.order_id}</td>
 			<td>${i.order_totalAmount }</td>
@@ -76,7 +78,7 @@
 		</tr>
 		
 		<tr>	
-			<th colspan="3">주문번호2</th>
+			<th colspan="3">주문상세번호</th>
 			<th>제품아이디</th>
 			<th>제품명</th>
 			<th>가격</th>

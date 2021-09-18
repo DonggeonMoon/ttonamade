@@ -106,6 +106,29 @@
 		 					 
 		 					</td>
 		 				</tr>
+		 				<tr>
+		 					<td colspan= 5 align ="center" style ="height:100px" >
+		 					
+		 						등급에 따른 할인액 :<c:choose>
+		 											<c:when test="${String.valueOf(sessionScope.customer.cust_manager) == 'G'}"><fmt:formatNumber>${map.sumMoney * 0.05 }</fmt:formatNumber></c:when>
+		 											<c:otherwise>0</c:otherwise>
+		 										</c:choose>  
+		 					 
+		 					</td>
+		 					
+		 				</tr>
+		 				<tr>
+		 					<td colspan= 5 align ="center" style ="height:100px" >
+		 					
+		 						최종 결제 금액 :<c:choose>
+		 											<c:when test="${String.valueOf(sessionScope.customer.cust_manager) == 'G'}"><fmt:formatNumber>${map.sumMoney * 0.95 }</fmt:formatNumber></c:when>
+		 											<c:when test="${String.valueOf(sessionScope.customer.cust_manager) == 'S'}"><fmt:formatNumber>${map.sumMoney}</fmt:formatNumber>(배송비 포함)</c:when>
+		 											<c:otherwise>${map.sumMoney + 2500 } (배송비 포함)</c:otherwise>
+		 										</c:choose>  
+		 					 
+		 					</td>
+		 					
+		 				</tr>
 		 			</table> 	
  			 	
 	 			<input type="hidden" name="count" value="${map.count }">

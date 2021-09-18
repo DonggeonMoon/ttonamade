@@ -21,7 +21,7 @@
   </select>  
   
    <insert id="insertOne" parameterType="custDto">
-  	insert into Customer_info
+  	insert into Customer_info(cust_id, cust_name, cust_password, cust_sex, cust_birthday, cust_telephone, cust_manager, cust_date)
   	values (#{cust_id}, #{cust_name}, #{cust_password}, #{cust_sex}, #{cust_birthday}, #{cust_telephone}, #{cust_manager}, sysdate)
   </insert>
   
@@ -40,6 +40,6 @@
   <delete id="deleteOne" parameterType="String" >
   	delete Customer_info
   	where cust_id = #{cust_id}
-   </delete> 
+  </delete>
    
   </mapper>
