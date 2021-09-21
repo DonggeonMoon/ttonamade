@@ -147,8 +147,9 @@
 	<script>
 		let data = JSON.parse(localStorage.getItem('Ttonamade'));
 		let html = '';
+		var datavalues ='';
 		if (data != null) {
-			let datavalues = Object.values(data);
+			datavalues = Object.values(data);
 			let id;
 			let name;
 			let imgsrc;
@@ -163,12 +164,23 @@
 		   		id = datavalues[i]['id'];
 		   		name = datavalues[i]['name'];
 		   		imgsrc = datavalues[i]['imgsrc'];
-		   		html += "<a href=\"/Ttonamade/prodView?prod_id=" + id + "\">" + name + "</a><img width=\"50px\" height=\"50px\" src=\"" + imgsrc + "\"><input type=\"button\" value=\"삭제\" onclick=\"localStorage.removeItem(" + id + "); location.reload();\">";
+		   		html += "<a href=\"/Ttonamade/prodView?prod_id=" + id + "\">" + name + "</a><img width=\"50px\" height=\"50px\" src=\"" + imgsrc + "\"><input type=\"button\" value=\"삭제\" onclick=\"removeProduct(" + i +")\">";
 		   	}
 		} else {
 			html = '최근 본 상품이 없습니다.';
 		}
 		document.getElementById('displaybar').innerHTML = html;
+		
+		function removeProduct(idx){
+			datavalues.pop(idx);
+			var data={};
+			for (var i = 0; i < datavalues.length; i++) {
+				var num = datavalues[i]['id'];
+				data[num] = datavalues[i];
+				}
+			localStorage.setItem('Ttonamade', JSON.stringify(data));
+			location.reload();
+		}
 	</script>
 </body>
 </html>
