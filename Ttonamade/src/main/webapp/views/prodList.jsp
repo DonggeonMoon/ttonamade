@@ -55,11 +55,12 @@
 	</div>
 	<!-- Section-->
 	<form name="form1">
-		<input type="hidden" id="prod_id" name="prod_id"> <input
-			type="hidden" id="prod_name" name="prod_name"> <input
-			type="hidden" id="prod_rating" name="prod_rating"> <input
-			type="hidden" id="prod_count" name="prod_count"> <input
-			type="hidden" id="prod_price" name="prod_price">
+		<input type="hidden" id="prod_id" name="prod_id">
+		<input type="hidden" id="prod_name" name="prod_name">
+		<input type="hidden" id="prod_rating" name="prod_rating">
+		<input type="hidden" id="prod_count" name="prod_count">
+		<input type="hidden" id="prod_price" name="prod_price">
+		
 		<!-- <input type = "hidden" id="prod_count2" name="prod_count2" value=<c:out value="${i.prod_count} "/>> -->
 		<section class="py-5">
 			<div class="container px-5 px-lg-5 mt-5">
@@ -118,8 +119,7 @@
 
 								<div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
 									<div class="text-center">
-										<class="btnbtn-outline-darkmt-auto"> <input
-											type="button" name="btnSave" id="btnSave" value="장바구니담기"
+										<class="btn-outline-darkmt-auto"> <input type="button" name="btnSave" id="btnSave" value="장바구니담기"
 											onclick="cartSave('${i.prod_id}', '${i.prod_name}', '${i.prod_rating}', '${i.prod_count}', '${i.prod_price}' )">
 									</div>
 								</div>

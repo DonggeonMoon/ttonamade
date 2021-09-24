@@ -79,7 +79,7 @@
    	</if>
    </sql>
    
-  <select id="selectConditioS"  parameterType ="PSDto" resultType="prodDto">
+  <select id="selectCondition"  parameterType ="PSDto" resultType="prodDto">
   	 <![CDATA[ 
 	 	 select * 
 	 	 from product_info

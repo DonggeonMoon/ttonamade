@@ -38,6 +38,7 @@
 <body>
 <c:import url="header.jsp"/>
 
+<%=request.getCookies() %>
 <header class="masthead2 bg-primary text-center" style="height:350px">
 		<div class="">
 			<!-- Masthead Avatar Image-->
@@ -91,43 +92,20 @@
 		 						
 		 						
 		 						 <td>
-		 							<a href="cartDelete?cart_id=<c:out value="${row.cart_id }" />">삭제</a> 
+		 							<a href="cartDelete?cart_id=<c:out value="${row.cart_id }" />&prod_id=<c:out value="${row.prod_id}"/>">삭제</a> 
 		 						 
 		 						</td> 				
 		 						
 		 					</tr>
 		 				</c:forEach>
-		 				
 		 				<!-- 주문내역을 보이고 전체금액을 보여준다 -->
+		 				
 		 				<tr>
 		 					<td colspan= 5 align ="center" style ="height:100px" >
 		 					
 		 						장바구니 금액 합계 :<fmt:formatNumber>${map.sumMoney}</fmt:formatNumber>  
 		 					 
 		 					</td>
-		 				</tr>
-		 				<tr>
-		 					<td colspan= 5 align ="center" style ="height:100px" >
-		 					
-		 						등급에 따른 할인액 :<c:choose>
-		 											<c:when test="${String.valueOf(sessionScope.customer.cust_manager) == 'G'}"><fmt:formatNumber>${map.sumMoney * 0.05 }</fmt:formatNumber></c:when>
-		 											<c:otherwise>0</c:otherwise>
-		 										</c:choose>  
-		 					 
-		 					</td>
-		 					
-		 				</tr>
-		 				<tr>
-		 					<td colspan= 5 align ="center" style ="height:100px" >
-		 					
-		 						최종 결제 금액 :<c:choose>
-		 											<c:when test="${String.valueOf(sessionScope.customer.cust_manager) == 'G'}"><fmt:formatNumber>${map.sumMoney * 0.95 }</fmt:formatNumber></c:when>
-		 											<c:when test="${String.valueOf(sessionScope.customer.cust_manager) == 'S'}"><fmt:formatNumber>${map.sumMoney}</fmt:formatNumber>(배송비 포함)</c:when>
-		 											<c:otherwise>${map.sumMoney + 2500 } (배송비 포함)</c:otherwise>
-		 										</c:choose>  
-		 					 
-		 					</td>
-		 					
 		 				</tr>
 		 			</table> 	
  			 	

@@ -42,9 +42,9 @@ public class Product_infoDao {
 		ss.delete(NameSpace + "deleteOne", prod_id);
 	}
 	
-	public List<Product_infoDto> selectConditioS(ProductSearchDto PSDto) 
+	public List<Product_infoDto> selectCondition(ProductSearchDto PSDto) 
 			throws Exception {
-		return ss.selectList(NameSpace + "selectConditioS" , PSDto);
+		return ss.selectList(NameSpace + "selectCondition" , PSDto);
 	} 
 	
 	public void UpdateProductCount(String prod_id ) throws Exception{
