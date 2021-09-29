@@ -132,13 +132,10 @@
 		</section>
 	</form>
 	<c:if test="${sessionScope.customer != null}">
-		<c:if
-			test="${String.valueOf(sessionScope.customer.cust_manager) == 'M'}">
+		<c:if test="${String.valueOf(sessionScope.customer.cust_manager) == 'M'}">
 			<div class="text-center mb-5">
-				<a class="btn btn-outline-dark mt-auto mx-3"
-					href="/Ttonamade/insertProd">상품 등록 </a><a
-					class="btn btn-outline-dark mt-auto mx-3"
-					href="/Ttonamade/ProdModifychoice">상품 수정 </a>
+				<a class="btn btn-outline-dark mt-auto mx-3" href="/Ttonamade/insertProd">상품 등록 </a>
+				<a class="btn btn-outline-dark mt-auto mx-3" href="/Ttonamade/ProdModifychoice">상품 수정 </a>
 			</div>
 		</c:if>
 	</c:if>

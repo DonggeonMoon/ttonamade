@@ -60,6 +60,7 @@ public class Product_infoDao {
 		ss.update(NameSpace + "updateOne", prodDto);
 	}
 	
-	
-	
+	public List<Product_infoDto> searchProduct(String keyword) {
+		return ss.selectList(NameSpace + "searchProduct", keyword);
+	}
 }

@@ -84,8 +84,15 @@
 	 	 select * 
 	 	 from product_info
 	 	  where prod_id is not null  
+	 	  
  	 ]]> 	 
  	 <include refid ="search"></include>  	
+  </select>
+  
+  <select id="searchProduct" parameterType="String" resultType="prodDto">
+  	select *
+  	from product_info
+  	where prod_name like #{prod_name}||'%'
   </select>
   
   </mapper>

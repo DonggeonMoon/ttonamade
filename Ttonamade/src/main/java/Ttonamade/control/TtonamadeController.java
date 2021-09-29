@@ -418,6 +418,30 @@ public class TtonamadeController {
 			return "redirect:/login";
 		}
 	}
+	
+	//자동 완성 기능 ajax
+	@RequestMapping(value="/autocomplete", method=RequestMethod.POST)
+	@ResponseBody
+	public Map<String, Object> autocomplete(@RequestBody String keyword) throws Exception {
+		List<Product_infoDto> result = pidao.searchProduct(keyword);
+		Map<String, Object> map = new HashMap<String, Object>();
+		for(Product_infoDto i: result) {
+			map.put(String.valueOf(i.getProd_id()), i.getProd_name());
+		}
+		return map;
+	}
+	
+	//상품 검색 ajax
+	@RequestMapping(value="/searchProduct", method=RequestMethod.POST)
+	@ResponseBody
+	public Map<String, Object> searchProduct(@RequestBody String keyword) throws Exception {
+		List<Product_infoDto> result = pidao.searchProduct(keyword);
+		Map<String, Object> map = new HashMap<String, Object>();
+		for(Product_infoDto i: result) {
+			map.put(String.valueOf(i.getProd_id()), i.getProd_name());
+		}
+		return map;
+	}
 
 	// 로그인 화면 로그인 버튼 클릭 시
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
