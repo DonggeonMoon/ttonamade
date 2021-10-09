@@ -121,15 +121,8 @@
 </script>
 </head>
 <body>
-<c:import url="header.jsp"/>
-	<!-- Masthead-->
-	<header class="masthead2 bg-primary text-center" style="height:350px">
-		<div class="">
-			<!-- Masthead Avatar Image-->
-			<img class="masthead-avatar" src="/Ttonamade/img/Ttonamade.jpg" style="width:200px; height:200px;">
-		</div>
-</header>
-
+<c:import url="header.jsp" />
+<c:import url="nav.jsp" />
 <div class="login-page">
 <div class="form">
 <form class="" action="/Ttonamade/login" method="post">
@@ -137,7 +130,7 @@
 <div>PW: <input type="password" name="cust_password"></div>
 <input type="submit" value="로그인">
 </form>
-<input type="button" value="회원가입" onclick="location.href='/Ttonamade/insertCustInfo'">
+<input type="button" value="회원가입" onclick="location.href='/Ttonamade/registerAgree'">
 <input type="button" value="아이디/비밀번호 찾기" onclick="location.href='/Ttonamade/findIdAndPw'">
 <input type="button" value="돌아가기" onclick="history.back(-1)">
 </div>

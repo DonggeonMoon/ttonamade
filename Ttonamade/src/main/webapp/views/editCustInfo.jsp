@@ -8,14 +8,6 @@
 <title>회원정보 수정/탈퇴</title>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <style type="text/css">
-* {
-  margin: 0px;
-  padding: 0px;
-  text-decoration: none;
-  font-family:sans-serif;
-
-}
-
 body {
   background-image:#34495e;
 }
@@ -43,7 +35,6 @@ body {
   margin: 30px;
   padding: 10px 10px;
 }
-
 
 .cust_id {
   width: 100%;
@@ -105,7 +96,6 @@ body {
   background: none;
 }
 
-
 .submitBtn {
     position:relative;
   left:30%;
@@ -130,56 +120,52 @@ body {
 </style>
 </head>
 <body>
-<c:import url="header.jsp"/>
-<header class="masthead2 bg-primary text-center" style="height:350px">
-		<div class="">
-			<!-- Masthead Avatar Image-->
-			<img class="masthead-avatar" src="/Ttonamade/img/Ttonamade.jpg" style="width:200px; height:200px;">
-		</div>
-</header>
-<section class="page-section portfolio" style="height:1000px;">
-<div class="container">
-<center>
-<h2 style="position:relative;left:50%;transform:translateX(-50%)">🌷회원정보 수정/탈퇴🌷</h2>
-</center>
-<form id="form1" name="form1" action="editCustInfo2" method="POST" class="joinForm" >
-    <div class="textForm">
-        ෆ아이디
-        <c:out value="${list.cust_id}"/>
-    </div>
-    <div class="textForm">
-        ෆ이름
-        <c:out value="${list.cust_name}"/>
-    </div>
-    <div class="textForm">
-        ෆ비밀번호<br>
-        <input type="password"  name="cust_password" class="cust_password" value="${custDto.cust_password}" >
-    </div>
-     <div class="textForm">
-    	ෆ전화번호
-    	<br>
-        <input type="text" name="cust_telephone" class="cust_telephone" value="${list.cust_telephone}">
-    </div>  
-    <div class="textForm">
-        ෆ성별
-        <br>
-        <input type="text" name="cust_sex" class="cust_sex" value="${list.cust_sex}">
-    </div>
-   <div class="textForm">
-        ෆ생년월일
-        <br>
-        <input type="text" name="cust_birthday" class="cust_birthday" value="${list.cust_birthday}">
-    </div> 
-<input type="hidden" name="cust_id" value="${list.cust_id}">
-<input type="hidden" name="cust_name" value="${list.cust_name}">
-<center>
-<input type="submit" class="btn" value="수정">
-<input type="button"  class="btn"value="탈퇴" onclick="location.href='/Ttonamade/deleteCustInfo'">
-<input type="button" class="btn" value="돌아가기" onclick="history.back(-1)">
-</center>
-</form>
-
-</div>
+<c:import url="header.jsp" />
+<c:import url="nav.jsp" />
+<section class="continer-fluid">
+	<div class="text-center">
+		<h2 class="m-2">🌷회원정보 수정/탈퇴🌷</h2>
+		<form id="form1" class="rounded-3 bg-white border d-inline-block m-2" style="width:500px;" name="form1" action="editCustInfo2" method="POST" >
+		    <div class="textForm">
+		        <div>ෆ아이디</div>
+		        <input type="text" name="cust_id" class="cust_id" value="${list.cust_id}" readonly>
+		    </div>
+		    <div class="textForm">
+		        <div>ෆ이름</div>
+		        <input type="text" name="cust_name" class="cust_name" value="${list.cust_name}" readonly>
+		    </div>
+		     <div class="textForm">
+		    	<div>ෆ전화번호</div>
+		    	<input type="text" name="cust_telephone" class="cust_telephone" value="${list.cust_telephone}">
+		    </div>
+		    <div class="textForm">
+		        <div>ෆ성별</div>
+		        <div class="form-check form-check-inline">
+			        <input type="radio" name="cust_sex" class="form-check-input" id="male" value="M" <c:if test="${String.valueOf(list.cust_sex) == 'M'}">checked</c:if>><label for="male" class="form-check-label">남</label>
+			    </div>
+			    <div class="form-check form-check-inline">
+			        <input type="radio" name="cust_sex" class="form-check-input" id="female" value="F" <c:if test="${String.valueOf(list.cust_sex) == 'F'}">checked</c:if>><label for="female" class="form-check-label">여</label>
+		        </div>
+		    </div>
+		   <div class="textForm">
+		        <div>ෆ생년월일</div>
+		        <input type="text" name="cust_birthday" class="cust_birthday" value="${list.cust_birthday}">
+		    </div>
+		    <div class="textForm">
+		        <div>ෆ비밀번호</div>
+		        <input type="password"  name="cust_password" class="cust_password" value="${custDto.cust_password}" placeholder="여기에 현재 비밀번호를 입력하고 수정 버튼을 눌러주세요.">
+		    </div>
+			<input type="hidden" name="cust_id" value="${list.cust_id}">
+			<input type="hidden" name="cust_name" value="${list.cust_name}">
+			<div class="center">
+				<input type="submit" class="btn btn-dark m-2" value="수정">
+				<input type="button" class="btn btn-secondary m-2" value="돌아가기" onclick="history.back(-1)">
+			</div>
+			<div>
+				<div class="alert alert-info my-3">탈퇴하시려면 <a href="/Ttonamade/deleteCustInfo" onclick="return confirm('탈퇴하시겠습니까?')"><span class="badge bg-danger" onclick=" ">여기</span></a>를 눌러주세요.</div>				
+			</div>
+		</form>
+	</div>
 </section>
 <c:import url="footer.jsp"/>
 </body>

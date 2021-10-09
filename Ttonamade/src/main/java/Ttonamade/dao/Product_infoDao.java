@@ -1,6 +1,8 @@
 package Ttonamade.dao;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -26,6 +28,14 @@ public class Product_infoDao {
 		return ss.selectList(NameSpace + "selectAll");
 	}
 	
+	public List<Product_infoDto> selectAllGubun(String cateCodeRef, String cateCode) throws Exception {
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("cateCodeRef", cateCodeRef);
+		map.put("cateCode", cateCode);
+	
+		return ss.selectList(NameSpace + "selectAllGubun", map);
+	}
+	
 	public Product_infoDto selectOne(int prod_id) throws Exception {
 		return ss.selectOne(NameSpace + "selectOne", prod_id);
 	}
@@ -42,9 +52,9 @@ public class Product_infoDao {
 		ss.delete(NameSpace + "deleteOne", prod_id);
 	}
 	
-	public List<Product_infoDto> selectCondition(ProductSearchDto PSDto) 
+	public List<Product_infoDto> selectConditioS(ProductSearchDto PSDto) 
 			throws Exception {
-		return ss.selectList(NameSpace + "selectCondition" , PSDto);
+		return ss.selectList(NameSpace + "selectConditioS" , PSDto);
 	} 
 	
 	public void UpdateProductCount(String prod_id ) throws Exception{
@@ -60,6 +70,11 @@ public class Product_infoDao {
 		ss.update(NameSpace + "updateOne", prodDto);
 	}
 	
+	 public void updateProductRanking(String prod_id) throws Exception {
+	    	ss.update(NameSpace + "updateProductRanking", prod_id);
+	}
+	 
+	 // 동건 추가
 	public List<Product_infoDto> searchProduct(String keyword) {
 		return ss.selectList(NameSpace + "searchProduct", keyword);
 	}

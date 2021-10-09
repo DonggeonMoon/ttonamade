@@ -20,6 +20,8 @@ create table Customer_Info(
     cust_date date default sysdate,
     constraint cust_id_pk primary key(cust_id)
     );
+    
+create sequence cust_id_seq;
 
 create table Order_Info (
     order_id varchar2(50) NOT NULL,
@@ -33,7 +35,14 @@ create table Order_Info (
     order_date date default sysdate,
     constraint order_id_pk primary key(order_id),
     constraint cust_id_fk foreign key(cust_id) references Customer_Info(cust_id)
+    
     );
+    
+    
+alter table order_info add reservation_date date 
+alter table order_info add send_date date 
+alter table order_info add reservation_memo varchar(4000)
+
 
 create table Product_Info(
     prod_id number NOT NULL ,
@@ -48,7 +57,10 @@ create table Product_Info(
     );
 
 create sequence prod_id_seq ;
+
+alter table product_info add  cateCode varchar2(30)  
  
+
 create table Order_Detail(    
     order_seq number not null, 
     order_id varchar2(50) not null,
@@ -91,28 +103,88 @@ insert into order_detail values(order_detail_seq.nextval, 'vvvv', 1, '제품1', 
  
 commit;
 
-create table product_choice(
-cust_id varchar2(50),
-prod_id number
-);
 
-create table product_review(
-order_id number not null,
-prod_id number not null,
-prod_review varchar2(1000),
-prod_rating float,
-review_imgsrc varchar(200),
-cust_id varchar2(50)
-);
 
 create table goods_category (
-cateName varchar2(20) not null,
-cateCode varchar2(30) not null,
-cateCodeRef varchar2(30) null,
-primary key(cateCode),
-foreign key (cateCodeRef) references goods_category(cateCode)
+    cateName     varchar2(100)    not null,
+    cateCode     varchar2(30)    not null,
+    cateCodeRef  varchar2(30)    null,
+    primary key(cateCode),
+    foreign key(cateCodeRef) references goods_category(cateCode)
 );
 
+create sequence tbl_goods_seq
+
+
+ //리뷰 테이블  
+ 
+    create table product_review(
+             order_seq number not null,
+             prod_id  int not null,
+             cust_id  varchar2(50),        
+             prod_review varchar2(4000),
+             prod_rating int, 
+             review_imgsrc varchar2(200),
+             review_date date )
+    
+        
+insert into goods_category( CATENAME, CATECODE   , CATECODEREF)
+values ('케익', 100, null);
+
+insert into goods_category( CATENAME, CATECODE   , CATECODEREF)
+values ('쿠키', 200, null);
+
+
+insert into goods_category( CATENAME, CATECODE   , CATECODEREF)
+values ('샌드위치', 300, null);
+
+insert into goods_category( CATENAME, CATECODE   , CATECODEREF)
+values ('빵', 400, null);
+
+insert into goods_category( CATENAME, CATECODE   , CATECODEREF)
+values ('디저트', 500, null);
+insert into goods_category( CATENAME, CATECODE   , CATECODEREF)
+values ('아이스', 600, null);
+
+
+insert into goods_category( CATENAME, CATECODE   , CATECODEREF)
+values ('마카롱', 700, null); 
+
+
+
+insert into goods_category( CATENAME, CATECODE   , CATECODEREF)
+values ('초코케익', 1, 100);
+
+insert into goods_category( CATENAME, CATECODE   , CATECODEREF)
+values ('고구마케익', 2, 100);
+insert into goods_category( CATENAME, CATECODE   , CATECODEREF)
+values ('치즈케익', 3, 100);
+insert into goods_category( CATENAME, CATECODE   , CATECODEREF)
+values ('빅토리아케이크', 4, 100);
+insert into goods_category( CATENAME, CATECODE   , CATECODEREF)
+values ('엠엔엔초코케이크', 5, 100);
+insert into goods_category( CATENAME, CATECODE   , CATECODEREF)
+values ('특별한케이크', 6, 100);
+insert into goods_category( CATENAME, CATECODE   , CATECODEREF)
+values ('파운드케이크', 7, 100);
+insert into goods_category( CATENAME, CATECODE   , CATECODEREF)
+values ('핑키초코케이크', 8, 100);
+insert into goods_category( CATENAME, CATECODE   , CATECODEREF)
+values ('베리생크림케이크', 9, 100);
+
+
+insert into goods_category( CATENAME, CATECODE   , CATECODEREF)
+values ('고구마쿠키', 4, 200);
+insert into goods_category( CATENAME, CATECODE   , CATECODEREF)
+values ('치즈케익', 5, 200);
+insert into goods_category( CATENAME, CATECODE   , CATECODEREF)
+values ('오레오', 6, 200);
+
+
+
+insert into goods_category( CATENAME, CATECODE   , CATECODEREF)
+values ('초코쿠키', 7, 300);
+             
 create table qna(
 qna_id number,
 child_level number not null,
@@ -126,4 +198,9 @@ password varchar2(50),
 constraint qna_id_pk primary key(qna_id)
 );
 
-commit;
+create sequence qna_seq;
+create sequence seq_child_level;
+
+
+             
+             

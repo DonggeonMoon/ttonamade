@@ -37,7 +37,7 @@
   
 	  <!-- 카드에 담다. -->
 	  <insert id="insertOne" parameterType="cartDto">
-		  	insert into cart_info (cart_id, cust_id, prod_id, prod_name, prod_count, prod_price)
+		  	insert into cart_info (cart_id, cust_id, prod_id, prod_name, prod_count, prod_price )
 		  	values ( cart_id_seq.nextval, #{cust_id}, #{prod_id}, #{prod_name}, #{prod_count}, #{prod_price} )
 	  </insert>   
    

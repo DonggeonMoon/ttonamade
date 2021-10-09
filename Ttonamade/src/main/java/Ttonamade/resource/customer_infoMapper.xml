@@ -9,7 +9,7 @@
   </select>
   
   <select id="selectOne" parameterType= "String" resultType="custDto">
-  	select * from Customer_info where cust_id = #{cust_id}
+  	select * from Customer_info where cust_id = #{cust_id, jdbcType=VARCHAR}
   </select>
   
   <select id="selectOneByNTB" parameterType="hashmap" resultType="custDto">

@@ -19,16 +19,17 @@
   </select>
   
   <insert id="insertOne" parameterType="prodDto">
-  	insert into product_info(prod_id, prod_name, prod_price, prod_rating, prod_desc, prod_imgsrc, prod_count, prod_date)
-  	values(prod_id_seq.nextval, #{prod_name}, #{prod_price}, #{prod_rating}, #{prod_desc}, #{prod_imgsrc}, #{prod_count}, sysdate)
+  	insert into product_info(prod_id, prod_name, prod_price,  prod_desc, prod_imgsrc, prod_count,  prod_date, cateCode)
+  	values(prod_id_seq.nextval, #{prod_name}, #{prod_price}, #{prod_desc}, #{prod_imgsrc}, #{prod_count}, sysdate, #{cateCode})
   </insert>  
   
   <update id="updateOne" parameterType="prodDto">
   	update product_info
-  	set prod_price = #{prod_price}, 
-  	    prod_rating = #{prod_rating},
+  	set prod_price = #{prod_price},  	   
   	    prod_desc = #{prod_desc},
-  	    prod_count = #{prod_count}
+  	    prod_count = #{prod_count},
+  	    prod_imgsrc= #{prod_imgsrc},
+  	    cateCode = #{cateCode}
   	where prod_id = #{prod_id}
   </update>  
   
@@ -73,26 +74,71 @@
    			And prod_name Like '%'||#{keyword}||'%'
    		</if>
    		<if test="SearchOption =='prod_price'.toString()">
-   			And prod_price = #{keyword} 
+   		 <![CDATA[ 
+   			And prod_price between #{keyword, jdbcType=INTEGER }  and  #{keyword2, jdbcType=INTEGER } 
+   		 ]]>
    		</if>
    		  ORDER BY PROD_ID DESC
    	</if>
    </sql>
    
-  <select id="selectCondition"  parameterType ="PSDto" resultType="prodDto">
+  <select id="selectConditioS"  parameterType ="PSDto" resultType="prodDto">
   	 <![CDATA[ 
 	 	 select * 
 	 	 from product_info
 	 	  where prod_id is not null  
-	 	  
  	 ]]> 	 
  	 <include refid ="search"></include>  	
   </select>
   
-  <select id="searchProduct" parameterType="String" resultType="prodDto">
-  	select *
-  	from product_info
-  	where prod_name like #{prod_name}||'%'
+    
+  
+  <select id ="selectAllGubun" parameterType ="map" resultType="prodDto">
+
+       	select a.*
+          from product_info a, goods_category b
+          where a.catecode = b.catecode
+           
+           <choose>
+		    <when test="cateCodeRef != null and cateCodeRef.equals('')">		
+		      	AND b.cateCodeRef is not null		
+		    </when>
+		     <otherwise>
+		     	 AND b.cateCodeRef =  #{cateCodeRef}		
+		    </otherwise>		
+		  </choose>
+		  
+           <choose>
+		    <when test="cateCode != null and cateCode.equals('')">		
+		      	AND b.catecode is not null		
+		    </when>
+		     <otherwise>
+		     	 
+		     		 AND b.catecode = #{cateCode}
+		     	 	
+		    </otherwise>	
+		    	
+		  </choose>
+  	
   </select>
+  
+     <update id ="updateProductRanking" parameterType ="String"  >
+      	
+			update product_info a
+	        set a.prod_rating = ( 
+	                  select  ROUND(AVG(prod_rating),1)
+	                  from product_review aa
+	                  where aa.prod_id = a.prod_id
+	                  and prod_id = #{prod_id} ) 
+	        where  a.prod_id =  #{prod_id}   
+      
+      </update>
+      
+      <!-- 동건 추가 -->
+      <select id="searchProduct" parameterType="String" resultType="prodDto">
+	  	select *
+	  	from product_info
+	  	where prod_name like '%'||#{prod_name}||'%'
+	  </select>
   
   </mapper>

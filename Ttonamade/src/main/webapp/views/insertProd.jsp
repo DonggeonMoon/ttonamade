@@ -8,6 +8,7 @@
 <head>
 <meta charset="UTF-8">
 <title>상품 등록</title>
+ 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <style type="text/css">
 * {
@@ -144,10 +145,12 @@ body {
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script>
 	$(document).ready(function() {
-
+		
 		var formObj = $("#dto");
 
 		$("#btnRegister").on("click", function() {
+			//alert((document.getElementById("cateCode").value)
+					
 			formObj.attr("action", "insertProd2");
 			formObj.attr("method", "post");
 			formObj.submit();
@@ -172,40 +175,134 @@ body {
 	
 	</script>
 
-
 </head>
 <body>
-<c:import url="header.jsp"/>
-<header class="masthead2 bg-primary text-center" style="height:350px">
-		<div class="">
-			<!-- Masthead Avatar Image-->
-			<img class="masthead-avatar" src="/Ttonamade/img/Ttonamade.jpg" style="width:200px; height:200px;">
-		</div>
-</header>
+<c:import url="header.jsp" />
+<c:import url="nav.jsp" />
 <section class="page-section portfolio" style="height:1200px;">
-<div class="container">
-<center>
-<h2>🌷상품 등록🌷</h2>
-<form:form modelAttribute="dto" class="joinForm" action="insertProd2" enctype="multipart/form-data">
-
+<form:form modelAttribute="dto" class="joinForm" action="insertProd2" enctype="multipart/form-data"   >
+<center> <h2>🌷상품 등록🌷</h2><br>
+	 	 <div="container_box">
+			  <div class="container"> 
+					 <label>1차 분류</label>
+					 <select class="category1" style ="width: 100px">
+					  <option value="">전체</option>
+					 </select>
+				   
+					 <label>2차 분류</label>
+					 <select class="category2" name ="cateCode" style ="width: 100px">
+					  <option value="">전체</option>
+					</select> 
+				</div>
+			</div>
+			</center> 
+	  
+		 <div class="container">  
 			<div class="textForm">ෆ상품 이름 <form:input path="prod_name" class="prod_name" /></div>
-			<div class="textForm">ෆ가격 <form:input path="prod_price" class="prod_price" /></div>
-		    <div class="textForm">평점<form:input path="prod_rating" id ="prod_rating" name ="prod_rating"  class="prod_rating" /></div>
+			<div class="textForm">ෆ가격 <form:input path="prod_price" class="prod_price" /></div>		    
 			<div class="textForm">ෆ설명<form:textarea path ="prod_desc"  cols="50" rows="5"  class="prod_desc"/></div> 
-			<div class="textForm">ෆ이미지<img id ="imscr01" src=""  height="200"   alt="이미지 미리보기..."></div> 	 
+			<div class="textForm">ෆ이미지<img id ="imscr01" src=""  height="100"   alt="이미지 미리보기..."></div> 	 
 			<div class="textForm"> <input type="file" name="picture" id ="picture" onchange="previewFile()" class="picture" /></div>
 			<div class="textForm">ෆ수량<form:input path="prod_count"  class="prod_count"/></div>
 
 		</table>
-	
+	 
 	<div>
 		<button type="submit" class="btn" id="btnRegister">저장</button>
 		 
 	</div>
-		</form:form>
-</center>
+	
+ 
+	</form:form>
+	</center>
 </div>
 </section>
+
+ <script>
+		// 컨트롤러에서 데이터 받기
+		 
+		
+		var jsonData = JSON.parse('${category}');
+		 
+		//console.log(jsonData[1].cateName);
+		
+		var cate1Arr = new Array();
+		var cate1Obj = new Object();
+		
+		// 1차 분류 셀렉트 박스에 삽입할 데이터 준비
+		for(var i = 0; i < jsonData.length; i++) {
+		 
+		 if(jsonData[i].level == "1") {
+		  cate1Obj = new Object();  //초기화
+		  cate1Obj.cateCode = jsonData[i].cateCode;
+		  cate1Obj.cateName = jsonData[i].cateName;
+		  cate1Arr.push(cate1Obj);
+		  }
+		}
+		 
+		// 1차 분류 셀렉트 박스에 데이터 삽입
+		var  cate1Select ;
+		 
+		 cate1Select.children().remove();
+		  cate1Select = $('select.category1')
+		 
+		 
+		
+		for(var i = 0; i < cate1Arr.length; i++) {
+			cate1Select.append("<option value='" + cate1Arr[i].cateCode + "'>"
+		      + cate1Arr[i].cateName + "</option>"); 
+		 
+		}
+
+ </script>
+ <script>
+  
+		 	
+			 $(document).on("change", "select.category1", function(){
+
+				 var cate2Arr = new Array();
+				 var cate2Obj = new Object();
+				 
+				 // 2차 분류 셀렉트 박스에 삽입할 데이터 준비
+				 for(var i = 0; i < jsonData.length; i++) {
+					  
+					  if(jsonData[i].level == "2") {
+					   cate2Obj = new Object();  //초기화
+					   cate2Obj.cateCode = jsonData[i].cateCode;
+					   cate2Obj.cateName = jsonData[i].cateName;
+					   cate2Obj.cateCodeRef = jsonData[i].cateCodeRef;
+					   
+					   cate2Arr.push(cate2Obj);
+					  }
+				 }
+				 
+				 var cate2Select = $("select.category2");
+				 
+				  
+				  
+				 
+				 cate2Select.children().remove();
+
+				 $("option:selected", this).each(function(){
+				  
+				  var selectVal = $(this).val();  
+				  cate2Select.append("<option value=''>전체</option>");
+				  
+				  for(var i = 0; i < cate2Arr.length; i++) {
+				   if(selectVal == cate2Arr[i].cateCodeRef) {
+				    cate2Select.append("<option value='" + cate2Arr[i].cateCode + "'>"
+				         + cate2Arr[i].cateName + "</option>");
+				   // alert( cate2Arr[i].cateCode)
+				   }
+				  }
+				  
+				 }); 
+				 
+				});
+			 
+</script>
+
+
 <c:import url="footer.jsp"/>
 </body>
 </html>

@@ -8,54 +8,50 @@
 <head>
 <meta charset="UTF-8">
 <title>Ttonamade</title>
+<link href="/Ttonamade/resources/css/nice-select.css" rel="stylesheet" />
+<script type="text/javascript" src="/Ttonamade/resources/js/jquery.js"></script>
+<script type="text/javascript" src="/Ttonamade/resources/js/jquery.nice-select.js"></script>
 
 	 
 	<style>
   table {
     width: 100%;
-    border-top: 1px solid #444444;
+    border-top: 5px solid #ffcccc;
     border-collapse: collapse;
   }
   th, td {
-    border-bottom: 1px solid #444444;
+    border-bottom: 1px solid #ffcccc;
     padding: 10px;
     text-align: center;
   }
   thead tr {
     background-color: #0d47a1;
-    color: #ffffff;
+    color: #ffffcc;
   }
   tbody tr:nth-child(2n) {
-    background-color: #bbdefb;
+    background-color: #ffffff;
   }
   tbody tr:nth-child(2n+1) {
-    background-color: #e3f2fd;
+    background-color: #ffffcc;
   }
 </style>
 	  
 
 </head>
 <body>
-<c:import url="header.jsp"/>
-
-<%=request.getCookies() %>
-<header class="masthead2 bg-primary text-center" style="height:350px">
-		<div class="">
-			<!-- Masthead Avatar Image-->
-			<img class="masthead-avatar" src="/Ttonamade/img/Ttonamade.jpg" style="width:200px; height:200px;">
-		</div>
-</header>
-
-<h2>장바구니</h2>
-
+<c:import url="header.jsp" />
+<c:import url="nav.jsp" />
+<center>
+<h2>🌷장바구니🌷</h2>
+</center>
+<div class="container mt-3">
 	<c:choose>
- 		<c:when test="${map.count == 0 }">
- 			장바구니가 비어있습니다.
- 			
+ 		<c:when test="${map.count == 0 }"> 		 
+ 			<h2 style="text-align:center">장바구니가 비어있습니다. </h2>
  		</c:when>
  		<c:otherwise>
  			<form name="form1" id ="form1" method ="post" action ="cartTransOrder" >
-		 			<table >
+		 			<table  border="1" style="width:100% "  class="table table-hover"   > 
 		 				<tr>
 							<th >상품명</th>
 							<th >단 가</th>
@@ -87,19 +83,20 @@
 		 						
 		 						<td >
 		 							 
-		 							 <fmt:formatNumber  > ${row.prod_price}</fmt:formatNumber>
+		 							 <fmt:formatNumber> ${row.prod_price}</fmt:formatNumber>
 		 						</td>
 		 						
 		 						
 		 						 <td>
-		 							<a href="cartDelete?cart_id=<c:out value="${row.cart_id }" />&prod_id=<c:out value="${row.prod_id}"/>">삭제</a> 
+		 						
+		 						<a href="cartDelete?cart_id=<c:out value="${row.cart_id }" />&prod_id=<c:out value="${row.prod_id }" />"><button type="button" class="btn btn-warning" >삭 제</button></a>  
 		 						 
 		 						</td> 				
 		 						
 		 					</tr>
 		 				</c:forEach>
-		 				<!-- 주문내역을 보이고 전체금액을 보여준다 -->
 		 				
+		 				<!-- 주문내역을 보이고 전체금액을 보여준다 -->
 		 				<tr>
 		 					<td colspan= 5 align ="center" style ="height:100px" >
 		 					
@@ -122,13 +119,17 @@
  			
  		</c:when>
  		<c:otherwise>
- 			<a href="#" onclick="history.back(-1)"><input type="button" value="돌아가기" style ="width:150px" ></a>
-			<a href="cartDeleteAll?cust_id=<c:out value="${map.custid }" />"><input type ="button" value ="장바구니 비우기" style ="width:150px" ></a>	
-			<a href ="#" onclick="form1.submit()"><input type ="button" value="주문저장" id ="btn1"></a>
+ 		<center>
+ 			<a href="#" onclick="history.back(-1)"><input type="button" class="btn btn-outline-warning"  value="돌아가기" style ="width:150px" class="btn" ></a>
+			<a href="cartDeleteAll?cust_id=<c:out value="${map.custid }" />"><input type ="button"  class="btn btn-outline-warning" value ="장바구니 비우기" style ="width:150px" class="btn"></a>	
+			
+			<a href ="#" onclick="form1.submit()"><input type ="button"  class="btn btn-outline-warning" value="주문저장" id ="btn1" class="btn"></a><br><br>
+			
+		</center>
 		</c:otherwise>
 	</c:choose>
 
-
+</div>
 
 <c:import url="footer.jsp"/>
 </body>

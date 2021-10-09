@@ -2,6 +2,7 @@ package Ttonamade.dao;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -49,4 +50,14 @@ public class Customer_infoDao {
 	public void updateOne(Customer_infoDto custDto) throws Exception {
 		ss.update(NameSpace + "updateOne", custDto);
 	}
+	
+	public void updateOne(String cust_id, String cust_manager) throws Exception {
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("cust_id", cust_id);
+		map.put("cust_manager", cust_manager);
+	
+		ss.update(NameSpace + "updateRankOne", map );
+	}
+	
+	 
 }

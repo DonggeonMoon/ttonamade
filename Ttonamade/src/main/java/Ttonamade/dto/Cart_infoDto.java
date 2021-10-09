@@ -8,6 +8,7 @@ public class Cart_infoDto {
 	private String prod_name;
 	private int prod_count;
 	private int prod_price;
+	
 	public Cart_infoDto() {
 		super();
 	}

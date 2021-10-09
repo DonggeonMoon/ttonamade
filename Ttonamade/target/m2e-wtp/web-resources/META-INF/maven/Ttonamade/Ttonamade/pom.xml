@@ -65,6 +65,14 @@
 	    <artifactId>javax.inject</artifactId>
 	    <version>1</version>
 	</dependency>
+	
+	 <dependency>
+	  <groupId>net.sf.json-lib</groupId>
+	   <artifactId>json-lib</artifactId>
+	   <version>2.4</version>
+	   <classifier>jdk15</classifier>
+	  </dependency>
+	
 	<dependency>
 	    <groupId>com.fasterxml.jackson.core</groupId>
 	    <artifactId>jackson-databind</artifactId>
@@ -87,17 +95,21 @@
           <artifactId>logback-classic</artifactId>
           <version>1.1.1</version>
       </dependency>
-      <dependency>
-		<groupId>org.springframework.security</groupId>
-		<artifactId>spring-security-crypto</artifactId>
-		<version>5.1.5.RELEASE</version>
-	  </dependency>
-	  <dependency>
-	    <groupId>org.json</groupId>
-	    <artifactId>json</artifactId>
-	    <version>20210307</version>
-	  </dependency>      	
+      
+      <!--  lombok을 추가하였다. -->
+		<dependency>
+		    <groupId>org.projectlombok</groupId>
+		    <artifactId>lombok</artifactId>
+		    <version>1.18.20</version>
+		    <scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-crypto</artifactId>
+			<version>5.1.5.RELEASE</version>
+		  </dependency>            	
   </dependencies>
+    
   <repositories>
   	<repository>
   		<id>oracle</id>

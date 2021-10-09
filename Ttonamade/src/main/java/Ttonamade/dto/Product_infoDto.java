@@ -14,14 +14,28 @@ public class Product_infoDto {
 	private String prod_imgsrc;
 	private int prod_count; 
 	private Date prod_date;
+	private String cateCode ;
 	private MultipartFile picture;
+	
+
+	public String getCateCode() {
+		return cateCode;
+	}
+
+
+	public void setCateCode(String cateCode) {
+		this.cateCode = cateCode;
+	}
+
+	
 	
 	public Product_infoDto() {
 		super();
 	}
+ 
 
 	public Product_infoDto(int prod_id, String prod_name, int prod_price, float prod_rating, String prod_desc,
-			String prod_imgsrc, int prod_count, Date prod_date, MultipartFile picture) {
+			String prod_imgsrc, int prod_count, Date prod_date, String cateCode, MultipartFile picture) {
 		super();
 		this.prod_id = prod_id;
 		this.prod_name = prod_name;
@@ -31,6 +45,7 @@ public class Product_infoDto {
 		this.prod_imgsrc = prod_imgsrc;
 		this.prod_count = prod_count;
 		this.prod_date = prod_date;
+		this.cateCode = cateCode;
 		this.picture = picture;
 	}
 

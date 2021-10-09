@@ -8,7 +8,8 @@
 <title>에러 발생</title>
 </head>
 <body>
-<c:import url="header.jsp"/>
+<c:import url="header.jsp" />
+<c:import url="nav.jsp" />
 <h2>에러</h2>
 <c:import url="footer.jsp"/>
 </body>

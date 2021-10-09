@@ -9,6 +9,7 @@ import javax.inject.Inject;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
+import Ttonamade.dto.Order_DetailReview;
 import Ttonamade.dto.Order_detailDto; 
 
 @Repository
@@ -26,6 +27,9 @@ public class Order_detailDao {
 	public List<Order_detailDto> selectAll(String order_id) throws Exception {
 		return ss.selectList(NameSpace +"selectAll", order_id);
 	}
+	
+	 
+	
 	
 	public Order_detailDto selectOne(String order_id) throws Exception {	
 		return ss.selectOne(NameSpace + "selectOne", order_id);

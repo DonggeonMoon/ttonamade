@@ -5,22 +5,60 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="order_infoMapper">
 
 	<select id="selectAll" parameterType="String" resultType="oiDto">
-		select order_id, cust_id, order_totalAmount, order_date, order_zipcode, order_add1, order_add2, order_telephone, order_status
+		select order_id, cust_id, order_totalAmount, order_date, order_zipcode, order_add1, order_add2, order_telephone, order_status,  reservation_date, send_date, reservation_memo
 		from order_info
 		where cust_id = #{cust_id}
+		and order_status='T'		
+		order by order_date desc 
+
 	</select>
-	
+	 
 	<select id="selectOne" parameterType="String" resultType="oiDto">
-		select order_id, cust_id, order_totalAmount, order_date, order_zipcode, order_add1, order_add2, order_telephone, order_status
+		select order_id, cust_id, order_totalAmount, order_date, order_zipcode, order_add1, order_add2, order_telephone, order_status,  reservation_date, send_date, reservation_memo
 		from order_info
 		where order_id = #{order_id}
+		and order_status='T'
+		order by order_date desc 
+	</select>
+	 
+	<select id="selectCustOrder" parameterType="String" resultType="int">
+		select sum(order_totalAmount)as order_totalAmount
+		from order_info a
+		where cust_id =#{cust_id}
+		and order_status='T'
+
 	</select>
 	
-	<insert id="insertOne" parameterType="oiDto">
-		insert into order_info(order_id, cust_id, order_totalAmount, order_date, order_zipcode, order_add1, order_add2, order_telephone, order_status)
-		values (#{order_id}, #{cust_id}, #{order_totalAmount}, sysdate, #{order_zipcode}, #{order_add1}, #{order_add2}, #{order_telephone}, 'T')
-	</insert>
 	
+	 <insert id="insertOne" parameterType="oiDto">
+		insert into order_info(order_id, cust_id, order_totalAmount, order_date, order_zipcode, order_add1, order_add2, order_telephone, order_status, reservation_date, send_date, reservation_memo)
+		values (#{order_id}, #{cust_id}, #{order_totalAmount}, sysdate, #{order_zipcode}, #{order_add1}, #{order_add2}, #{order_telephone}, 'T', #{reservation_date}, #{send_date} , #{reservation_memo})
+	</insert>
+		<!-- 예약주문및 배송저장 -->   
+	
+	<insert id="insertReservationEx" parameterType="oiDto">
+		insert into order_info(order_id, cust_id, order_totalAmount, order_date, order_zipcode, order_add1, order_add2, order_telephone, order_status)
+		values (#{order_id}, #{cust_id}, #{order_totalAmount}, sysdate, #{order_zipcode}, #{order_add1}, #{order_add2}, #{order_telephone}, 'T' )
+	</insert>
+	 
+	  
+	 <update id ="deleteReservation" parameterType="String">
+	 	update order_info 
+	 	set reservation_date =null, send_date =null, reservation_memo = null
+	 	 where order_id = #{order_id}
+	 
+	 </update>
+	 
+	 <update id ="UpdateReservation" parameterType="map">
+	 	update order_info 
+	 	set reservation_date = #{reservation_date, jdbcType=VARCHAR} ,  
+	 	send_date =  #{send_date, jdbcType=VARCHAR} ,
+	 	reservation_memo = #{reservation_memo, jdbcType=VARCHAR}   
+	 	 where order_id = #{order_id}
+	 
+	 </update>
+	
+	 
 	<update id="updateOne" parameterType="oiDto">
 		update order_info
 		set cust_id = #{cust_id}
@@ -33,9 +71,45 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		, order_date = sysdate
 		where order_id = #{order_id}
 	</update>
+	
 	<delete id="deleteOne" parameterType="String">
 		delete
 		from order_info
 		where order_id = #{order_id}
 	</delete>
+	
+	<sql id="search">
+   	<if test ="SearchOption != null">
+   		<if test="SearchOption =='All'.toString()">
+   			And  order_date is not null
+   		</if>
+   		
+   		<if test="SearchOption =='order_date'.toString()">
+   			And  to_char(order_date, 'yyyy-mm-dd')  between  #{keyword, jdbcType=VARCHAR}  and  #{keyword2, jdbcType=VARCHAR} 
+   		</if>
+   		<if test="SearchOption =='reservation_date'.toString()">
+   		   And  to_char(reservation_date, 'yyyy-mm-dd') between  #{keyword, jdbcType=VARCHAR}  and  #{keyword2, jdbcType=VARCHAR} 
+   		</if>
+   		
+   		<if test="SearchOption =='send_date'.toString()">
+   		   And  to_char(send_date, 'yyyy-mm-dd') between  #{keyword, jdbcType=VARCHAR}  and  #{keyword2, jdbcType=VARCHAR} 
+   		</if>
+   		order by order_date desc 
+   		  
+   	</if>
+   </sql>
+	
+	 <select id="selectOrderSearch"  parameterType ="PSDto" resultType="oiDto">
+	 
+  	 <![CDATA[ 		
+		select *
+		from order_info a 
+		where order_id is not null
+		and order_status='T'
+ 	 ]]> 	
+ 	  
+ 	 <include refid ="search"></include> 
+ 	  	
+  </select>
+	
 </mapper> 

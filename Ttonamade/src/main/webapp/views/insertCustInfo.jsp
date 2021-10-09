@@ -6,30 +6,10 @@
 <head>
 <meta charset="UTF-8">
 <title>회원가입</title>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <style type="text/css">
-* {
-  margin: 0px;
-  padding: 0px;
-  text-decoration: none;
-  font-family:sans-serif;
-
-}
-
 body {
   background-image:#34495e;
-}
-
-.joinForm {
-  position:absolute;
-  width:400px;
-  height:400px;
-  padding: 30px, 20px;
-  background-color:#FFFFFF;
-  text-align:center;
-  top:40%;
-  left:50%;
-  transform: translate(-50%,-50%);
-  border-radius: 15px;
 }
 
 .joinForm h2 {
@@ -42,7 +22,6 @@ body {
   margin: 30px;
   padding: 10px 10px;
 }
-
 
 .cust_id {
   width: 100%;
@@ -104,16 +83,6 @@ body {
   background: none;
 }
 
-.cust_birthday {
-  width: 100%;
-  border:none;
-  outline:none;
-  color: #636e72;
-  font-size:16px;
-  height:25px;
-  background: none;
-}
-
 
 .submitBtn {
     position:relative;
@@ -137,11 +106,10 @@ body {
   background-position: right;
 }
 </style>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
 var idChk = false;
+var checkedId = "";
 $(document).ready(function() {
-	
 	$("#idCheck").click(function() {
 		var cust_id = $("#cust_id").val();
 		
@@ -158,6 +126,7 @@ $(document).ready(function() {
 						alert("사용 가능한 아이디입니다.");
 						$("#cust_password").focus();
 						idChk = true;
+						checkedId = cust_id;
 					} else {
 						alert("이미 존재하는 아이디입니다.");
 						$("#cust_id").focus();
@@ -174,7 +143,8 @@ $(document).ready(function() {
 });
 
 function submitForm(){
-	if (idChk) {
+	if (idChk && checkedId == ($("#cust_id").val())) {
+	
 		$("#form1").submit();
 	}
 	else {
@@ -184,52 +154,55 @@ function submitForm(){
 </script>
 </head>
 <body>
-<c:import url="header.jsp"/>
-<header class="masthead2 bg-primary text-center" style="height:350px">
-		<div class="">
-			<!-- Masthead Avatar Image-->
-			<img class="masthead-avatar" src="/Ttonamade/img/Ttonamade.jpg" style="width:200px; height:200px;">
-		</div>
-</header>
-<section class="page-section portfolio" style="height:1050px;">
-<center>
-<h2>🌷회원가입🌷</h2>
-
-<form id="form1" name="form1" action="insertCustInfo2" method="POST" class="joinForm" >
-      <div class="textForm">
-        <input id="cust_id" name="cust_id" type="text" class="cust_id" placeholder="ෆ아이디">
-        <input id="idCheck" style="float:right;transform:translateY(-100%);" type="button" value="ID 중복 확인">
-      </div>
-      <div class="textForm">
-        <input name="cust_password" type="password" class="cust_password" placeholder="ෆ비밀번호">
-      </div>
-       <div class="textForm">
-        <input name="loginPwConfirm" type="password" class="cust_password" placeholder="ෆ비밀번호 확인">
-      </div>
-      <div class="textForm">
-        <input name="cust_name" type="text" class="cust_name" placeholder="ෆ이름">
-      </div>
-      <div class="textForm">
-        <input name="cust_telephone" type="text" class="cust_telephone" placeholder="ෆ전화번호">
-      </div>
-      <div class="textForm">
-        <input name="cust_sex" type="text" class="cust_sex" placeholder="ෆ성별">
-      </div>
-      <div class="textForm">
-        <input name="cust_birthday" type="text" class="cust_birthday" placeholder="ෆ생년월일">
-      </div>
-      <input type="button" class="btn" value="J O I N" onclick="submitForm();"/>
-      <div>관리자로 가입하려면 기존 관리자 아이디와 관리자 비밀번호를 입력하세요.</div>
-      <div class="textForm">
-        <input name="cust_manager_id" type="text" class="cust_birthday" placeholder="ෆ관리자_아이디">
-      </div>
-      <div class="textForm">
-        <input name="cust_manager_pw" type="text" class="cust_birthday" placeholder="ෆ관리자 비밀번호">
-      </div>
-      <input type="hidden" name="cust_manager" value = "B">
-    </form>
-</center>
+<c:import url="header.jsp" />
+<c:import url="nav.jsp" />
+<section class="container-fluid">
+	<div class="text-center">
+		<h2 class="m-2">🌷회원가입🌷</h2>
+		<form id="form1" class="rounded-3 bg-white border d-inline-block m-2" style="width:500px;" name="form1" action="insertCustInfo2" method="POST" >
+			<div class="text-center">
+		      <div class="textForm">
+		        <input id="cust_id" name="cust_id" type="text" class="cust_id" placeholder="ෆ아이디">
+		        <input id="idCheck" style="float:right;transform:translateY(-100%);" type="button" value="ID 중복 확인">
+		      </div>
+		      <div class="textForm">
+		        <input name="cust_password" type="password" class="cust_password" placeholder="ෆ비밀번호">
+		      </div>
+		       <div class="textForm">
+		        <input name="loginPwConfirm" type="password" class="cust_password" placeholder="ෆ비밀번호 확인">
+		      </div>
+		      <div class="textForm">
+		        <input name="cust_name" type="text" class="cust_name" placeholder="ෆ이름">
+		      </div>
+		      <div class="textForm">
+		        <input name="cust_telephone" type="text" class="cust_telephone" placeholder="ෆ전화번호">
+		      </div>
+		      <div class="textForm">
+				<div>ෆ성별</div>
+				<div class="form-check form-check-inline">
+				 <input type="radio" name="cust_sex" class="form-check-input" id="male" value="M"><label for="male" class="form-check-label">남</label>
+				</div>
+				<div class="form-check form-check-inline">
+				    <input type="radio" name="cust_sex" class="form-check-input" id="female" value="F"><label for="female" class="form-check-label">여</label>
+				</div>
+		      </div>
+		      <div class="textForm">
+		        <input name="cust_birthday" type="text" class="cust_birthday" placeholder="ෆ생년월일">
+		      </div>
+		      <input type="button" class="btn btn-dark m-2" value="JOIN" onclick="submitForm();"/>
+		      <input type = "hidden" value = "U">
+		     </div>
+		     <div class="alert alert-info my-3">관리자로 가입하려면 기존 관리자 아이디와 관리자 비밀번호를<br> 입력하세요.</div>
+			<div class="textForm">
+			  <input name="cust_manager_id" type="text" class="cust_birthday" placeholder="ෆ관리자_아이디">
+			</div>
+			<div class="textForm">
+			  <input name="cust_manager_pw" type="text" class="cust_birthday" placeholder="ෆ관리자 비밀번호">
+			</div>
+			<input type="hidden" name="cust_manager" value = "B">
+		</form>
+	</div>
 </section>
-<c:import url="footer.jsp"/>
+<c:import url="footer.jsp" />
 </body>
 </html>
