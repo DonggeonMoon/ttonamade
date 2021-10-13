@@ -110,15 +110,9 @@ table.type07 td {
 
 	
 </head>
-
 <body>
 <c:import url="header.jsp"/>
-<header class="masthead2 bg-primary text-center" style="height:350px">
-		<div class="">
-			<!-- Masthead Avatar Image-->
-			<img class="masthead-avatar" src="/Ttonamade/img/Ttonamade.jpg" style="width:200px; height:200px;">
-		</div>
-</header>
+<c:import url="nav.jsp"/>
 
 <form name ="form1" > 
 <input type="hidden" id ="prod_id" name ="prod_id" >

@@ -1,19 +1,20 @@
 package Ttonamade.dto;
 
 public class Order_detailDto {
-	
-	private int order_seq; 
-    private String order_id;
-    private int prod_id; 
-    private String prod_name;
-    private int prod_price;
-    private int order_count;
-    
+
+	private int order_seq;
+	private String order_id;
+	private int prod_id;
+	private String prod_name;
+	private int prod_price;
+	private int order_count;
+
 	public Order_detailDto() {
 		super();
 	}
 
-	public Order_detailDto(int order_seq, String order_id, int prod_id, String prod_name, int prod_price, int order_count) {
+	public Order_detailDto(int order_seq, String order_id, int prod_id, String prod_name, int prod_price,
+			int order_count) {
 		super();
 		this.order_seq = order_seq;
 		this.order_id = order_id;

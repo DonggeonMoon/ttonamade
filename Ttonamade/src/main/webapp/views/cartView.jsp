@@ -83,14 +83,15 @@
 		 						
 		 						<td >
 		 							 
-		 							 <fmt:formatNumber> ${row.prod_price}</fmt:formatNumber>
+		 							 <fmt:formatNumber  > ${row.prod_price}</fmt:formatNumber>
 		 						</td>
 		 						
 		 						
 		 						 <td>
 		 						
-		 						<a href="cartDelete?cart_id=<c:out value="${row.cart_id }" />&prod_id=<c:out value="${row.prod_id }" />"><button type="button" class="btn btn-warning" >삭 제</button></a>  
-		 						 
+		 				<!-- 		<button class="btn btn-warning" ><a href="cartDelete?cart_id=<c:out value="${row.cart_id }" />"> 삭 제</button> </a>   -->
+		 						 <a href="cartDelete?cart_id=<c:out value="${row.cart_id }" />&prod_id=<c:out value="${row.prod_id }" />"><button type="button" class="btn btn-warning" >삭 제</button></a>  
+		 					
 		 						</td> 				
 		 						
 		 					</tr>
@@ -122,7 +123,7 @@
  		<center>
  			<a href="#" onclick="history.back(-1)"><input type="button" class="btn btn-outline-warning"  value="돌아가기" style ="width:150px" class="btn" ></a>
 			<a href="cartDeleteAll?cust_id=<c:out value="${map.custid }" />"><input type ="button"  class="btn btn-outline-warning" value ="장바구니 비우기" style ="width:150px" class="btn"></a>	
-			
+		 	
 			<a href ="#" onclick="form1.submit()"><input type ="button"  class="btn btn-outline-warning" value="주문저장" id ="btn1" class="btn"></a><br><br>
 			
 		</center>
@@ -131,6 +132,17 @@
 
 </div>
 
+	<script type="text/javascript">
+	
+		var message = '${data}'; 
+		var returnUrl = '${url}'; 
+	
+		if (message.length != 0){ 
+			alert(message);
+			document.location.href =returnUrl ;
+		}
+		//alert(message);
+	</script>
 <c:import url="footer.jsp"/>
 </body>
 </html>

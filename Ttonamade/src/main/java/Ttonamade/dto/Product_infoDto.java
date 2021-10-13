@@ -5,34 +5,20 @@ import java.sql.Date;
 import org.springframework.web.multipart.MultipartFile;
 
 public class Product_infoDto {
-	
 	private int prod_id;
 	private String prod_name;
 	private int prod_price;
 	private float prod_rating;
 	private String prod_desc;
 	private String prod_imgsrc;
-	private int prod_count; 
+	private int prod_count;
 	private Date prod_date;
-	private String cateCode ;
+	private String cateCode;
 	private MultipartFile picture;
-	
 
-	public String getCateCode() {
-		return cateCode;
-	}
-
-
-	public void setCateCode(String cateCode) {
-		this.cateCode = cateCode;
-	}
-
-	
-	
 	public Product_infoDto() {
 		super();
 	}
- 
 
 	public Product_infoDto(int prod_id, String prod_name, int prod_price, float prod_rating, String prod_desc,
 			String prod_imgsrc, int prod_count, Date prod_date, String cateCode, MultipartFile picture) {
@@ -111,6 +97,14 @@ public class Product_infoDto {
 
 	public void setProd_date(Date prod_date) {
 		this.prod_date = prod_date;
+	}
+
+	public String getCateCode() {
+		return cateCode;
+	}
+
+	public void setCateCode(String cateCode) {
+		this.cateCode = cateCode;
 	}
 
 	public MultipartFile getPicture() {

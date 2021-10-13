@@ -181,5 +181,21 @@
 		console.log('top:' + $('#wingBanner').css('top'));
 	})
 </script>
+
+	<script type="text/javascript">
+	
+		var message = '${data}'; 
+		var returnUrl = '${url}'; 
+		
+		if (message.length != 0){ 
+			alert(message);
+			document.location.href = returnUrl;
+		}
+		//alert(message);
+	</script>
+	 
+	 
+	 
+	 
 </body>
 </html>

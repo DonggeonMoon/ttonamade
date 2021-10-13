@@ -3,7 +3,7 @@ package Ttonamade.dto;
 import java.sql.Date;
 
 public class Customer_infoDto {
-	
+
 	private String cust_id;
 	private String cust_name;
 	private String cust_password;
@@ -12,7 +12,7 @@ public class Customer_infoDto {
 	private String cust_telephone;
 	private char cust_manager;
 	private Date cust_date;
-	
+
 	public Customer_infoDto() {
 		super();
 	}
@@ -94,4 +94,3 @@ public class Customer_infoDto {
 		this.cust_date = cust_date;
 	}
 }
-	

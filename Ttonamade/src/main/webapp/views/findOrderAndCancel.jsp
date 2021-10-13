@@ -81,6 +81,23 @@
 					<h2>🌷주문 조회/취소🌷</h2>
 					<div class="container pt-3">
 						<h1>${customer.cust_name }님의 </h1>	<p>주문하신 상품입니다.</p>	
+					</div>	
+					<div class="container pt-3">
+					 
+					<c:if test="${String.valueOf(customer.cust_manager) eq 'M'}" >  
+						<p> ${customer.cust_name }님은 관리자이며,  주문금액 10%의 DC을 받을 수 있습니다.</P>
+					</c:if>
+					
+					<c:if test="${String.valueOf(customer.cust_manager) eq 'G'}" > 
+						<p> ${customer.cust_name }님은 골드등급,  주문금액 10%의 DC을 받을 수 있습니다.</P>
+					</c:if>
+					<c:if test="${String.valueOf(customer.cust_manager) eq 'S'}" > 
+						<p> ${customer.cust_name }님은 실버등급이며,  주문금액 5%의 DC을 받을 수 있습니다.</P>
+					</c:if>
+					
+					<c:if test="${String.valueOf(customer.cust_manager) eq 'B'}" > 
+						<p> ${customer.cust_name }님은 브론즈 등급입니다. </P>
+					</c:if> 
 					</div>					
 					 
 			  
