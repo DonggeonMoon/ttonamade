@@ -1,16 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
-<head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>login</title>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <style type="text/css">
 @import url(https://fonts.googleapis.com/css?family=Roboto:300);
+
 .login-page {
 	width: 360px;
 	padding: 3% 0 0;
@@ -25,11 +25,12 @@
 	margin: 0 auto 100px;
 	padding: 45px;
 	text-align: center;
-	box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+	box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0
+		rgba(0, 0, 0, 0.24);
 }
 
 .form input {
-	font-family: "Roboto", sans-serif;
+	font-family: "Roboto", sans-seriFf;
 	outline: 0;
 	background: #f2f2f2;
 	width: 100%;
@@ -74,7 +75,6 @@
 	display: none;
 }
 
-
 .info {
 	margin: 50px auto;
 	text-align: center;
@@ -105,36 +105,48 @@
 <script type="text/javascript">
 	$(function() {
 		$('.message a').click(function() {
-			$('form').animate({height : "toggle", opacity : "toggle"}, "slow");
-			$('#result').css('display','none');
+			$('form').animate({
+				height : "toggle",
+				opacity : "toggle"
+			}, "slow");
+			$('#result').css('display', 'none');
 		});
 
 		var result = "${result}";
-		if(result){
-			if(result === 'OK'){
+		if (result) {
+			if (result === 'OK') {
 				$("#myModal").modal('show');
 			} else {
-				$('form').animate({height : "toggle", opacity : "toggle"}, "fast");
+				$('form').animate({
+					height : "toggle",
+					opacity : "toggle"
+				}, "fast");
 			}
 		}
 	});
 </script>
 </head>
 <body>
-<c:import url="header.jsp" />
-<c:import url="nav.jsp" />
-<div class="login-page">
-<div class="form">
-<form class="" action="/Ttonamade/login" method="post">
-<div>ID: <input type="text" name="cust_id"></div>
-<div>PW: <input type="password" name="cust_password"></div>
-<input type="submit" value="로그인">
-</form>
-<input type="button" value="회원가입" onclick="location.href='/Ttonamade/registerAgree'">
-<input type="button" value="아이디/비밀번호 찾기" onclick="location.href='/Ttonamade/findIdAndPw'">
-<input type="button" value="돌아가기" onclick="history.back(-1)">
-</div>
-</div>
-<c:import url="footer.jsp"/>
+	<c:import url="header.jsp" />
+	<c:import url="nav.jsp" />
+	<div class="login-page">
+		<div class="form">
+			<form class="" action="/Ttonamade/login" method="post">
+				<div>
+					ID: <input type="text" name="cust_id">
+				</div>
+				<div>
+					PW: <input type="password" name="cust_password">
+				</div>
+				<input type="submit" value="로그인">
+			</form>
+			<input type="button" value="회원가입"
+				onclick="location.href='/Ttonamade/registerAgree'"> <input
+				type="button" value="아이디/비밀번호 찾기"
+				onclick="location.href='/Ttonamade/findIdAndPw'"> <input
+				type="button" value="돌아가기" onclick="history.back(-1)">
+		</div>
+	</div>
+	<c:import url="footer.jsp" />
 </body>
 </html>
