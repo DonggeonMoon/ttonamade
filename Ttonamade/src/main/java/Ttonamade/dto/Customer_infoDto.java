@@ -17,8 +17,7 @@ public class Customer_infoDto {
 		super();
 	}
 
-	public Customer_infoDto(String cust_id, String cust_name, String cust_password, char cust_sex, String cust_birthday,
-			String cust_telephone, char cust_manager, Date cust_date) {
+	public Customer_infoDto(String cust_id, String cust_name, String cust_password, char cust_sex, String cust_birthday, String cust_telephone, char cust_manager, Date cust_date) {
 		super();
 		this.cust_id = cust_id;
 		this.cust_name = cust_name;

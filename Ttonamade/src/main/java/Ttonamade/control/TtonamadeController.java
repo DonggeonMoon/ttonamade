@@ -38,21 +38,20 @@ import net.sf.json.JSONArray;
 
 @Controller
 public class TtonamadeController {
-
 	@Inject
 	Customer_infoDao cudao;
-
-	@Inject
-	Order_infoDao oidao;
-
-	@Inject
-	Order_detailDao oddao;
 
 	@Inject
 	Product_infoDao pidao;
 
 	@Inject
 	Cart_infoDao cadao;
+
+	@Inject
+	Order_infoDao oidao;
+
+	@Inject
+	Order_detailDao oddao;
 
 	@Inject
 	Product_choiceDao pcdao;
@@ -81,7 +80,6 @@ public class TtonamadeController {
 	// 로그인 화면
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String getLogin(Model model) throws Exception {
-
 		List<Category_Dto> category = catedao.selectAll();
 		model.addAttribute("category", JSONArray.fromObject(category));
 
@@ -129,8 +127,7 @@ public class TtonamadeController {
 	////////////////////////////////////////////////////////////////////////////
 	// 회원가입 화면 제출 버튼 클릭 시
 	@RequestMapping(value = "/insertCustInfo2", method = RequestMethod.POST)
-	public String insertCustInfo2(@ModelAttribute Customer_infoDto custdto, HttpSession session, String cust_manager_id,
-			String cust_manager_pw) throws Exception {
+	public String insertCustInfo2(@ModelAttribute Customer_infoDto custdto, HttpSession session, String cust_manager_id, String cust_manager_pw) throws Exception {
 		custdto.setCust_password(BCrypt.hashpw(custdto.getCust_password(), BCrypt.gensalt()));
 		Customer_infoDto result = cudao.selectOne(cust_manager_id);
 		if (result != null) {
@@ -162,8 +159,7 @@ public class TtonamadeController {
 	@RequestMapping(value = "/editCustInfo2", method = RequestMethod.POST)
 	public String editCustInfo2(@ModelAttribute Customer_infoDto cudto, HttpSession session) throws Exception {
 		if (session.getAttribute("customer") != null) {
-			if (BCrypt.checkpw(cudto.getCust_password(),
-					((Customer_infoDto) session.getAttribute("customer")).getCust_password())) {
+			if (BCrypt.checkpw(cudto.getCust_password(), ((Customer_infoDto) session.getAttribute("customer")).getCust_password())) {
 				cudto.setCust_password(((Customer_infoDto) session.getAttribute("customer")).getCust_password());
 				cudao.updateOne(cudto);
 				return "redirect:/myPage";
@@ -187,7 +183,6 @@ public class TtonamadeController {
 	@RequestMapping(value = "/idCheck", method = RequestMethod.POST)
 	@ResponseBody
 	public Map<Object, Object> idCheck(@RequestBody String cust_id) throws Exception {
-
 		Map<Object, Object> map = new HashMap<Object, Object>();
 
 		if (cudao.selectOne(cust_id) != null) {
@@ -254,8 +249,7 @@ public class TtonamadeController {
 	// 로그인 화면 로그인 버튼 클릭 시
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public String postLogin(@ModelAttribute Customer_infoDto cudto, HttpSession session, HttpServletRequest request)
-			throws Exception {
+	public String postLogin(@ModelAttribute Customer_infoDto cudto, HttpSession session, HttpServletRequest request, Model model) throws Exception {
 		if (cudto.getCust_id().equals("")) {
 			System.out.println("아이디를 입력해주세요.");
 			return "redirect:/login";
@@ -268,39 +262,44 @@ public class TtonamadeController {
 		}
 
 		if (BCrypt.checkpw(cudto.getCust_password(), result.getCust_password())) {
-			session.setAttribute("customer", result);
-			System.out.println("로그인 성공.");
+			if (result.getCust_manager() != 'D') {
+				session.setAttribute("customer", result);
+				System.out.println("로그인 성공.");
 
-			Cookie[] cookie = request.getCookies();
-			String str = "";
-			for (Cookie i : cookie) {
-				if (i.getName().equals("TtonamadeCart")) {
-					str = i.getValue();
+				Cookie[] cookie = request.getCookies();
+				String str = "";
+				for (Cookie i : cookie) {
+					if (i.getName().equals("TtonamadeCart")) {
+						str = i.getValue();
+					}
 				}
+
+				if (!str.equals("")) {
+					String str2 = URLDecoder.decode(str, "UTF-8");
+					ObjectMapper mapper = new ObjectMapper();
+					Map<String, Object> map2 = mapper.readValue(str2, Map.class);
+					System.out.println("아아: " + map2);
+					List<Cart_infoDto> list = new ArrayList<Cart_infoDto>();
+					
+					for (Object i : map2.values()) {
+						Cart_infoDto cidto = new Cart_infoDto();
+						cidto.setProd_count(Integer.parseInt(((Map<String, String>) i).get("prod_count")));
+						cidto.setProd_id(Integer.parseInt(((Map<String, String>) i).get("prod_id")));
+						cidto.setProd_name(((Map<String, String>) i).get("prod_name"));
+						cidto.setProd_price(Integer.parseInt(((Map<String, String>) i).get("prod_price")));
+						list.add(cidto);
+					}
+
+					for (Cart_infoDto i : list) {
+						i.setCust_id(cudto.getCust_id());
+						cadao.insertOne(i);
+					}
+				}
+				return "redirect:/prodList";
+			} else {
+				System.out.println("탈퇴한 회원입니다.");
+				return "redirect:/login";
 			}
-
-			if (!str.equals("")) {
-				String str2 = URLDecoder.decode(str, "UTF-8");
-				ObjectMapper mapper = new ObjectMapper();
-				Map<String, Object> map2 = mapper.readValue(str2, Map.class);
-				System.out.println("아아: " + map2);
-				List<Cart_infoDto> list = new ArrayList<Cart_infoDto>();
-
-				for (Object i : map2.values()) {
-					Cart_infoDto cidto = new Cart_infoDto();
-					cidto.setProd_count(Integer.parseInt(((Map<String, String>) i).get("prod_count")));
-					cidto.setProd_id(Integer.parseInt(((Map<String, String>) i).get("prod_id")));
-					cidto.setProd_name(((Map<String, String>) i).get("prod_name"));
-					cidto.setProd_price(Integer.parseInt(((Map<String, String>) i).get("prod_price")));
-					list.add(cidto);
-				}
-
-				for (Cart_infoDto i : list) {
-					i.setCust_id(cudto.getCust_id());
-					cadao.insertOne(i);
-				}
-			}
-			return "redirect:/prodList";
 		} else {
 			System.out.println("비밀번호가 일치하지 않습니다.");
 			return "redirect:/login";

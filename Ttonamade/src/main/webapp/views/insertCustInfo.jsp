@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
@@ -157,62 +156,45 @@ body {
 	<section class="container-fluid">
 		<div class="text-center">
 			<h2 class="m-2">🌷회원가입🌷</h2>
-			<form id="form1" class="rounded-3 bg-white border d-inline-block m-2"
-				style="width: 500px;" name="form1" action="insertCustInfo2"
-				method="POST">
+			<form id="form1" class="rounded-3 bg-white border d-inline-block m-2" style="width: 500px;" name="form1" action="insertCustInfo2" method="POST">
 				<div class="text-center">
 					<div class="textForm">
-						<input id="cust_id" name="cust_id" type="text" class="cust_id"
-							placeholder="ෆ아이디"> <input id="idCheck"
-							style="float: right; transform: translateY(-100%);" type="button"
-							value="ID 중복 확인">
+						<input id="cust_id" name="cust_id" type="text" class="cust_id" placeholder="ෆ아이디"> <input id="idCheck" style="float: right; transform: translateY(-100%);" type="button" value="ID 중복 확인">
 					</div>
 					<div class="textForm">
-						<input name="cust_password" type="password" class="cust_password"
-							placeholder="ෆ비밀번호">
+						<input name="cust_password" type="password" class="cust_password" placeholder="ෆ비밀번호">
 					</div>
 					<div class="textForm">
-						<input name="loginPwConfirm" type="password" class="cust_password"
-							placeholder="ෆ비밀번호 확인">
+						<input name="loginPwConfirm" type="password" class="cust_password" placeholder="ෆ비밀번호 확인">
 					</div>
 					<div class="textForm">
-						<input name="cust_name" type="text" class="cust_name"
-							placeholder="ෆ이름">
+						<input name="cust_name" type="text" class="cust_name" placeholder="ෆ이름">
 					</div>
 					<div class="textForm">
-						<input name="cust_telephone" type="text" class="cust_telephone"
-							placeholder="ෆ전화번호">
+						<input name="cust_telephone" type="text" class="cust_telephone" placeholder="ෆ전화번호">
 					</div>
 					<div class="textForm">
 						<div>ෆ성별</div>
 						<div class="form-check form-check-inline">
-							<input type="radio" name="cust_sex" class="form-check-input"
-								id="male" value="M"><label for="male"
-								class="form-check-label">남</label>
+							<input type="radio" name="cust_sex" class="form-check-input" id="male" value="M"><label for="male" class="form-check-label">남</label>
 						</div>
 						<div class="form-check form-check-inline">
-							<input type="radio" name="cust_sex" class="form-check-input"
-								id="female" value="F"><label for="female"
-								class="form-check-label">여</label>
+							<input type="radio" name="cust_sex" class="form-check-input" id="female" value="F"><label for="female" class="form-check-label">여</label>
 						</div>
 					</div>
 					<div class="textForm">
-						<input name="cust_birthday" type="text" class="cust_birthday"
-							placeholder="ෆ생년월일">
+						<input name="cust_birthday" type="text" class="cust_birthday" placeholder="ෆ생년월일">
 					</div>
-					<input type="button" class="btn btn-dark m-2" value="JOIN"
-						onclick="submitForm();" /> <input type="hidden" value="U">
+					<input type="button" class="btn btn-dark m-2" value="JOIN" onclick="submitForm();" /> <input type="hidden" value="U">
 				</div>
 				<div class="alert alert-info my-3">
 					관리자로 가입하려면 기존 관리자 아이디와 관리자 비밀번호를<br> 입력하세요.
 				</div>
 				<div class="textForm">
-					<input name="cust_manager_id" type="text" class="cust_birthday"
-						placeholder="ෆ관리자_아이디">
+					<input name="cust_manager_id" type="text" class="cust_birthday" placeholder="ෆ관리자_아이디">
 				</div>
 				<div class="textForm">
-					<input name="cust_manager_pw" type="text" class="cust_birthday"
-						placeholder="ෆ관리자 비밀번호">
+					<input name="cust_manager_pw" type="text" class="cust_birthday" placeholder="ෆ관리자 비밀번호">
 				</div>
 				<input type="hidden" name="cust_manager" value="B">
 			</form>

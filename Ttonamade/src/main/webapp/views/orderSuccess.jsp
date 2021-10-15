@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
@@ -24,8 +23,7 @@
 	margin: 0 auto 100px;
 	padding: 45px;
 	text-align: center;
-	box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0
-		rgba(0, 0, 0, 0.24);
+	box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
 }
 
 .form input {
@@ -132,10 +130,7 @@
 		<div class="form">
 			<c:import url="header.jsp" />
 			<h2>🎉주문 성공🎉</h2>
-			<input type="button" value="쇼핑 계속하기"
-				onclick="location.href='/Ttonamade/prodList'"> <input
-				type="button" value="주문확인하러 가기"
-				onclick="location.href='/Ttonamade/findOrderAndCancel'">
+			<input type="button" value="쇼핑 계속하기" onclick="location.href='/Ttonamade/prodList'"> <input type="button" value="주문확인하러 가기" onclick="location.href='/Ttonamade/findOrderAndCancel'">
 		</div>
 	</div>
 	<c:import url="footer.jsp" />

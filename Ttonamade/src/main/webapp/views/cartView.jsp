@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
@@ -9,8 +8,7 @@
 <title>Ttonamade</title>
 <link href="/Ttonamade/resources/css/nice-select.css" rel="stylesheet" />
 <script type="text/javascript" src="/Ttonamade/resources/js/jquery.js"></script>
-<script type="text/javascript"
-	src="/Ttonamade/resources/js/jquery.nice-select.js"></script>
+<script type="text/javascript" src="/Ttonamade/resources/js/jquery.nice-select.js"></script>
 <style>
 table {
 	width: 100%;
@@ -41,7 +39,7 @@ tbody tr:nth-child(2n+1) {
 <body>
 	<c:import url="header.jsp" />
 	<c:import url="nav.jsp" />
-	<h2 class="text-center">🌷장바구니🌷</h2>
+	<h2 class="text-center m-5">🌷장바구니🌷</h2>
 	<div class="container mt-3">
 		<c:choose>
 			<c:when test="${map.count == 0 }">
@@ -67,27 +65,18 @@ tbody tr:nth-child(2n+1) {
 		 							 	 
 		 							 </script></td>
 
-								<td><fmt:formatNumber> ${row.prod_count}</fmt:formatNumber>
+								<td><fmt:formatNumber> ${row.prod_count}</fmt:formatNumber> <input type="hidden" name="prod_id" value="${row.prod_id }"> <input type="hidden" name="cust_id" value="${row.cust_id }"></td>
 
-									<input type="hidden" name="prod_id" value="${row.prod_id }">
-									<input type="hidden" name="cust_id" value="${row.cust_id }">
-
-								</td>
-
-								<td><fmt:formatNumber> ${row.prod_price}</fmt:formatNumber>
-								</td>
+								<td><fmt:formatNumber> ${row.prod_price}</fmt:formatNumber></td>
 
 
-								<td><a
-									href="cartDelete?cart_id=<c:out value="${row.cart_id }" />&prod_id=<c:out value="${row.prod_id }" />"><button
-											type="button" class="btn btn-warning">삭 제</button></a></td>
+								<td><a href="cartDelete?cart_id=<c:out value="${row.cart_id }" />&prod_id=<c:out value="${row.prod_id }" />"><button type="button" class="btn btn-warning">삭 제</button></a></td>
 							</tr>
 						</c:forEach>
 
 						<!-- 주문내역을 보이고 전체금액을 보여준다 -->
 						<tr>
-							<td colspan=5 align="center" style="height: 100px">장바구니 금액
-								합계 :<fmt:formatNumber>${map.sumMoney}</fmt:formatNumber>
+							<td colspan=5 align="center" style="height: 100px">장바구니 금액 합계 :<fmt:formatNumber>${map.sumMoney}</fmt:formatNumber>
 
 							</td>
 						</tr>
@@ -102,15 +91,7 @@ tbody tr:nth-child(2n+1) {
 			</c:when>
 			<c:otherwise>
 				<center>
-					<a href="#" onclick="history.back(-1)"><input type="button"
-						class="btn btn-outline-warning" value="돌아가기" style="width: 150px"
-						class="btn"></a> <a
-						href="cartDeleteAll?cust_id=<c:out value="${map.custid }" />"><input
-						type="button" class="btn btn-outline-warning" value="장바구니 비우기"
-						style="width: 150px" class="btn"></a> <a href="#"
-						onclick="form1.submit()"><input type="button"
-						class="btn btn-outline-warning" value="주문저장" id="btn1" class="btn"></a><br>
-					<br>
+					<a href="#" onclick="history.back(-1)"><input type="button" class="btn btn-outline-warning" value="돌아가기" style="width: 150px" class="btn"></a> <a href="cartDeleteAll?cust_id=<c:out value="${map.custid }" />"><input type="button" class="btn btn-outline-warning" value="장바구니 비우기" style="width: 150px" class="btn"></a> <a href="#" onclick="form1.submit()"><input type="button" class="btn btn-outline-warning" value="주문저장" id="btn1" class="btn"></a><br> <br>
 
 				</center>
 			</c:otherwise>
@@ -125,7 +106,6 @@ tbody tr:nth-child(2n+1) {
 			alert(message);
 			document.location.href =returnUrl ;
 		}
-		//alert(message);
 	</script>
 	<c:import url="footer.jsp" />
 </body>

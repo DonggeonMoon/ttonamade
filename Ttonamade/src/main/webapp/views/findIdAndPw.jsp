@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <!DOCTYPE html>
@@ -161,44 +160,34 @@
 	<c:import url="nav.jsp" />
 	<section class="page-section portfolio" style="height: 900px;">
 		<div class="text-center">
-			<h2>🌷아이디🌷</h2>
-			<form class="d-inline-block" id="form1" name="form1" action="findId"
-				method="POST" class="joinForm">
+			<h2 class="m-5">🌷아이디🌷</h2>
+			<form class="d-inline-block" id="form1" name="form1" action="findId" method="POST" class="joinForm">
 				<div class="textForm">
-					ෆ이름: <input type="text" id="cust_name" name="cust_name"
-						class="cust_name" placeholder="이름" required><br>
+					ෆ이름: <input type="text" id="cust_name" name="cust_name" class="cust_name" placeholder="이름" required><br>
 				</div>
 				<div class="textForm">
-					ෆ전화번호: <input type="text" id="cust_telephone" name="cust_telephone"
-						class="cust_telephone" placeholder="전화번호('-' 제외)" required><br>
+					ෆ전화번호: <input type="text" id="cust_telephone" name="cust_telephone" class="cust_telephone" placeholder="전화번호('-' 제외)" required><br>
 				</div>
 				<div class="textForm">
-					ෆ생년월일: <input type="text" id="cust_birthday" name="cust_birthday"
-						class="cust_birthday" placeholder="생년월일 ex)870316" required><br>
+					ෆ생년월일: <input type="text" id="cust_birthday" name="cust_birthday" class="cust_birthday" placeholder="생년월일 ex)870316" required><br>
 				</div>
 				<div>
 					<input type="button" id="find_id_btn" class="btn2" value="찾기"><br>
 				</div>
 			</form>
-			<h2>🌷비밀번호🌷</h2>
-			<form class="d-inline-block" id="form2" name="form2" action="findPw"
-				method="POST" class="joinForm2">
+			<h2 class="m-5">🌷비밀번호🌷</h2>
+			<form class="d-inline-block" id="form2" name="form2" action="findPw" method="POST" class="joinForm2">
 				<div class="textForm">
-					ෆ아이디: <input type="text" id="cust_id" name="cust_id"
-						class="cust_id" placeholder="아이디" required><br>
+					ෆ아이디: <input type="text" id="cust_id" name="cust_id" class="cust_id" placeholder="아이디" required><br>
 				</div>
 				<div class="textForm">
-					ෆ이름: <input type="text" id="cust_name2" name="cust_name"
-						class="cust_name" placeholder="이름" required><br>
+					ෆ이름: <input type="text" id="cust_name2" name="cust_name" class="cust_name" placeholder="이름" required><br>
 				</div>
 				<div class="textForm">
-					ෆ전화번호: <input type="text" id="cust_telephone2"
-						name="cust_telephone" class="cust_telephone"
-						placeholder="전화번호('-' 제외)" required><br>
+					ෆ전화번호: <input type="text" id="cust_telephone2" name="cust_telephone" class="cust_telephone" placeholder="전화번호('-' 제외)" required><br>
 				</div>
 				<div class="textForm">
-					ෆ생년월일: <input type="text" id="cust_birthday2" name="cust_birthday"
-						class="cust_birthday" placeholder="생년월일 ex)870316" required><br>
+					ෆ생년월일: <input type="text" id="cust_birthday2" name="cust_birthday" class="cust_birthday" placeholder="생년월일 ex)870316" required><br>
 				</div>
 				<div>
 					<input type="button" id="find_pw_btn" class="btn2" value="찾기">

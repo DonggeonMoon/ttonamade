@@ -14,7 +14,6 @@ import Ttonamade.dto.Product_infoDto;
 
 @Repository
 public class Product_infoDao {
-
 	@Inject
 	private SqlSession ss;
 
@@ -61,7 +60,6 @@ public class Product_infoDao {
 	}
 
 	public int selectData(String cust_id) throws Exception {
-
 		return ss.selectOne(NameSpace + "selectEqualsData", cust_id);
 	}
 

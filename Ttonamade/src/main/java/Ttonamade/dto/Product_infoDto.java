@@ -20,8 +20,7 @@ public class Product_infoDto {
 		super();
 	}
 
-	public Product_infoDto(int prod_id, String prod_name, int prod_price, float prod_rating, String prod_desc,
-			String prod_imgsrc, int prod_count, Date prod_date, String cateCode, MultipartFile picture) {
+	public Product_infoDto(int prod_id, String prod_name, int prod_price, float prod_rating, String prod_desc, String prod_imgsrc, int prod_count, Date prod_date, String cateCode, MultipartFile picture) {
 		super();
 		this.prod_id = prod_id;
 		this.prod_name = prod_name;

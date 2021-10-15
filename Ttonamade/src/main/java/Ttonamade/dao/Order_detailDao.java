@@ -13,7 +13,6 @@ import Ttonamade.dto.Order_detailDto;
 
 @Repository
 public class Order_detailDao {
-
 	@Inject
 	SqlSession ss;
 
@@ -40,7 +39,6 @@ public class Order_detailDao {
 	}
 
 	public void insertOne(String order_id, String cust_id) throws Exception {
-
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("cust_id", cust_id);
 		map.put("order_id", order_id);

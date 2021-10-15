@@ -14,7 +14,6 @@ import Ttonamade.dto.ProductSearchDto;
 
 @Repository
 public class Order_infoDao {
-
 	@Inject
 	private SqlSession ss;
 
@@ -56,8 +55,7 @@ public class Order_infoDao {
 		return ss.selectList(NameSpace + "selectOrderSearch", PSDto);
 	}
 
-	public void UpdateReservation(String order_id, String reservation_date, String send_date, String reservation_memo)
-			throws Exception {
+	public void UpdateReservation(String order_id, String reservation_date, String send_date, String reservation_memo) throws Exception {
 		Map<String, String> map = new HashMap<String, String>();
 
 		map.put("order_id", order_id);

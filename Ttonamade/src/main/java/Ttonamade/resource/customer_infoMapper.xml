@@ -2,44 +2,53 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-  <mapper namespace="customer_infoMapper">
-  
-   <select id="selectAll" resultType="custDto">
-  	select * from Customer_info order by cust_id asc
-  </select>
-  
-  <select id="selectOne" parameterType= "String" resultType="custDto">
-  	select * from Customer_info where cust_id = #{cust_id, jdbcType=VARCHAR}
-  </select>
-  
-  <select id="selectOneByNTB" parameterType="hashmap" resultType="custDto">
-  	select * from Customer_info where cust_name = #{custdto.cust_name} and cust_telephone = #{custdto.cust_telephone} and cust_birthday = #{custdto.cust_birthday}
-  </select>
-  
-  <select id="selectOneByNTBI" parameterType="hashmap" resultType="custDto">
-  	select * from Customer_info where cust_name = #{custdto.cust_name} and cust_telephone = #{custdto.cust_telephone} and cust_birthday = #{custdto.cust_birthday} and cust_id = #{custdto.cust_id}
-  </select>  
-  
-   <insert id="insertOne" parameterType="custDto">
-  	insert into Customer_info(cust_id, cust_name, cust_password, cust_sex, cust_birthday, cust_telephone, cust_manager, cust_date)
-  	values (#{cust_id}, #{cust_name}, #{cust_password}, #{cust_sex}, #{cust_birthday}, #{cust_telephone}, #{cust_manager}, sysdate)
-  </insert>
-  
-  <update id="updateOne" parameterType="custDto">
-  	update Customer_info
-  	set cust_name = #{cust_name},
-		cust_password = #{cust_password},
-		cust_sex = #{cust_sex},
-		cust_birthday = #{cust_birthday},
-		cust_telephone = #{cust_telephone},
-		cust_manager = #{cust_manager},
-		cust_date = sysdate
-	where cust_id = #{cust_id}
-  </update>  
-  
-  <delete id="deleteOne" parameterType="String" >
-  	delete Customer_info
-  	where cust_id = #{cust_id}
-  </delete>
-   
-  </mapper>
+	<mapper namespace="customer_infoMapper">
+	
+		<select id="selectAll" resultType="custDto">
+			select * from Customer_info order by cust_id asc
+		</select>
+		
+		<select id="selectOne" parameterType= "String" resultType="custDto">  	
+			select * 
+			from Customer_info
+			where cust_id = #{cust_id}
+		</select>
+		
+		<select id="selectOneByNTB" parameterType="hashmap" resultType="custDto">
+			select * from Customer_info where cust_name = #{custdto.cust_name} and cust_telephone = #{custdto.cust_telephone} and cust_birthday = #{custdto.cust_birthday}
+		</select>
+		
+		<select id="selectOneByNTBI" parameterType="hashmap" resultType="custDto">
+			select * from Customer_info where cust_name = #{custdto.cust_name} and cust_telephone = #{custdto.cust_telephone} and cust_birthday = #{custdto.cust_birthday} and cust_id = #{custdto.cust_id}
+		</select>  
+		
+		 <insert id="insertOne" parameterType="custDto">
+			insert into Customer_info
+			values (#{cust_id}, #{cust_name}, #{cust_password}, #{cust_sex}, #{cust_birthday}, #{cust_telephone}, 'U', sysdate)
+		</insert>
+		
+		<update id="updateOne" parameterType="custDto">
+			update Customer_info
+			set cust_name = #{cust_name},
+			cust_password = #{cust_password},
+			cust_sex = #{cust_sex},
+			cust_birthday = #{cust_birthday},
+			cust_telephone = #{cust_telephone},
+			cust_manager = #{cust_manager},
+			cust_date = sysdate
+			where cust_id = #{cust_id}
+		</update>
+		
+		<update id="updateRankOne" parameterType="map">
+			update Customer_info
+			set cust_manager = #{cust_manager}
+			where cust_id = #{cust_id}
+		</update>
+		
+		<delete id="deleteOne" parameterType="String" >
+			update Customer_info
+			set cust_manager = 'D'
+			where cust_id = #{cust_id}
+		</delete>
+	
+	</mapper>

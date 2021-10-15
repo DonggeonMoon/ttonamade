@@ -13,7 +13,6 @@ import Ttonamade.dto.Cart_infoDto;
 
 @Repository
 public class Cart_infoDao {
-
 	@Inject
 	SqlSession ss;
 
@@ -25,11 +24,9 @@ public class Cart_infoDao {
 
 	public List<Cart_infoDto> selectAll(String cust_id) throws Exception {
 		return ss.selectList(NameSpace + "selectAll", cust_id);
-
 	}
 
 	public Cart_infoDto selectOne(int cart_id) throws Exception {
-
 		return ss.selectOne(NameSpace + "selectOne", cart_id);
 	}
 
@@ -46,7 +43,6 @@ public class Cart_infoDao {
 	public void deleteOne(int cart_id) throws Exception {
 
 		ss.delete(NameSpace + "deleteOne", cart_id);
-
 	}
 
 	// 전부지우거나

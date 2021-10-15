@@ -13,7 +13,6 @@ import Ttonamade.dto.Customer_infoDto;
 
 @Repository
 public class Customer_infoDao {
-
 	@Inject
 	SqlSession ss;
 

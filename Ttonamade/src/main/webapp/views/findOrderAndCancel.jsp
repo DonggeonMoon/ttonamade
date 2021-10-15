@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
@@ -66,17 +65,17 @@
 			</div>
 			<div class="container pt-3">
 				<c:if test="${String.valueOf(customer.cust_manager) eq 'M'}">
-					<p>${customer.cust_name }님은 관리자이며, 주문금액 10%의 DC를 받을 수 있습니다.</P>
+					<p>${customer.cust_name }님은관리자이며,주문금액 10%의 DC를 받을 수 있습니다.</P>
 				</c:if>
 
 				<c:if test="${String.valueOf(customer.cust_manager) eq 'G'}">
-					<p>${customer.cust_name }님은 골드 등급, 주문금액 10%의 DC를 받을 수 있습니다.</P>
+					<p>${customer.cust_name }님은골드등급, 주문금액 10%의 DC를 받을 수 있습니다.</P>
 				</c:if>
 				<c:if test="${String.valueOf(customer.cust_manager) eq 'S'}">
-					<p>${customer.cust_name }님은 실버 등급이며, 주문금액 5%의 DC를 받을 수 있습니다.</P>
+					<p>${customer.cust_name }님은실버등급이며, 주문금액 5%의 DC를 받을 수 있습니다.</P>
 				</c:if>
 				<c:if test="${String.valueOf(customer.cust_manager) eq 'B'}">
-					<p>${customer.cust_name }님은 브론즈 등급입니다.</P>
+					<p>${customer.cust_name }님은브론즈등급입니다.</P>
 				</c:if>
 			</div>
 			<table class="list-table">
@@ -116,34 +115,21 @@
 								<td class="text-center"></td>
 								<td class="text-center">${j.order_count}</td>
 								<td class="text-center">${j.prod_name}</td>
-								<td class="text-center"><img
-									style="width: 15%; height: 2.5em;"
-									src="<c:out value="${j.prod_imgsrc}"/>" /></td>
+								<td class="text-center"><img style="width: 15%; height: 2.5em;" src="<c:out value="${j.prod_imgsrc}"/>" /></td>
 								<td class="text-center"><fmt:formatNumber>${j.prod_price }</fmt:formatNumber></td>
-								<td class="text-center"><input type="button"
-									class="btn btn-outline-info" value="삭제"
-									onclick="location.href='cancelOrder?order_id=${j.order_id}'"></td>
-								<td class="text-center"><input type="button"
-									class="btn btn-outline-info" name="btnSave" id="btnSave"
-									value="리뷰"
-									onclick="cateSave('${j.prod_id}', '${j.prod_name}', '${j.order_id}', '${j.order_seq}', '${j.prod_imgsrc}', '${j.cust_id}' )"></td>
+								<td class="text-center"><input type="button" class="btn btn-outline-info" value="삭제" onclick="location.href='cancelOrder?order_id=${j.order_id}'"></td>
+								<td class="text-center"><input type="button" class="btn btn-outline-info" name="btnSave" id="btnSave" value="리뷰" onclick="cateSave('${j.prod_id}', '${j.prod_name}', '${j.order_id}', '${j.order_seq}', '${j.prod_imgsrc}', '${j.cust_id}' )"></td>
 							</tr>
 						</c:forEach>
 					</c:if>
 				</c:forEach>
 				</tbody>
 			</table>
-			<input type="hidden" id="order_id" name="order_id" /> <input
-				type="hidden" id="order_seq" name="order_seq" /> <input
-				type="hidden" id="prod_name" name="prod_name" /> <input
-				type="hidden" id="prod_imgsrc" name="prod_imgsrc" /> <input
-				type="hidden" id="prod_id" name="prod_id" /> <input type="hidden"
-				name="cust_id" id="cust_id" />
+			<input type="hidden" id="order_id" name="order_id" /> <input type="hidden" id="order_seq" name="order_seq" /> <input type="hidden" id="prod_name" name="prod_name" /> <input type="hidden" id="prod_imgsrc" name="prod_imgsrc" /> <input type="hidden" id="prod_id" name="prod_id" /> <input type="hidden" name="cust_id" id="cust_id" />
 		</form>
 	</div>
 	<div class="text-center">
-		<input type="button" class="btn btn-warning m-2" value="돌아가기"
-			onclick="history.back(-1)">
+		<input type="button" class="btn btn-warning m-2" value="돌아가기" onclick="history.back(-1)">
 	</div>
 	<c:import url="footer.jsp" />
 </body>

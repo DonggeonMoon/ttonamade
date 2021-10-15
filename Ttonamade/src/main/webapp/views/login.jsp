@@ -1,13 +1,11 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>login</title>
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <style type="text/css">
 @import url(https://fonts.googleapis.com/css?family=Roboto:300);
 
@@ -25,8 +23,7 @@
 	margin: 0 auto 100px;
 	padding: 45px;
 	text-align: center;
-	box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0
-		rgba(0, 0, 0, 0.24);
+	box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
 }
 
 .form input {
@@ -129,6 +126,7 @@
 <body>
 	<c:import url="header.jsp" />
 	<c:import url="nav.jsp" />
+	<div class="alert alert-danger alert-dismissible fade show"><c:out value="${model }"/></div>
 	<div class="login-page">
 		<div class="form">
 			<form class="" action="/Ttonamade/login" method="post">
@@ -140,11 +138,7 @@
 				</div>
 				<input type="submit" value="로그인">
 			</form>
-			<input type="button" value="회원가입"
-				onclick="location.href='/Ttonamade/registerAgree'"> <input
-				type="button" value="아이디/비밀번호 찾기"
-				onclick="location.href='/Ttonamade/findIdAndPw'"> <input
-				type="button" value="돌아가기" onclick="history.back(-1)">
+			<input type="button" value="회원가입" onclick="location.href='/Ttonamade/registerAgree'"> <input type="button" value="아이디/비밀번호 찾기" onclick="location.href='/Ttonamade/findIdAndPw'"> <input type="button" value="돌아가기" onclick="history.back(-1)">
 		</div>
 	</div>
 	<c:import url="footer.jsp" />

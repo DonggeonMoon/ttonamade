@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
@@ -43,14 +42,9 @@
 			</tr>
 			<tr>
 		</table>
-		<input type="hidden" name="cust_id"
-			value="${sessionScope.customer.cust_id }"> <input
-			type="hidden" name="prod_id" value="${cart.prod_id}"> <input
-			type="hidden" name="prod_name" value="${cart.prod_name}"> <input
-			type="hidden" name="prod_price" value="${cart.prod_price}">
+		<input type="hidden" name="cust_id" value="${sessionScope.customer.cust_id }"> <input type="hidden" name="prod_id" value="${cart.prod_id}"> <input type="hidden" name="prod_name" value="${cart.prod_name}"> <input type="hidden" name="prod_price" value="${cart.prod_price}">
 	</form>
-	<input type="button" value="주문 확정"
-		onclick="location.href='/Ttonamade/orderSuccess'">
+	<input type="button" value="주문 확정" onclick="location.href='/Ttonamade/orderSuccess'">
 	<c:import url="footer.jsp" />
 </body>
 </html>

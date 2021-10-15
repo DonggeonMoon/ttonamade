@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
@@ -104,18 +103,13 @@ table.type07 td {
 	<c:import url="header.jsp" />
 	<c:import url="nav.jsp" />
 	<form name="form1">
-		<input type="hidden" id="prod_id" name="prod_id"> <input
-			type="hidden" id="prod_name" name="prod_name"> <input
-			type="hidden" id="prod_count" name="prod_count"> <input
-			type="hidden" id="prod_price" name="prod_price">
+		<input type="hidden" id="prod_id" name="prod_id"> <input type="hidden" id="prod_name" name="prod_name"> <input type="hidden" id="prod_count" name="prod_count"> <input type="hidden" id="prod_price" name="prod_price">
 		<!-- Product section-->
 		<section class="py-5">
 			<div class="container px-4 px-lg-5 my-5">
 				<div class="row gx-4 gx-lg-5 align-items-center">
 					<div class="col-md-6">
-						<img class="card-img-top mb-5 mb-md-0"
-							style="width: 400px; height: 400px;"
-							src="<c:out value="${product.prod_imgsrc }"/>" alt="..." />
+						<img class="card-img-top mb-5 mb-md-0" style="width: 400px; height: 400px;" src="<c:out value="${product.prod_imgsrc }"/>" alt="..." />
 					</div>
 					<div class="col-md-6">
 						<div class="small mb-1">
@@ -126,8 +120,7 @@ table.type07 td {
 							<c:out value="${product.prod_name }" />
 						</h1>
 						<div class="fs-5 mb-5">
-							<span><fmt:formatNumber value="${product.prod_price }"
-									type="currency" /></span>
+							<span><fmt:formatNumber value="${product.prod_price }" type="currency" /></span>
 						</div>
 						<div class="d-flex justify-content-left small text-warning mb-2">
 							<c:forEach begin="1" end="${product.prod_rating/1}" step="1">
@@ -149,14 +142,9 @@ table.type07 td {
 							<c:out value="${product.prod_date }" />
 						</p>
 						<div class="d-flex">
-							<input class="form-control text-center me-3" id="inputQuantity"
-								type="number" value="1" style="max-width: 3rem" />
-							<button class="btn btn-outline-dark flex-shrink-0" type="button"
-								id="btnSave" value="주문하기"
-								onclick="cartSave('${product.prod_id}', '${product.prod_name}', '${product.prod_rating}', '${product.prod_count}','${product.prod_price}'   )">
-								주문하기</button>
-							<button class="btn btn-outline-dark flex-shrink-0 mx-2"
-								type="button" id="btnAddChoice">찜하기</button>
+							<input class="form-control text-center me-3" id="inputQuantity" type="number" value="1" style="max-width: 3rem" />
+							<button class="btn btn-outline-dark flex-shrink-0" type="button" id="btnSave" value="주문하기" onclick="cartSave('${product.prod_id}', '${product.prod_name}', '${product.prod_rating}', '${product.prod_count}','${product.prod_price}'   )">주문하기</button>
+							<button class="btn btn-outline-dark flex-shrink-0 mx-2" type="button" id="btnAddChoice">찜하기</button>
 
 						</div>
 					</div>
@@ -183,18 +171,14 @@ table.type07 td {
 							<c:forEach var="i" items="${list }">
 								<tr>
 									<th scope="row"><c:out value="${i.cust_id}" /></th>
-									<td class="fs-5 mb-5"><span> <c:forEach begin="1"
-												end="${i.prod_rating}" step="1">
+									<td class="fs-5 mb-5"><span> <c:forEach begin="1" end="${i.prod_rating}" step="1">
 												<span class="bi-star-fill"></span>
 											</c:forEach>
 									</span></td>
 									<td><c:out value="${i.prod_review}" /></td>
-									<td><img style="width: 10%; height: 2em;"
-										src="<c:out value="${i.review_imgsrc}"/>" /></td>
+									<td><img style="width: 10%; height: 2em;" src="<c:out value="${i.review_imgsrc}"/>" /></td>
 									<c:if test="${fn:contains(cust, 'M')}">
-										<td><input type="button" class="btn btn-outline-danger"
-											name="Delete" value="삭제"
-											onclick="location.href='reviewDelete?order_seq=${i.order_seq }&prod_id=${i.prod_id}'"></td>
+										<td><input type="button" class="btn btn-outline-danger" name="Delete" value="삭제" onclick="location.href='reviewDelete?order_seq=${i.order_seq }&prod_id=${i.prod_id}'"></td>
 									</c:if>
 								</tr>
 							</c:forEach>

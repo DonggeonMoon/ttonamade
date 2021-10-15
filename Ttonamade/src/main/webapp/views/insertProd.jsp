@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
@@ -170,18 +169,15 @@ body {
 	<c:import url="header.jsp" />
 	<c:import url="nav.jsp" />
 	<section class="page-section portfolio" style="height: 1200px;">
-		<form:form modelAttribute="dto" class="joinForm" action="insertProd2"
-			enctype="multipart/form-data">
+		<form:form modelAttribute="dto" class="joinForm" action="insertProd2" enctype="multipart/form-data">
 			<center>
 				<h2>🌷상품 등록🌷</h2>
 				<br>
 				<div class="container_box">
 					<div class="container">
-						<label>1차 분류</label> <select class="category1"
-							style="width: 100px">
+						<label>1차 분류</label> <select class="category1" style="width: 100px">
 							<option value="">전체</option>
-						</select> <label>2차 분류</label> <select class="category2" name="cateCode"
-							style="width: 100px">
+						</select> <label>2차 분류</label> <select class="category2" name="cateCode" style="width: 100px">
 							<option value="">전체</option>
 						</select>
 					</div>
@@ -198,15 +194,13 @@ body {
 				</div>
 				<div class="textForm">
 					ෆ설명
-					<form:textarea path="prod_desc" cols="50" rows="5"
-						class="prod_desc" />
+					<form:textarea path="prod_desc" cols="50" rows="5" class="prod_desc" />
 				</div>
 				<div class="textForm">
 					ෆ이미지<img id="imscr01" src="" height="100" alt="이미지 미리보기...">
 				</div>
 				<div class="textForm">
-					<input type="file" name="picture" id="picture"
-						onchange="previewFile()" class="picture" />
+					<input type="file" name="picture" id="picture" onchange="previewFile()" class="picture" />
 				</div>
 				<div class="textForm">
 					ෆ수량

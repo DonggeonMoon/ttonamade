@@ -2,143 +2,125 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-  <mapper namespace="product_infoMapper">
-  
-  <select id="selectAll" resultType="prodDto">
-     <![CDATA[ 
-		  	select * 
-		    from product_info 
-		    where prod_count > 0
-		    order by prod_id desc
-	 	]]>	    
-    
-  </select>
-  
-  <select id="selectOne" parameterType= "int" resultType="prodDto">
-  	select * from product_info where prod_id = #{prod_id}
-  </select>
-  
-  <insert id="insertOne" parameterType="prodDto">
-  	insert into product_info(prod_id, prod_name, prod_price,  prod_desc, prod_imgsrc, prod_count,  prod_date, cateCode)
-  	values(prod_id_seq.nextval, #{prod_name}, #{prod_price}, #{prod_desc}, #{prod_imgsrc}, #{prod_count}, sysdate, #{cateCode})
-  </insert>  
-  
-  <update id="updateOne" parameterType="prodDto">
-  	update product_info
-  	set prod_price = #{prod_price},  	   
-  	    prod_desc = #{prod_desc},
-  	    prod_count = #{prod_count},
-  	    prod_imgsrc= #{prod_imgsrc},
-  	    cateCode = #{cateCode}
-  	where prod_id = #{prod_id}
-  </update>  
-  
-  <delete id="deleteOne" parameterType="int" >
-  	delete from product_info
-  	where prod_id = #{prod_id}
-   </delete>  
-   
-   
-  <update id  ="prodCountUpdate" parameterType ="String"  >
-  		
+	<mapper namespace="product_infoMapper">
 	
-	update product_info a
-	set prod_count  = prod_count- ( select prod_count
-	                    from cart_info b
-	                    where a.prod_id = b.prod_id  and cust_id = #{cust_id} )
-	   WHERE EXISTS (  select prod_count
-	                    from cart_info b
-	                    where a.prod_id = b.prod_id  and cust_id = #{cust_id}) 
-  
-  </update>
-  
-  
-  <select id ="selectEqualsData" parameterType ="String" resultType ="int">
-	   <![CDATA[ 
-	 	 	select count(a.prod_id) as Equalscount
-		    from cart_info a, product_info b 
-		    where a.prod_id = b.prod_id
-		    and a.cust_id = #{cust_id} 
-		    and a.prod_count <= b.prod_count
- 	  
- 	  ]]>
-  </select>
-  
-  
-   <sql id="search">
-   	<if test ="SearchOption != null">
-   		<if test="SearchOption =='All'.toString()">
-   			And prod_name is not null
-   		</if>
-   		<if test="SearchOption =='prod_name'.toString()">
-   			And prod_name Like '%'||#{keyword}||'%'
-   		</if>
-   		<if test="SearchOption =='prod_price'.toString()">
-   		 <![CDATA[ 
-   			And prod_price between #{keyword, jdbcType=INTEGER }  and  #{keyword2, jdbcType=INTEGER } 
-   		 ]]>
-   		</if>
-   		  ORDER BY PROD_ID DESC
-   	</if>
-   </sql>
-   
-  <select id="selectConditioS"  parameterType ="PSDto" resultType="prodDto">
-  	 <![CDATA[ 
-	 	 select * 
-	 	 from product_info
-	 	  where prod_id is not null  
- 	 ]]> 	 
- 	 <include refid ="search"></include>  	
-  </select>
-  
-    
-  
-  <select id ="selectAllGubun" parameterType ="map" resultType="prodDto">
-
-       	select a.*
-          from product_info a, goods_category b
-          where a.catecode = b.catecode
-           
-           <choose>
-		    <when test="cateCodeRef != null and cateCodeRef.equals('')">		
-		      	AND b.cateCodeRef is not null		
-		    </when>
-		     <otherwise>
-		     	 AND b.cateCodeRef =  #{cateCodeRef}		
-		    </otherwise>		
-		  </choose>
-		  
-           <choose>
-		    <when test="cateCode != null and cateCode.equals('')">		
-		      	AND b.catecode is not null		
-		    </when>
-		     <otherwise>
-		     	 
-		     		 AND b.catecode = #{cateCode}
-		     	 	
-		    </otherwise>	
-		    	
-		  </choose>
-  	
-  </select>
-  
-     <update id ="updateProductRanking" parameterType ="String"  >
-      	
+		<select id="selectAll" resultType="prodDto">
+			<![CDATA[ 
+			select * 
+			from product_info 
+			where prod_count > 0
+			order by prod_id desc
+			]]>
+		</select>
+		
+		<select id="selectOne" parameterType= "int" resultType="prodDto">
+			select * from product_info where prod_id = #{prod_id}
+		</select>
+		 
+		<insert id="insertOne" parameterType="prodDto">
+			insert into product_info(prod_id, prod_name, prod_price,  prod_desc, prod_imgsrc, prod_count,  prod_date, cateCode)
+			values(prod_id_seq.nextval, #{prod_name}, #{prod_price}, #{prod_desc}, #{prod_imgsrc}, #{prod_count}, sysdate, #{cateCode})
+		</insert>
+				 
+		<update id="updateOne" parameterType="prodDto">
+			update product_info
+			set prod_price = #{prod_price},  	   
+			    prod_desc = #{prod_desc},
+			    prod_count = #{prod_count},
+			    prod_imgsrc= #{prod_imgsrc},
+			    cateCode = #{cateCode}
+			where prod_id = #{prod_id}
+		</update>
+		
+		<delete id="deleteOne" parameterType="int">
+			delete from product_info
+			where prod_id = #{prod_id}
+		</delete>
+		
+		<update id  ="prodCountUpdate" parameterType ="String">
 			update product_info a
-	        set a.prod_rating = ( 
-	                  select  ROUND(AVG(prod_rating),1)
-	                  from product_review aa
-	                  where aa.prod_id = a.prod_id
-	                  and prod_id = #{prod_id} ) 
-	        where  a.prod_id =  #{prod_id}   
-      
-      </update>
-      
-      <!-- 동건 추가 -->
-      <select id="searchProduct" parameterType="String" resultType="prodDto">
-	  	select *
-	  	from product_info
-	  	where prod_name like '%'||#{prod_name}||'%'
-	  </select>
-  
-  </mapper>
+			set prod_count  = prod_count - (
+								select prod_count
+								from cart_info b
+								where a.prod_id = b.prod_id  and cust_id = #{cust_id})
+			WHERE EXISTS (
+			select prod_count
+			from cart_info b
+			where a.prod_id = b.prod_id  and cust_id = #{cust_id})
+		</update>
+		
+		<select id ="selectEqualsData" parameterType ="String" resultType ="int">
+			<![CDATA[ 
+			select count(a.prod_id) as Equalscount
+			from cart_info a, product_info b 
+			where a.prod_id = b.prod_id
+			and a.cust_id = #{cust_id} 
+			and a.prod_count <= b.prod_count
+			]]>
+		</select>
+		
+		<sql id="search">
+			<if test ="SearchOption != null">
+				<if test="SearchOption =='All'.toString()">
+					And prod_name is not null
+				</if>
+				<if test="SearchOption =='prod_name'.toString()">
+					And prod_name Like '%'||#{keyword}||'%'
+				</if>
+				<if test="SearchOption =='prod_price'.toString()">
+					<![CDATA[
+					And prod_price between #{keyword, jdbcType=INTEGER }  and  #{keyword2, jdbcType=INTEGER } 
+					]]>
+				</if>
+				ORDER BY PROD_ID DESC
+			</if>
+		</sql>
+		
+		<select id="selectConditioS"  parameterType ="PSDto" resultType="prodDto">
+			<![CDATA[ 
+			select * 
+			from product_info
+			where prod_id is not null  
+			]]>
+			<include refid ="search"></include>  	
+		</select>
+		
+		<select id ="selectAllGubun" parameterType ="map" resultType="prodDto">
+			select a.*
+			from product_info a, goods_category b
+			where a.catecode = b.catecode
+			<choose>
+				<when test="cateCodeRef != null and cateCodeRef.equals('')">		
+					AND b.cateCodeRef is not null		
+				</when>
+				<otherwise>
+					AND b.cateCodeRef =  #{cateCodeRef}		
+				</otherwise>		
+			</choose>
+			<choose>
+				<when test="cateCode != null and cateCode.equals('')">		
+				AND b.catecode is not null		
+				</when>
+				<otherwise>
+					AND b.catecode = #{cateCode}
+				</otherwise>	
+			</choose>
+		</select>
+		
+		<update id ="updateProductRanking" parameterType ="String">
+			update product_info a
+			set a.prod_rating = (
+									select  ROUND(AVG(prod_rating),1)
+									from product_review aa
+									where aa.prod_id = a.prod_id
+									and prod_id = #{prod_id} ) 
+			where  a.prod_id =  #{prod_id}
+		</update>
+		
+		<select id="searchProduct" parameterType="String" resultType="prodDto">
+			select *
+			from product_info
+			where prod_name like '%'||#{prod_name}||'%'
+		</select>
+	  
+	</mapper>

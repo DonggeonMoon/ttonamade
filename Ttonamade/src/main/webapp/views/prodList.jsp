@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
@@ -43,16 +42,11 @@
 	<c:import url="nav.jsp" />
 	<div class="row m-0">
 		<!-- Section-->
-		<section class="py-5 col-10">
+		<section class="col-10 py-5">
 			<form name="form1">
-				<input type="hidden" id="prod_id" name="prod_id"> <input
-					type="hidden" id="prod_name" name="prod_name"> <input
-					type="hidden" id="prod_rating" name="prod_rating"> <input
-					type="hidden" id="prod_count" name="prod_count"> <input
-					type="hidden" id="prod_price" name="prod_price">
+				<input type="hidden" id="prod_id" name="prod_id"> <input type="hidden" id="prod_name" name="prod_name"> <input type="hidden" id="prod_rating" name="prod_rating"> <input type="hidden" id="prod_count" name="prod_count"> <input type="hidden" id="prod_price" name="prod_price">
 				<div class="container px-5 px-lg-5 mt-5">
-					<div
-						class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+					<div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
 
 						<c:forEach var="i" items="${list }">
 
@@ -63,20 +57,17 @@
 							<div class="col mb-5  mx-sm-3">
 								<div class="card h-100">
 									<!-- Product image-->
-									<a
-										href="/Ttonamade/prodView?prod_id=<c:out value="${i.prod_id}"/>"><img
-										class="card-img-top" style="width: 100%; height: 25em;"
-										src="<c:out value="${i.prod_imgsrc }"/>" alt="..." /></a>
+									<a href="/Ttonamade/prodView?prod_id=<c:out value="${i.prod_id }"/>"><img class="card-img-top" style="width: 100%; height: 25em;" src="<c:out value="${i.prod_imgsrc }"/>" alt="..." /></a>
 									<!-- Product details-->
 									<div class="card-body p-5">
 										<div class="text-center">
 											<!-- Product name-->
 											<h5 class="fw-bolder">
-												<c:out value="${i.prod_name }" />
+												<a href="/Ttonamade/prodView?prod_id=<c:out value="${i.prod_id }"/>"> <c:out value="${i.prod_name }" />
+												</a>
 											</h5>
 											<!-- Product reviews-->
-											<div
-												class="d-flex justify-content-center small text-warning mb-2">
+											<div class="d-flex justify-content-center small text-warning mb-2">
 												<c:forEach begin="1" end="${i.prod_rating/1 }" step="1">
 													<div class="bi-star-fill"></div>
 
@@ -94,20 +85,13 @@
 											</h6>
 										</div>
 										<div class="text-center">
-											<input type="text" id="prod_count-${i.prod_id }"
-												name="prod_count2" style="width: 60px; height: 30px;"
-												dir="rtl" value=<c:out value="${i.prod_count }" />>
+											<input type="number" id="prod_count-${i.prod_id }" name="prod_count2" style="width: 60px; height: 30px;" value=<c:out value="1" />>
 										</div>
-
-
 									</div>
-
 									<div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
 										<div class="text-center">
 											<div class="btn-outline-darkmt-auto">
-												<input type="button" class="btn btn-outline-warning"
-													name="btnSave" id="btnSave" value="장바구니담기"
-													onclick="cartSave('${i.prod_id}', '${i.prod_name}', '${i.prod_rating}', '${i.prod_count}', '${i.prod_price}' )">
+												<input type="button" class="btn btn-outline-warning" name="btnSave" id="btnSave" value="장바구니담기" onclick="cartSave('${i.prod_id}', '${i.prod_name}', '${i.prod_rating}', '${i.prod_count}', '${i.prod_price}' )">
 											</div>
 										</div>
 									</div>
@@ -118,30 +102,24 @@
 					</div>
 				</div>
 			</form>
+			<c:if test="${sessionScope.customer != null}">
+				<c:if test="${String.valueOf(sessionScope.customer.cust_manager) == 'M'}">
+					<div class="text-center">
+						<a class="btn btn-outline-dark m-2" href="/Ttonamade/insertProd">상품 등록</a><a class="btn btn-outline-dark m-2" href="/Ttonamade/ProdModifychoice">상품 수정</a>
+					</div>
+				</c:if>
+			</c:if>
+			<div class="text-center">
+				<input type="button" class="btn btn-outline-dark text-center m-2" style="text-align: center" value="돌아가기" onclick="history.back(-1)">
+			</div>
 		</section>
 
 		<aside class="col-2 container-fluid p-2">
-			<div class="border rounded-2 p-2 bg-white" id="wingBanner"
-				style="position: relative;">
+			<div class="border rounded-2 p-2 bg-white" id="wingBanner" style="position: relative;">
 				<div class="m-3">최근 본 상품 목록</div>
 				<div id="displaybar"></div>
 			</div>
 		</aside>
-	</div>
-	<c:if test="${sessionScope.customer != null}">
-		<c:if
-			test="${String.valueOf(sessionScope.customer.cust_manager) == 'M'}">
-			<div class="text-center mb-5">
-				<a class="btn btn-outline-dark mt-auto mx-3"
-					href="/Ttonamade/insertProd">상품 등록 </a><a
-					class="btn btn-outline-dark mt-auto mx-3"
-					href="/Ttonamade/ProdModifychoice">상품 수정 </a>
-			</div>
-		</c:if>
-	</c:if>
-	<div class="text-center mb-5">
-		<input type="button" class="btn btn-outline-dark mt-auto text-center"
-			style="text-align: center" value="돌아가기" onclick="history.back(-1)">
 	</div>
 	<c:import url="footer.jsp" />
 	<!-- 최근 본 상품 목록, 윙 배너 스크립트 -->
@@ -171,6 +149,7 @@
 		} else {
 			html = '최근 본 상품이 없습니다.';
 		}
+		console.log('adfa'+ html);
 		$('#displaybar').html(html);
 		
 		function removeProduct(idx){

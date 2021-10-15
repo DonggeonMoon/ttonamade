@@ -13,8 +13,7 @@ public class Order_detailDto {
 		super();
 	}
 
-	public Order_detailDto(int order_seq, String order_id, int prod_id, String prod_name, int prod_price,
-			int order_count) {
+	public Order_detailDto(int order_seq, String order_id, int prod_id, String prod_name, int prod_price, int order_count) {
 		super();
 		this.order_seq = order_seq;
 		this.order_id = order_id;

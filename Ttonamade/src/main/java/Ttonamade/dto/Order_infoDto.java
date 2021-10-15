@@ -22,8 +22,7 @@ public class Order_infoDto {
 	}
 
 	public Order_infoDto(String order_id, String cust_id, int order_totalAmount, Date order_date, String order_zipcode,
-			String order_add1, String order_add2, String order_telephone, char order_status, Date reservation_date,
-			Date send_date, String reservation_memo) {
+			String order_add1, String order_add2, String order_telephone, char order_status, Date reservation_date, Date send_date, String reservation_memo) {
 		super();
 		this.order_id = order_id;
 		this.cust_id = cust_id;
