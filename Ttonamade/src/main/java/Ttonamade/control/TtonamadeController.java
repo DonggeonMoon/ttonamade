@@ -79,10 +79,30 @@ public class TtonamadeController {
 
 	// 로그인 화면
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
-	public String getLogin(Model model) throws Exception {
+	public String getLogin(String error, Model model) throws Exception {
 		List<Category_Dto> category = catedao.selectAll();
 		model.addAttribute("category", JSONArray.fromObject(category));
-
+		if (error != null) {
+			switch (error) {
+			case "1":
+				model.addAttribute("error", "아이디를 입력해주세요.");
+				break;
+			case "2":
+				model.addAttribute("error", "존재하지 않는 아이디입니다.");
+				break;
+			case "3":
+				model.addAttribute("error", "탈퇴한 회원입니다.");
+				break;
+			case "4":
+				model.addAttribute("error", "비밀번호가 일치하지 않습니다.");
+				break;
+			default:
+				model.addAttribute("error", "");
+				break;
+			}
+		} else {
+			model.addAttribute("error", "");
+		}
 		return "login";
 	}
 
@@ -252,13 +272,13 @@ public class TtonamadeController {
 	public String postLogin(@ModelAttribute Customer_infoDto cudto, HttpSession session, HttpServletRequest request, Model model) throws Exception {
 		if (cudto.getCust_id().equals("")) {
 			System.out.println("아이디를 입력해주세요.");
-			return "redirect:/login";
+			return "redirect:/login?error=1";
 		}
 
 		Customer_infoDto result = cudao.selectOne(cudto.getCust_id());
 		if (result == null) {
 			System.out.println("존재하지 않는 아이디입니다.");
-			return "redirect:/login";
+			return "redirect:/login?error=2";
 		}
 
 		if (BCrypt.checkpw(cudto.getCust_password(), result.getCust_password())) {
@@ -280,7 +300,7 @@ public class TtonamadeController {
 					Map<String, Object> map2 = mapper.readValue(str2, Map.class);
 					System.out.println("아아: " + map2);
 					List<Cart_infoDto> list = new ArrayList<Cart_infoDto>();
-					
+
 					for (Object i : map2.values()) {
 						Cart_infoDto cidto = new Cart_infoDto();
 						cidto.setProd_count(Integer.parseInt(((Map<String, String>) i).get("prod_count")));
@@ -298,11 +318,11 @@ public class TtonamadeController {
 				return "redirect:/prodList";
 			} else {
 				System.out.println("탈퇴한 회원입니다.");
-				return "redirect:/login";
+				return "redirect:/login?error=3";
 			}
 		} else {
 			System.out.println("비밀번호가 일치하지 않습니다.");
-			return "redirect:/login";
+			return "redirect:/login?error=4";
 		}
 	}
 

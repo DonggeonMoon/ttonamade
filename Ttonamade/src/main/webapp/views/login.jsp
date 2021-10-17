@@ -121,13 +121,22 @@
 			}
 		}
 	});
+
+	$('#alert').delay(3000, function() {
+		$('#alert').fadeOut()
+	});
 </script>
 </head>
 <body>
 	<c:import url="header.jsp" />
 	<c:import url="nav.jsp" />
-	<div class="alert alert-danger alert-dismissible fade show"><c:out value="${model }"/></div>
 	<div class="login-page">
+		<c:if test="${error != ''}">
+			<div class="alert alert-danger alert-dismissible" id="alert">
+				<button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+				<c:out value="${error }" />
+			</div>
+		</c:if>
 		<div class="form">
 			<form class="" action="/Ttonamade/login" method="post">
 				<div>

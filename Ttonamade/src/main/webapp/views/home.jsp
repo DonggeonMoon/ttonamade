@@ -24,10 +24,10 @@
 		<p class="fs-4 mb-0">since 2021.10.10</p>
 	</header>
 	<!-- Portfolio Section-->
-	<section class="page-section portfolio" id="portfolio">
+	<section class="portfolio" id="portfolio">
 		<div class="container">
 			<!-- Portfolio Section Heading-->
-			<h2 class="page-section-heading text-center text-uppercase text-secondary m-5">best👍</h2>
+			<h2 class="text-center text-uppercase text-secondary m-5">best👍</h2>
 			<!-- Icon Divider-->
 			<div class="divider-custom">
 				<div class="divider-custom-line"></div>
@@ -109,10 +109,10 @@
 		</div>
 	</section>
 	<!-- About Section-->
-	<section class="page-section bg-primary text-dark mb-0 p-5" id="about">
+	<section class="bg-primary text-dark mb-0 p-5" id="about">
 		<div class="container">
 			<!-- About Section Heading-->
-			<h2 class="page-section-heading text-center text-uppercase text-dark">About</h2>
+			<h2 class="text-center text-uppercase text-dark">About</h2>
 			<!-- Icon Divider-->
 			<div class="divider-custom divider-light">
 				<div class="divider-custom-line"></div>
