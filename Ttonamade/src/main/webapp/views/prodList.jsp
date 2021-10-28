@@ -46,15 +46,12 @@
 			<form name="form1">
 				<input type="hidden" id="prod_id" name="prod_id"> <input type="hidden" id="prod_name" name="prod_name"> <input type="hidden" id="prod_rating" name="prod_rating"> <input type="hidden" id="prod_count" name="prod_count"> <input type="hidden" id="prod_price" name="prod_price">
 				<div class="container px-5 px-lg-5 mt-5">
-					<div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-
+					<div class="row gx-4 gx-lg-5 justify-content-center">
 						<c:forEach var="i" items="${list }">
-
 							<c:url var="link" value="/prodView">
 								<c:param name="prod_id" value="${i.prod_id }"></c:param>
 							</c:url>
-
-							<div class="col mb-5  mx-sm-3">
+							<div class="col col-xs-6 col-sm-5 col-md-4 col-lg-3 col-xl-3 mb-5 mx-sm-3">
 								<div class="card h-100">
 									<!-- Product image-->
 									<a href="/Ttonamade/prodView?prod_id=<c:out value="${i.prod_id }"/>"><img class="card-img-top" style="width: 100%; height: 25em;" src="<c:out value="${i.prod_imgsrc }"/>" alt="..." /></a>
@@ -114,7 +111,7 @@
 			</div>
 		</section>
 
-		<aside class="col-2 container-fluid p-2">
+		<aside class="col-2 d-none d-sm-block container-fluid p-2">
 			<div class="border rounded-2 p-2 bg-white" id="wingBanner" style="position: relative;">
 				<div class="m-3">최근 본 상품 목록</div>
 				<div id="displaybar"></div>
@@ -143,7 +140,7 @@
 		   		id = datavalues[i]['id'];
 		   		name = datavalues[i]['name'];
 		   		imgsrc = datavalues[i]['imgsrc'];
-		   		html += "<div class=\"card m-3\"><div class=\"card-body\"><a href=\"/Ttonamade/prodView?prod_id=" + id + "\">" + name + "</a><img width=\"50px\" height=\"50px\" src=\"" + imgsrc + "\"><input type=\"button\" class=\"btn-close\" value=\"\" onclick=\"removeProduct(" + i +")\"></div></div>";
+		   		html += "<div class=\"card m-3\"><div class=\"card-body\"><a class=\"d-none d-xxl-block d-xl-block\" href=\"/Ttonamade/prodView?prod_id=" + id + "\">" + name + "</a><img width=\"50px\" height=\"50px\" src=\"" + imgsrc + "\"><input type=\"button\" class=\"btn-close\" value=\"\" onclick=\"removeProduct(" + i +")\"></div></div>";
 		   		if (i == 6) break;
 		   	}
 		} else {
@@ -162,7 +159,7 @@
 			localStorage.setItem('Ttonamade', JSON.stringify(data));
 			location.reload();
 		}
-		var limit = $(document.body).prop('scrollHeight') - $('footer').height() * 4;
+		var limit = $(document.body).prop('scrollHeight') - $('footer').height() * 5;
 		$(window).scroll(function(){
 			let height = $(document).scrollTop();	
 			

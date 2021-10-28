@@ -40,10 +40,10 @@ tbody tr:nth-child(2n+1) {
 	<c:import url="header.jsp" />
 	<c:import url="nav.jsp" />
 	<h2 class="text-center m-5">🌷장바구니🌷</h2>
-	<div class="container mt-3">
+	<div class="container my-5">
 		<c:choose>
 			<c:when test="${map.count == 0 }">
-				<h2 style="text-align: center">장바구니가 비어있습니다.</h2>
+				<h2 class="text-center">장바구니가 비어있습니다.</h2>
 			</c:when>
 			<c:otherwise>
 				<form name="form1" id="form1" method="post" action="cartTransOrder">
@@ -57,7 +57,10 @@ tbody tr:nth-child(2n+1) {
 						</tr>
 						<c:forEach var="row" items="${map.list }" varStatus="i">
 							<tr>
-								<td>${row.prod_name}</td>
+								<c:url var="link" value="/prodView">
+									<c:param name="prod_id" value="${row.prod_id}" />
+								</c:url>
+								<td><a href="${link}">${row.prod_name}</a></td>
 								<td><script>
 		 							 	var str =${row.prod_price}/${row.prod_count}
 		 							 	str = Math.round(str)
@@ -90,10 +93,9 @@ tbody tr:nth-child(2n+1) {
 			<c:when test="${map.count == 0 }">
 			</c:when>
 			<c:otherwise>
-				<center>
-					<a href="#" onclick="history.back(-1)"><input type="button" class="btn btn-outline-warning" value="돌아가기" style="width: 150px" class="btn"></a> <a href="cartDeleteAll?cust_id=<c:out value="${map.custid }" />"><input type="button" class="btn btn-outline-warning" value="장바구니 비우기" style="width: 150px" class="btn"></a> <a href="#" onclick="form1.submit()"><input type="button" class="btn btn-outline-warning" value="주문저장" id="btn1" class="btn"></a><br> <br>
-
-				</center>
+				<div class="text-center">
+					<a href="#" onclick="history.back(-1)"><input type="button" class="btn btn-outline-warning" value="돌아가기" style="width: 150px" class="btn"></a> <a href="cartDeleteAll?cust_id=<c:out value="${map.custid }" />"><input type="button" class="btn btn-outline-warning" value="장바구니 비우기" style="width: 150px" class="btn"></a> <a href="#" onclick="form1.submit()"><input type="button" class="btn btn-outline-warning" value="주문저장" id="btn1" class="btn"></a>
+				</div>
 			</c:otherwise>
 		</c:choose>
 	</div>

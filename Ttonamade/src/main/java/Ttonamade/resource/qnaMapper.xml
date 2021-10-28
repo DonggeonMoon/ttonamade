@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	<mapper namespace="qnaMapper">
+	
+		<select id="selectAll"  resultType="QnaDto" parameterType ="map">
+			select rownum rnum,  qna_id, child_level, title, CONTENT, CUST_ID, WRITERDATE, PRIVATEFLAG, parent_level  from 
+			(select rownum rnum ,qna_id, child_level, title, CONTENT, CUST_ID, WRITERDATE, PRIVATEFLAG , parent_level from    
+			(select qna_id, child_level, title, CONTENT, CUST_ID, WRITERDATE, PRIVATEFLAG , parent_level from qna  where parent_level is null order by qna_id desc))
+			qna 
+			WHERE rnum  BETWEEN #{startNum} AND #{endNum}
+			and parent_level is null
+		</select>
+		 
+		<select id="listCountCriteria"  resultType="int" parameterType ="Ttonamade.dto.Criteria">	
+			select COUNT(*) AS COUNT
+			from qna where parent_level is null
+		</select>
+		
+		<select id="selectOne" parameterType="int" resultType="QnaDto">
+			select qna_id, child_level, title, CONTENT, CUST_ID, WRITERDATE, PRIVATEFLAG
+			from qna
+			where qna_id = #{qna_id}
+		 </select>
+		 
+		<select id="selectAllByParent" parameterType="int" resultType="QnaDto">
+			select *  from qna where parent_level = #{parent_level} start with parent_level is null connect by prior child_level = parent_level 
+		</select>
+			
+		<insert id="insertOne" parameterType="QnaDto">
+			insert into qna (qna_id, CHILD_LEVEL, PARENT_LEVEL,title, cust_id, content,privateFlag, writerDate )
+			values(qna_seq.nextval, seq_child_level.nextval, null, #{title},#{cust_id},#{content},#{privateFlag},sysdate)
+		</insert>
+		
+		<update id="updateOne" parameterType="QnaDto">
+			update qna
+			set qna_id = #{qna_id},
+			    title = #{title},
+			    content = #{content},
+			    privateFlag = #{privateFlag} 
+			where qna_id = #{qna_id}
+		</update>
+		
+		<delete id ="deleteOne" parameterType="int">
+			delete qna
+			where qna_id = #{qna_id}	
+		</delete> 
+		
+		<delete id ="deleteReply" parameterType="int">
+			delete from qna
+			where qna_id = #{qna_id}
+		</delete>
+		
+		<delete id ="deleteReply2"  parameterType="int" >
+			delete from qna
+			where qna_id = #{qna_id}
+		</delete>
+		
+		<select id = "selectReply">
+			select *
+			from qna
+			where parent_level = 2
+			order by qna_id asc;
+		</select>
+		
+		<insert id="insertComment" parameterType="QnaDto">
+			insert into qna(qna_id,  PARENT_LEVEL, CHILD_LEVEL, cust_id, content, writerDate )
+			values(qna_seq.nextval, #{child_level}, seq_child_level.nextval, #{cust_id}, #{content}, sysdate)
+		</insert>
+		
+		<insert id="insertComment2"  parameterType="QnaDto">
+			insert into qna(qna_id, CHILD_LEVEL, PARENT_LEVEL, cust_id, content, writerDate)
+			values(qna_seq.nextval, seq_child_level.nextval, #{child_level}, #{cust_id},#{content},sysdate)
+		</insert>
+	
+	</mapper>

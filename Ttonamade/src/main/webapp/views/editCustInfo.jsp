@@ -123,7 +123,7 @@ body {
 	<c:import url="nav.jsp" />
 	<section class="continer-fluid">
 		<div class="text-center">
-			<h2 class="m-2">🌷회원정보 수정/탈퇴🌷</h2>
+			<h2 class="m-5">🌷회원정보 수정/탈퇴🌷</h2>
 			<form id="form1" class="rounded-3 bg-white border d-inline-block m-2" style="width: 500px;" name="form1" action="editCustInfo2" method="POST">
 				<div class="textForm">
 					<div>ෆ아이디</div>

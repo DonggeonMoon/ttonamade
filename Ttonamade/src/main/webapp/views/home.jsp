@@ -14,8 +14,9 @@
 	<c:import url="header.jsp" />
 	<!-- Avatar -->
 	<header class="py-5 bg-primary text-center">
+		<div style="height: 200px"></div>
 		<div class="container d-flex align-items-center flex-column">
-			<a href="/Ttonamade"><img class="border border-secondary border-5 rounded-circle m-5" src="/Ttonamade/img/Ttonamade.jpg" width=400px height=400px></a>
+			<a href="/Ttonamade"><img class="border border-secondary border-5 rounded-circle m-5" src="/Ttonamade/img/Ttonamade.jpg" width=300px height=300px></a>
 			<h1 class="masthead-heading text-uppercase mb-0">✿welcome✿</h1>
 			<div class="divider-custom divider-light">
 				<i class="fas fa-star"></i>

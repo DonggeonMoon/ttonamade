@@ -34,7 +34,6 @@
 			cust_sex = #{cust_sex},
 			cust_birthday = #{cust_birthday},
 			cust_telephone = #{cust_telephone},
-			cust_manager = #{cust_manager},
 			cust_date = sysdate
 			where cust_id = #{cust_id}
 		</update>

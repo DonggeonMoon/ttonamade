@@ -65,17 +65,17 @@
 			</div>
 			<div class="container pt-3">
 				<c:if test="${String.valueOf(customer.cust_manager) eq 'M'}">
-					<p>${customer.cust_name }님은관리자이며,주문금액 10%의 DC를 받을 수 있습니다.</P>
+					<p>${customer.cust_name }님은 관리자이며, 주문금액 10%의 DC를 받을 수 있습니다.</P>
 				</c:if>
 
 				<c:if test="${String.valueOf(customer.cust_manager) eq 'G'}">
-					<p>${customer.cust_name }님은골드등급, 주문금액 10%의 DC를 받을 수 있습니다.</P>
+					<p>${customer.cust_name }님은 골드 등급, 주문금액 10%의 DC를 받을 수 있습니다.</P>
 				</c:if>
 				<c:if test="${String.valueOf(customer.cust_manager) eq 'S'}">
-					<p>${customer.cust_name }님은실버등급이며, 주문금액 5%의 DC를 받을 수 있습니다.</P>
+					<p>${customer.cust_name }님은 실버 등급이며, 주문금액 5%의 DC를 받을 수 있습니다.</P>
 				</c:if>
 				<c:if test="${String.valueOf(customer.cust_manager) eq 'B'}">
-					<p>${customer.cust_name }님은브론즈등급입니다.</P>
+					<p>${customer.cust_name }님은 브론즈 등급입니다.</P>
 				</c:if>
 			</div>
 			<table class="list-table">
@@ -111,10 +111,13 @@
 							<th>리뷰</th>
 						</tr>
 						<c:forEach var="j" items="${map.get(i.getOrder_id()) }">
+							<c:url var="link" value="/prodView">
+								<c:param name="prod_id" value="${j.prod_id}" />
+							</c:url>
 							<tr>
 								<td class="text-center"></td>
 								<td class="text-center">${j.order_count}</td>
-								<td class="text-center">${j.prod_name}</td>
+								<td class="text-center"><a href="${link}">${j.prod_name}</a></td>
 								<td class="text-center"><img style="width: 15%; height: 2.5em;" src="<c:out value="${j.prod_imgsrc}"/>" /></td>
 								<td class="text-center"><fmt:formatNumber>${j.prod_price }</fmt:formatNumber></td>
 								<td class="text-center"><input type="button" class="btn btn-outline-info" value="삭제" onclick="location.href='cancelOrder?order_id=${j.order_id}'"></td>
