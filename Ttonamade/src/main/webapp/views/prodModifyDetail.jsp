@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>데이타 수정</title>
+<title>상품 수정</title>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <style type="text/css">
 @import url(https://fonts.googleapis.com/css?family=Roboto:300);

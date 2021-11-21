@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Ttonamade</title>
+<title>장바구니</title>
 <link href="/Ttonamade/resources/css/nice-select.css" rel="stylesheet" />
 <script type="text/javascript" src="/Ttonamade/resources/js/jquery.js"></script>
 <script type="text/javascript" src="/Ttonamade/resources/js/jquery.nice-select.js"></script>

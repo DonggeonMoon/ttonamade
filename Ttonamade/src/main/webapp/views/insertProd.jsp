@@ -205,7 +205,6 @@ body {
 		$(document).ready(function() {
 			// 컨트롤러에서 데이터 받기
 			var jsonData = JSON.parse('${category}');
-			alert(jsonData);
 			var cate1Arr = new Array();
 			var cate1Obj = new Object();
 
@@ -224,8 +223,6 @@ body {
 
 			cate1Select.children().remove();
 			cate1Select = $('select .category1')
-			
-			alert(cate1Select);
 
 			for (var i = 0; i < cate1Arr.length; i++) {
 				cate1Select.append("<option value='" + cate1Arr[i].cateCode + "'>" + cate1Arr[i].cateName + "</option>");

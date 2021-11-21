@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Ttonamade</title>
+<title>찜하기 목록</title>
 </head>
 <body>
 	<c:import url="header.jsp" />

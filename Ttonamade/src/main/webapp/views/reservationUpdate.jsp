@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>예약 정보 수정</title>
 <style>
 table {
 	width: 400px;

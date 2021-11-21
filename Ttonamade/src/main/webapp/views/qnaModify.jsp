@@ -6,6 +6,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<title>문의 수정</title>
+</head>
 <body>
 	<c:import url="header.jsp" />
 	<c:import url="nav.jsp" />

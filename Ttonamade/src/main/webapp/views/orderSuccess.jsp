@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>주문성공</title>
+<title>주문 성공</title>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <style type="text/css">
 @import url(https://fonts.googleapis.com/css?family=Roboto:300);

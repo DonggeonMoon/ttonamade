@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>예약주문 리스트</title>
+<title>예약 주문 목록</title>
 <script>
 	function checkForm() {
 		if (($("#SearchOption option:selected").val()) != 'All') {

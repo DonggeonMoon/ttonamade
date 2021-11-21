@@ -70,7 +70,6 @@ public class TtonamadeController {
 	// 홈 화면
 	@RequestMapping("/")
 	public String home(Model model) throws Exception {
-		// 홈에서 카테고리에 값을 넎어주어야 하나?
 		List<Category_Dto> category = catedao.selectAll();
 		model.addAttribute("category", JSONArray.fromObject(category));
 

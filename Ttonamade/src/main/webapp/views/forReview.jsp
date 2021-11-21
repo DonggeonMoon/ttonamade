@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>리뷰 달기</title>
+<title>리뷰 쓰기</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="/Ttonamade/resources/css/10-10.css" />
 <script type="text/javascript" src="/Ttonamade/resources/js/10-10.js"></script>

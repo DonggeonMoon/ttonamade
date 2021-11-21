@@ -10,7 +10,8 @@
 <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css" />
 <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
 <script src="https://use.fontawesome.com/releases/v5.15.3/js/all.js"></script>
-
+<!-- favicon -->
+<link rel="icon" href="/Ttonamade/resources/favicon.ico" type="image/x-icon">
 <!-- bootstrap-icon -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
 <link href="/Ttonamade/resources/css/nice-select.css" rel="stylesheet" />

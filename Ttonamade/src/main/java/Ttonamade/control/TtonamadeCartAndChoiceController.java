@@ -180,7 +180,6 @@ public class TtonamadeCartAndChoiceController {
 		model.addAttribute("category", JSONArray.fromObject(category));
 
 		if (session.getAttribute("customer") != null) {
-
 			return "addressPage";
 		} else {
 			return "redirect:/login";
