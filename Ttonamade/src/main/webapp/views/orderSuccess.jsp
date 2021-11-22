@@ -130,6 +130,7 @@
 		<div class="form">
 			<c:import url="header.jsp" />
 			<h2>🎉주문 성공🎉</h2>
+			<div>상태코드: ${res_cd }</div>
 			<input type="button" value="쇼핑 계속하기" onclick="location.href='/Ttonamade/prodList'"> <input type="button" value="주문확인하러 가기" onclick="location.href='/Ttonamade/findOrderAndCancel'">
 		</div>
 	</div>

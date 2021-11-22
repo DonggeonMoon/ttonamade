@@ -32,7 +32,7 @@
 
 					<td style="border: 5px solid #ffcccc" colspan="2"><c:if test="${sessionScope.customer.cust_id == list.cust_id}">
 							<a href="/Ttonamade/qnaModify?qna_id=${list.qna_id}"><input type="button" class="btn pull-right btn-success" value="수정" id="btn" /></a>
-						</c:if> <input type="button" class="btn pull-right btn-secondary" value="돌아가기" id="btn" /></td>
+						</c:if> <input type="button" class="btn pull-right btn-secondary" value="돌아가기" onclick="history.back()"/></td>
 				</tr>
 			</table>
 			<input type="hidden" name="qna_id" value="${list.qna_id}">

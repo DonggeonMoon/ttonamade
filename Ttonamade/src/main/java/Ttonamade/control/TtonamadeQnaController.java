@@ -102,9 +102,8 @@ public class TtonamadeQnaController {
 		String content = qnaDto.getContent();
 		char privateflag = qnaDto.getPrivateFlag();
 
-		if (title == "" || content == "" || privateflag == 0) {
+		if (title.equals("") || content.equals("") || privateflag == 0) {
 			return "accessDenied2";
-
 		} else {
 			qdao.insertOne(qnaDto);
 			return "redirect:/qnaList";
@@ -117,7 +116,7 @@ public class TtonamadeQnaController {
 		String title = qnaDto.getTitle();
 		String content = qnaDto.getContent();
 		char privateflag = qnaDto.getPrivateFlag();
-		if (title == "" || content == "" || privateflag == 0) {
+		if (title.equals("") || content.equals("") || privateflag == 0) {
 			return "accessDenied2";
 		} else {
 			qdao.updateOne(qnaDto);
@@ -158,7 +157,7 @@ public class TtonamadeQnaController {
 		String cust_id = ((Customer_infoDto) session.getAttribute("customer")).getCust_id();
 		qnaDto.setCust_id(cust_id);
 		String content = qnaDto.getContent();
-		if (content == "") {
+		if (content.equals("")) {
 			return "accessDenied3";
 		} else {
 			qdao.insertComment(qnaDto);
@@ -169,11 +168,11 @@ public class TtonamadeQnaController {
 	// 대댓글 작성
 	@RequestMapping("/insertComment2")
 	public String insertComment2(@ModelAttribute QnaDto qnaDto, int board_qna_id, HttpSession session) throws Exception {
-		qnaDto.setParent_level(qnaDto.getChild_level());
 		String cust_id = ((Customer_infoDto) session.getAttribute("customer")).getCust_id();
+		qnaDto.setParent_level(qnaDto.getChild_level());
 		qnaDto.setCust_id(cust_id);
 		String content = qnaDto.getContent();
-		if (content == "") {
+		if (content.equals("")) {
 			return "accessDenied3";
 		} else {
 			qdao.insertComment(qnaDto);

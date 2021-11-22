@@ -72,7 +72,6 @@ public class TtonamadeController {
 	public String home(Model model) throws Exception {
 		List<Category_Dto> category = catedao.selectAll();
 		model.addAttribute("category", JSONArray.fromObject(category));
-
 		return "home";
 	}
 
@@ -138,7 +137,7 @@ public class TtonamadeController {
 		if (session.getAttribute("customer") != null) {
 			return "myPage";
 		} else {
-			System.out.println("로그인 해주세요.");
+			System.out.println("로그인해주세요.");
 			return "redirect:/login";
 		}
 	}
@@ -297,7 +296,6 @@ public class TtonamadeController {
 					String str2 = URLDecoder.decode(str, "UTF-8");
 					ObjectMapper mapper = new ObjectMapper();
 					Map<String, Object> map2 = mapper.readValue(str2, Map.class);
-					System.out.println("아아: " + map2);
 					List<Cart_infoDto> list = new ArrayList<Cart_infoDto>();
 
 					for (Object i : map2.values()) {
@@ -329,7 +327,6 @@ public class TtonamadeController {
 	public String logout(HttpSession session, Model model) throws Exception {
 		List<Category_Dto> category = catedao.selectAll();
 		model.addAttribute("category", JSONArray.fromObject(category));
-
 		session.removeAttribute("customer");
 		return "redirect:/prodList";
 	}

@@ -76,12 +76,8 @@ public class TtonamadeCartAndChoiceController {
 	// 장바구니 담기
 	@RequestMapping("/orderAddCart")
 	public String ProdAddCartMethod(Product_infoDto dto, HttpSession session, HttpServletRequest request, HttpServletResponse response) throws Exception {
-		String cust_id = "";
-
 		if (session.getAttribute("customer") != null) {
-			cust_id = (((Customer_infoDto) session.getAttribute("customer")).getCust_id());
-
-			System.out.println((((Customer_infoDto) session.getAttribute("customer")).getCust_id()));
+			String cust_id = (((Customer_infoDto) session.getAttribute("customer")).getCust_id());
 
 			Cart_infoDto cartDto = new Cart_infoDto();
 			cartDto.setCart_id(0);
@@ -91,16 +87,15 @@ public class TtonamadeCartAndChoiceController {
 			cartDto.setProd_name(dto.getProd_name());
 			cartDto.setProd_count(dto.getProd_count());
 
-			int prodprice = (int) dto.getProd_count() * (int) dto.getProd_price();
+			int prodprice = dto.getProd_count() * dto.getProd_price();
 			cartDto.setProd_price(prodprice);
 
 			int count = 0;
 			count = cartdao.countCart(cartDto.getProd_id(), cartDto.getCust_id());
 
 			if (count == 0) {
-				// 없는 상품이라면 상품을 저장한다.
 				cartdao.insertOne(cartDto);
-			} else {// 카트에 정보를 업데이트 한다.
+			} else {
 				cartdao.updateCart(cartDto);
 			}
 			return "redirect:/prodList";
@@ -136,8 +131,38 @@ public class TtonamadeCartAndChoiceController {
 			return "redirect:/cartView";
 		}
 	}
+	
+	@RequestMapping("/checkCart")
+	public String directOrder(Product_infoDto dto, HttpSession session) throws Exception {
+		if (session.getAttribute("customer") != null) {
+			String cust_id = (((Customer_infoDto) session.getAttribute("customer")).getCust_id());
 
-	// 장바구니 보기
+			Cart_infoDto cartDto = new Cart_infoDto();
+			cartDto.setCart_id(0);
+			cartDto.setCust_id(cust_id);
+			cartDto.setProd_id(dto.getProd_id());
+			cartDto.setProd_name(dto.getProd_name());
+			cartDto.setProd_count(dto.getProd_count());
+	
+			int prodprice = dto.getProd_count() * dto.getProd_price();
+			cartDto.setProd_price(prodprice);
+	
+			int count = 0;
+			count = cartdao.countCart(cartDto.getProd_id(), cartDto.getCust_id());
+	
+			if (count == 0) {
+				cartdao.insertOne(cartDto);
+			} else {
+				cartdao.updateCart(cartDto);
+			}
+			return "redirect:/CartContainView";
+		} else {
+			System.out.println("로그인해주세요.");
+			return "redirect:/login";
+		}
+	}
+	
+	// 장바구니 보기(회원)
 	@RequestMapping("/CartContainView")
 	public ModelAndView CartViewPage(ModelAndView mav, Model model, HttpSession session) throws Exception {
 
@@ -150,7 +175,7 @@ public class TtonamadeCartAndChoiceController {
 
 		} else {
 
-			System.out.println("로그인 해주세요.");
+			log.info("로그인해주세요");
 			mav.setViewName("redirect:/login");
 			return mav;
 		}
@@ -171,73 +196,8 @@ public class TtonamadeCartAndChoiceController {
 
 		return mav;
 	}
-
-	// 주소페이지로 이동
-	// 예약일자, 배송일자 입력하기
-	@RequestMapping(value = "/cartTransOrder", method = RequestMethod.POST)
-	public String cartSaveOrder(Model model, HttpSession session) throws Exception {
-		List<Category_Dto> category = catedao.selectAll();
-		model.addAttribute("category", JSONArray.fromObject(category));
-
-		if (session.getAttribute("customer") != null) {
-			return "addressPage";
-		} else {
-			return "redirect:/login";
-		}
-	}
-
-	///////////////////////////////////////////////////////////////////////////
-	// 2021-10-19
-	// cartView.jsp도 수정함(삭제 버튼 url 매개 변수 수정)
-	// header에 장바구니 버튼도 추가 필요
-	@RequestMapping("/cartDeleteAll")
-	public String cartDeleteAll(String cust_id, HttpServletRequest request, HttpServletResponse response, HttpSession session) throws Exception {
-		if ((Customer_infoDto) session.getAttribute("customer") != null) {
-			cartdao.deleteAll(cust_id);
-			return "redirect:/cartView";
-		} else {
-			Cookie[] cookie = request.getCookies();
-
-			for (int i = 0; i < cookie.length; i++) {
-				if (cookie[i].getName().equals("TtonamadeCart")) {
-					cookie[i].setMaxAge(0);
-					response.addCookie(cookie[i]);
-					break;
-				}
-			}
-		}
-		return "redirect:/cartView";
-	}
-
-	@RequestMapping("/cartDelete")
-	public String cartinfoDelete(int cart_id, int prod_id, HttpSession session, HttpServletResponse response, HttpServletRequest request) throws Exception {
-		if ((Customer_infoDto) session.getAttribute("customer") != null) {
-			cartdao.deleteOne(cart_id);
-			return "redirect:/cartView";
-		} else {
-			Cookie[] cookie = request.getCookies();
-			String str = "";
-			for (Cookie i : cookie) {
-				if (i.getName().equals("TtonamadeCart")) {
-					str = i.getValue();
-				}
-			}
-
-			String str2 = URLDecoder.decode(str, "UTF-8");
-			ObjectMapper mapper = new ObjectMapper();
-			@SuppressWarnings("unchecked")
-			Map<String, Object> map2 = mapper.readValue(str2, Map.class);
-			map2.remove(String.valueOf(prod_id));
-			System.out.println("아아: " + map2);
-			String json = mapper.writeValueAsString(map2);
-			Cookie cookie2 = new Cookie("TtonamadeCart", URLEncoder.encode(json, "UTF-8"));
-			response.addCookie(cookie2);
-
-			return "redirect:/cartView";
-		}
-	}
-
-	// 장바구니 보기
+	
+	// 장바구니 보기(비회원)
 	@SuppressWarnings("unchecked")
 	@RequestMapping("/cartView")
 	public ModelAndView cartView(HttpServletRequest request, ModelAndView mav, HttpSession session) throws Exception {
@@ -266,7 +226,6 @@ public class TtonamadeCartAndChoiceController {
 				String str2 = URLDecoder.decode(str, "UTF-8");
 				ObjectMapper mapper = new ObjectMapper();
 				Map<String, Object> map2 = mapper.readValue(str2, Map.class);
-				System.out.println("아아: " + map2);
 
 				for (Object i : map2.values()) {
 					Cart_infoDto cidto = new Cart_infoDto();
@@ -279,6 +238,7 @@ public class TtonamadeCartAndChoiceController {
 				}
 			}
 		}
+		
 
 		map.put("list", list);
 		map.put("count", list.size());
@@ -290,6 +250,68 @@ public class TtonamadeCartAndChoiceController {
 		log.info("sumMoney: " + sumMoney + "");
 		log.info("count: " + list.size() + "");
 		return mav;
+	}
+	
+	// 주소페이지로 이동
+	// 예약일자, 배송일자 입력하기
+	@RequestMapping(value = "/cartTransOrder", method = RequestMethod.POST)
+	public String cartSaveOrder(Model model, HttpSession session) throws Exception {
+		List<Category_Dto> category = catedao.selectAll();
+		model.addAttribute("category", JSONArray.fromObject(category));
+
+		if (session.getAttribute("customer") != null) {
+			return "insertOrder";
+		} else {
+			return "redirect:/login";
+		}
+	}
+
+	// 장바구니 삭제
+	@RequestMapping("/cartDelete")
+	public String cartinfoDelete(int cart_id, int prod_id, HttpSession session, HttpServletResponse response, HttpServletRequest request) throws Exception {
+		if ((Customer_infoDto) session.getAttribute("customer") != null) {
+			cartdao.deleteOne(cart_id);
+			return "redirect:/cartView";
+		} else {
+			Cookie[] cookie = request.getCookies();
+			String str = "";
+			for (Cookie i : cookie) {
+				if (i.getName().equals("TtonamadeCart")) {
+					str = i.getValue();
+				}
+			}
+
+			String str2 = URLDecoder.decode(str, "UTF-8");
+			ObjectMapper mapper = new ObjectMapper();
+			@SuppressWarnings("unchecked")
+			Map<String, Object> map2 = mapper.readValue(str2, Map.class);
+			map2.remove(String.valueOf(prod_id));
+			String json = mapper.writeValueAsString(map2);
+			Cookie cookie2 = new Cookie("TtonamadeCart", URLEncoder.encode(json, "UTF-8"));
+			response.addCookie(cookie2);
+
+			return "redirect:/cartView";
+		}
+	}
+
+	// 장바구니 전체 삭제
+	@RequestMapping("/cartDeleteAll")
+	public String cartDeleteAll(String cust_id, HttpServletRequest request, HttpServletResponse response, HttpSession session) throws Exception {
+		if ((Customer_infoDto) session.getAttribute("customer") != null) {
+			cartdao.deleteAll(cust_id);
+			return "redirect:/cartView";
+		} else {
+			Cookie[] cookie = request.getCookies();
+
+			for (int i = 0; i < cookie.length; i++) {
+				if (cookie[i].getName().equals("TtonamadeCart")) {
+					cookie[i].setMaxAge(0);
+					response.addCookie(cookie[i]);
+					break;
+				}
+			}
+		}
+		return "redirect:/cartView";
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -318,7 +340,7 @@ public class TtonamadeCartAndChoiceController {
 				return map;
 			}
 		} else {
-			System.out.println("로그인해주세요.");
+			System.out.println("로그인해주세요");
 			map.put("isSuceeded", "login");
 			return map;
 		}
@@ -339,7 +361,7 @@ public class TtonamadeCartAndChoiceController {
 			return new ModelAndView("choiceView", "map", map);
 
 		} else {
-			System.out.println("로그인해주세요.");
+			System.out.println("로그인해주세요");
 			return new ModelAndView("login");
 		}
 	}
@@ -352,7 +374,7 @@ public class TtonamadeCartAndChoiceController {
 			Product_choiceDto pcdto = new Product_choiceDto(cust_id, prod_id);
 			pcdao.deleteOne(pcdto);
 		} else {
-			System.out.println("로그인해주세요.");
+			System.out.println("로그인해주세요");
 			return "redirect:/login";
 		}
 		return "redirect:/choiceView";
@@ -366,7 +388,7 @@ public class TtonamadeCartAndChoiceController {
 			pcdao.deleteAll(cust_id);
 			return "redirect:/choiceView";
 		} else {
-			System.out.println("로그인해주세요.");
+			System.out.println("로그인해주세요");
 			return "redirect:/login";
 		}
 	}

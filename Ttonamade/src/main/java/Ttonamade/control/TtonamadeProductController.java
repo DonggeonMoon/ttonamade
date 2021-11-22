@@ -73,7 +73,7 @@ public class TtonamadeProductController {
 	Category_Dao catedao;
 
 	////////////////////////////////////////////////////////////////////////////
-	/* 자동완성 관련 */
+	/* 자동 완성 관련 */
 	// 자동 완성 기능 ajax
 	@RequestMapping(value = "/autocomplete", method = RequestMethod.POST)
 	@ResponseBody
@@ -92,8 +92,6 @@ public class TtonamadeProductController {
 	@ModelAttribute("list")
 	@RequestMapping("/prodList")
 	public List<Product_infoDto> prodList(Model model) throws Exception {
-		// 여기에서 추가해주어야 할것이 드랍다운 메뉴
-
 		List<Category_Dto> category = catedao.selectAll();
 		model.addAttribute("category", JSONArray.fromObject(category));
 		return pidao.selectAll();
@@ -102,22 +100,39 @@ public class TtonamadeProductController {
 	// 상품 목록
 	@RequestMapping("/prodList1")
 	public String prodListCondition(Model model, @RequestParam String catecoderef, @RequestParam String catecode) throws Exception {
-		// 여기에서 추가해주어야 할것이 드랍다
 		log.info("catecoderef: catecode : " + catecoderef + "" + catecode);
 		List<Product_infoDto> list = pidao.selectAllGubun(catecoderef, catecode);
 		model.addAttribute("list", list);
 		List<Category_Dto> category = catedao.selectAll();
 		model.addAttribute("category", JSONArray.fromObject(category));
-
 		return "prodList";
-
 	}
+	
+	@RequestMapping("/prodList2")
+	public String prodList2(Model model, HttpSession session) throws Exception {
 
+		List<Category_Dto> category = catedao.selectAll();
+		model.addAttribute("category", JSONArray.fromObject(category));
+
+		String Cust_id = "";
+		if (session.getAttribute("customer") != null) {
+			Cust_id = (((Customer_infoDto) session.getAttribute("customer")).getCust_id());
+
+		} else {
+
+			model.addAttribute("data", "로그인해주세요.");
+			model.addAttribute("url", "login");
+			return "prodList2";
+		}
+
+		model.addAttribute("list", detailReviewDao.selectAllDetail(Cust_id));
+		return "prodList2";
+	}
+	
 	@RequestMapping("/prodListCate")
 	public String prodListCate(Model model) throws Exception {
 		List<Category_Dto> category = catedao.selectAll();
 		model.addAttribute("category", JSONArray.fromObject(category));
-
 		return "header";
 	}
 
@@ -136,8 +151,6 @@ public class TtonamadeProductController {
 		}
 
 		System.out.println("managergubun 구분값을 알고싶다. " + managergubun);
-		// 여기에서 만일 관리자 유무에 따라 다른 뷰를 보여준다.
-		// customer cust_manager =='M'이라면
 		model.addAttribute("list", list);
 		model.addAttribute("cust", managergubun);
 		return pidao.selectOne(prod_id);
@@ -171,33 +184,11 @@ public class TtonamadeProductController {
 				return "redirect:/prodList";
 			}
 		} else {
-			System.out.println("로그인 해주세요.");
+			System.out.println("로그인해주세요.");
 			return "redirect:/login";
 		}
 	}
-
-	@RequestMapping("/prodList2")
-	public String prodList2(Model model, HttpSession session) throws Exception {
-
-		List<Category_Dto> category = catedao.selectAll();
-		model.addAttribute("category", JSONArray.fromObject(category));
-
-		String Cust_id = "";
-		if (session.getAttribute("customer") != null) {
-			Cust_id = (((Customer_infoDto) session.getAttribute("customer")).getCust_id());
-
-		} else {
-
-			model.addAttribute("data", "로그인해주세요.");
-			model.addAttribute("url", "login");
-			return "prodList2";
-		}
-
-		model.addAttribute("list", detailReviewDao.selectAllDetail(Cust_id));
-		return "prodList2";
-
-	}
-
+	
 	@RequestMapping(value = "/forReviewDelete", method = RequestMethod.POST)
 	public String forReviewDelete(Model model, @ModelAttribute Product_reviewDto dto) throws Exception {
 		log.info(dto.getProd_id());
@@ -206,7 +197,7 @@ public class TtonamadeProductController {
 		List<Category_Dto> category = catedao.selectAll();
 		model.addAttribute("category", JSONArray.fromObject(category));
 
-		prodReDao.deleteOne(dto);// 지운다.
+		prodReDao.deleteOne(dto);
 		model.addAttribute("data", "리뷰가 삭제되었습니다.");
 		model.addAttribute("url", "prodList2");
 		return "prodList2";
@@ -237,12 +228,11 @@ public class TtonamadeProductController {
 
 		}
 
-		prodReDao.updateSet(dto);// 업데이트한다.
-		pidao.updateProductRanking(dto.getProd_id()); // 리뷰업데이트
+		prodReDao.updateSet(dto);
+		pidao.updateProductRanking(dto.getProd_id());
 
 		model.addAttribute("data", "리뷰가 수정되었습니다.");
 		model.addAttribute("url", "prodList2");
-
 		return "prodList2";
 
 	}
@@ -289,8 +279,6 @@ public class TtonamadeProductController {
 			dto.getProd_name();
 			dto.getProd_imgsrc();
 			dto.getOrder_seq();
-			// 로그인한 값과 작성자를 확인하라
-			// 새로 저장할때는 고객의 상품아이디와 chking한다.
 			log.info(dto.getProd_id() + " : 상품번호 ");
 			log.info(dto.getOrder_seq() + " : 고객번호 ");
 			log.info(dto.getProd_name() + " : 상품명 ");
@@ -302,19 +290,19 @@ public class TtonamadeProductController {
 			model.addAttribute("dto", dto);
 			log.info("수량 : " + "" + count);
 
-			if (count != 0) { // 업데이트 페이지로 이동한다.
+			if (count != 0) {
 				Product_reviewDto prdto = new Product_reviewDto();
 				prdto = prodReDao.selectOneData(dto.getProd_id(), dto.getOrder_seq());
 
 				model.addAttribute("PRDDto", prdto);
-				return "forReviewModify";// 수정페이지로 이동한다.
+				return "forReviewModify";
 
 			}
 
-			return "forReview"; // 저장페이지로 이동한다.
+			return "forReview";
 
 		} else {
-			System.out.println("로그인 해주세요.");
+			System.out.println("로그인해주세요.");
 			return "redirect:/login";
 		}
 	}
@@ -329,7 +317,7 @@ public class TtonamadeProductController {
 			cust_id = ((Customer_infoDto) session.getAttribute("customer")).getCust_id();
 
 		} else {
-			System.out.println("로그인 해주세요.");
+			System.out.println("로그인해주세요.");
 			return "redirect:/login";
 		}
 
@@ -341,7 +329,7 @@ public class TtonamadeProductController {
 			System.out.println("sc.getRealPath(\"/\") " + sc.getRealPath("/"));
 			System.out.println("sc.getContextPath() " + sc.getContextPath());
 
-			String originalFileName = dto.getPicture().getOriginalFilename(); // 파일이름을 수정해보자
+			String originalFileName = dto.getPicture().getOriginalFilename();
 
 			UUID uid = UUID.randomUUID();
 
@@ -355,8 +343,8 @@ public class TtonamadeProductController {
 
 		}
 
-		prodReDao.insertOne(dto); // 새로운 게시물 저장한다.
-		pidao.updateProductRanking(dto.getProd_id()); // 리뷰업데이트
+		prodReDao.insertOne(dto);
+		pidao.updateProductRanking(dto.getProd_id());
 
 		model.addAttribute("data", "리뷰가 등록되었습니다.");
 		model.addAttribute("url", "prodList2");
@@ -368,7 +356,7 @@ public class TtonamadeProductController {
 	@RequestMapping("/insertProd")
 	public String insertProd(Model model, HttpSession session, HttpServletRequest request) throws Exception {
 
-		model.addAttribute("dto", new Product_infoDto()); // 상품
+		model.addAttribute("dto", new Product_infoDto());
 		List<Category_Dto> category = catedao.selectAll();
 		model.addAttribute("category", JSONArray.fromObject(category));
 
@@ -380,7 +368,7 @@ public class TtonamadeProductController {
 				return "redirect:/prodList";
 			}
 		} else {
-			System.out.println("로그인 해주세요.");
+			System.out.println("로그인해주세요.");
 			return "redirect:/login";
 		}
 	}
@@ -390,10 +378,10 @@ public class TtonamadeProductController {
 	@ResponseBody
 	public int ProdDataDelete_Method(@RequestParam int prod_id) throws Exception {
 		int count = 0;
-		// 주문정보에 데이터를 확인한다.
+
 		count = detaildao.selectOne(prod_id);
-		if (count == 0) { // 상세정보가 있을경우
-			pidao.deleteOne(prod_id); // 상품정보를 지운다.
+		if (count == 0) {
+			pidao.deleteOne(prod_id);
 			return count;
 		}
 		return count;
@@ -411,13 +399,13 @@ public class TtonamadeProductController {
 				return "redirect:/prodList";
 			}
 		} else {
-			System.out.println("로그인 해주세요.");
+			System.out.println("로그인해주세요.");
 			return "redirect:/login";
 		}
 		return "ProdModify";
 	}
 
-	// 상품정보를 수정후 수정 버튼을 누를때
+	// 상품 정보를 수정 후 수정 버튼을 누를 때
 	@RequestMapping(value = "/ProductUpdate", method = RequestMethod.POST)
 	public String ProdModifyOk_Method2(@ModelAttribute Product_infoDto dto, MultipartHttpServletRequest request) throws Exception {
 
@@ -447,10 +435,9 @@ public class TtonamadeProductController {
 		pidao.update(dto);
 
 		return "redirect:/ProdModifychoice";
-
 	}
 
-	// 검색 : 상세정보/ 상세정보 링크 클릭시
+	// 검색: 상세정보/상세정보 링크 클릭 시
 	// boardRead1 페이지로 이동한다.
 	@RequestMapping(value = "/prodModifyManager", method = RequestMethod.GET)
 	public String ProductInformation_Modify(Model model, @RequestParam int prod_id) throws Exception {
@@ -463,12 +450,9 @@ public class TtonamadeProductController {
 		return "prodModifyDetail";
 	}
 
-	// 조건 검색버튼을 누를때의 행동을 보여주다.
+	// 조건 검색 버튼을 누를때의 행동을 보여준다.
 	@RequestMapping("/productConditionSearch")
 	public String ProductCondition_Search(ProductSearchDto dto, Model model) throws Exception {
-
-		// 검색은 사용자가 요구할때만 값을 넣어주기 때문에
-		// 기본값을 어떻게 할지를 고민해보장
 
 		log.info("DTO.getSearchOption() :" + dto.getSearchOption());
 

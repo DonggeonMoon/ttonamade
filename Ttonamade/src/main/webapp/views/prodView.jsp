@@ -27,7 +27,7 @@
 			document.getElementById("prod_count").value = document
 					.getElementById("inputQuantity").value;
 			alert("장바구니 페이지로 이동합니다.");
-			sform.action = "insertOrder";
+			sform.action = "checkCart";
 			sform.submit();
 		}
 	}

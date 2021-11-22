@@ -73,7 +73,7 @@
 }
 </style>
 <!-- Navigation-->
-<header class="navbar navbar-expand-lg bg-secondary fixed-top" id="mainNav">
+<header class="navbar navbar-expand-lg bg-secondary fixed-top" id="mainNav" style="z-index:2;">
 	<div class="container-fluid">
 		<div class="col-12 col-sm-12 col-md-5 col-lg-3 px-5">
 			<a href="/Ttonamade" class="navbar-brand text-uppercase text-danger">Ttonamade dessert</a>

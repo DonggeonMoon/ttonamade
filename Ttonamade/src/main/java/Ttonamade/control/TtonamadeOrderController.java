@@ -16,7 +16,9 @@ import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import Ttonamade.dao.Cart_infoDao;
@@ -28,7 +30,6 @@ import Ttonamade.dao.Order_infoDao;
 import Ttonamade.dao.Product_choiceDao;
 import Ttonamade.dao.Product_infoDao;
 import Ttonamade.dao.Product_reviewDao;
-import Ttonamade.dto.Cart_infoDto;
 import Ttonamade.dto.Category_Dto;
 import Ttonamade.dto.Customer_infoDto;
 import Ttonamade.dto.Order_DetailReview;
@@ -78,7 +79,6 @@ public class TtonamadeOrderController {
 		model.addAttribute("category", JSONArray.fromObject(category));
 
 		if (session.getAttribute("customer") != null) {
-
 			List<Order_infoDto> list = oidao.selectAll(((Customer_infoDto) session.getAttribute("customer")).getCust_id());
 			model.addAttribute("list", list);
 
@@ -92,14 +92,13 @@ public class TtonamadeOrderController {
 
 			return "findOrderAndCancel";
 		} else {
-			System.out.println("로그인 해주세요.");
+			System.out.println("로그인해주세요.");
 			return "redirect:/login";
 		}
 	}
 
 	@RequestMapping("/cancelOrder")
 	public String cancelOrder(@RequestParam String order_id, HttpSession session) throws Exception {
-		// 주문삭제 시/주문Flag/주문금액을 가지고 등급 update한다.
 		if (session.getAttribute("customer") != null) {
 
 			String cust_id = ((Customer_infoDto) session.getAttribute("customer")).getCust_id();
@@ -117,11 +116,9 @@ public class TtonamadeOrderController {
 
 			}
 			char Ranking = (((Customer_infoDto) session.getAttribute("customer")).getCust_manager());
-			// 주문저장하고 사용자 USER 등급을 UPDATE, 저장한 값 까지 해서 TOTAL금액을 가지고UPDATE한다.
+
 			log.info("고객등급" + Ranking);
 			if (Ranking != 'M') {
-				// 고객의 주문값을 이용하여 등급을 업데이트 한다.
-				// 주문저장하고 사용자 USER 등급을 UPDATE, 저장한 값 까지 해서 TOTAL금액을 가지고UPDATE한다.
 				int ResultValue = oidao.selectCustOrder(cust_id);
 				log.info("금액 " + ResultValue);
 				if (ResultValue >= 100000 && ResultValue < 200000) {
@@ -139,7 +136,8 @@ public class TtonamadeOrderController {
 		return "redirect:/findOrderAndCancel";
 	}
 
-	//////////////////////////// 관리///////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////
+	/* 예약 관련 */
 	@RequestMapping("/reservationOrder")
 	public String reservationOrder(Model model, HttpSession session) throws Exception {
 		if (session.getAttribute("customer") != null) {
@@ -199,17 +197,13 @@ public class TtonamadeOrderController {
 
 	@RequestMapping("/ResOrderUpdate")
 	public String ResOrderUpdate(Model model, @RequestParam String Gubun, @RequestParam String order_id, HttpSession session) throws Exception {
-		// 해당 주문에 해당값 수정
 		log.info("로그값을 찍어라 " + Gubun);
 		if (session.getAttribute("customer") != null) {
 			char resultRank = ((Customer_infoDto) (session.getAttribute("customer"))).getCust_manager();
 
-			if (resultRank == 'M') {// 관리자만 수정및 삭제가 가능하다.
+			if (resultRank == 'M') {
 
 				if (Gubun.equals("M")) {
-					// 수정페이지로 이동한다.
-					// model.addAttribute("order_id", order_id);
-					// 예약일자, 배송일자, 배송메모를 던져준다.
 					Order_infoDto dto = oidao.selectOne(order_id);
 					model.addAttribute("orderDto", dto);
 					return "reservationUpdate";
@@ -246,12 +240,11 @@ public class TtonamadeOrderController {
 		model.addAttribute("url", "reservationOrder");
 		return "reservationOrder";
 	}
-
+	
 	///////////////////////////////////////////////////////////////////////
-
-	// 주문확정을 누르면~
-	@RequestMapping("/orderSuccess") // 주문저장
-	public String orderSuccess(@ModelAttribute Order_infoDto dto, HttpSession session, Model model) throws Exception {
+	// 주문 확정을 누를 시
+	@RequestMapping(value = "/orderSuccess", method = RequestMethod.POST)
+	public String orderSuccess(@ModelAttribute Order_infoDto dto, HttpSession session, Model model, @RequestBody String res_cd) throws Exception {
 
 		List<Category_Dto> category = catedao.selectAll();
 		model.addAttribute("category", JSONArray.fromObject(category));
@@ -268,17 +261,13 @@ public class TtonamadeOrderController {
 		}
 
 		int order_totalAmount = 0;
-		order_totalAmount = cartdao.sumMoney(cust_id);// 주문총금액
+		order_totalAmount = cartdao.sumMoney(cust_id);
 
-		String orderId = OrderNoReturn();// 주문번호 생성
+		String orderId = OrderNoReturn();
 
-		// 주문 저장 전에 cart테 이블의 data값을 수량을 check하라
-		// 만약 재고가 부족한 값이 있으면 주문할 수 없다.
-		// 재고 확인
 		int Equalscount = 0;
-		Equalscount = pidao.selectData(cust_id); // 상품재고파악 // 0:주문가능 0보다 크면 재고부족으로 주문불가능
+		Equalscount = pidao.selectData(cust_id);
 
-		//////////////// 주문저장////////////////////////////
 		log.info("  orderId : " + orderId);
 		log.info("  order_totalAmount : " + order_totalAmount);
 		log.info("  getOrder_add1 : " + dto.getOrder_add1());
@@ -286,51 +275,48 @@ public class TtonamadeOrderController {
 		log.info("  getOrder_zipcode : " + dto.getOrder_telephone());
 		log.info("  Equalscount : " + Equalscount);
 
-		if (Equalscount == 0) { // 재고가 있다면 주문저장 및 상품재고 정리
+		if (Equalscount == 0) {
 
 			model.addAttribute("data", "재고가 부족합니다.");
 			model.addAttribute("url", "cartView");
 			return "cartView";
 
 		} else {
+			// 주문금액을 등급별로 할인해준다.
+			// 주문금액 total 10만원 이상이면 실버: 5% 할인
+			// 주문금액 total 20만원 이상이면 골드: 10% 할인
 
-			// 주문금액을 등급별 dc을 해준다
-			// 주문금액이 total 10만원이상이면 실버 : 5% : 디스카운트
-			// 주문금액 total 20만원이상이면 골드 : 10% 디스카운트
 			char resultRank = ((Customer_infoDto) (session.getAttribute("customer"))).getCust_manager();
 
-			if (resultRank == 'G' || resultRank == 'M') {// 등급이 골드이거나 관리자는 10%
+			if (resultRank == 'G' || resultRank == 'M') {
 				order_totalAmount = (int) (order_totalAmount - (order_totalAmount * 0.1));
 
-			} else if (resultRank == 'S') {// 등급이 실버이면 5%
+			} else if (resultRank == 'S') {
 				order_totalAmount = (int) (order_totalAmount - (order_totalAmount * 0.05));
 
 			}
 
-			// 당일주문금액 : total
 			dto.setOrder_totalAmount(order_totalAmount);
 			dto.setCust_id(cust_id);
 			dto.setOrder_id(orderId);
 
-			Date resDate = dto.getReservation_date();// 예약일자
-			Date sendDate = dto.getSend_date(); // 배송일자
+			Date resDate = dto.getReservation_date();
+			Date sendDate = dto.getSend_date();
 
 			LocalDate now = LocalDate.now();
 			Date now1 = Date.valueOf(now);
 
-			int result = resDate.compareTo(now1); // 예약된날짜가 오늘보다 크다면 ok
+			int result = resDate.compareTo(now1);
 			int resultSend = sendDate.compareTo(now1);
 			if ((result == -1) || (resultSend == -1)) {
-				oidao.insertReservationEx(dto); // 주문성공
+				oidao.insertReservationEx(dto);
 			} else {
-				oidao.insertOne(dto); // 주문성공
+				oidao.insertOne(dto);
 			}
 			char Ranking = (((Customer_infoDto) session.getAttribute("customer")).getCust_manager());
-			// 주문저장하고 사용자 USER 등급을 UPDATE, 저장한 값 까지 해서 TOTAL금액을 가지고UPDATE한다.
 			if (Ranking != 'M') {
 				int ResultValue = oidao.selectCustOrder(cust_id);
 				if (ResultValue >= 100000 && ResultValue < 200000) {
-					// 고개등급을 Update 한다.
 					cudao.updateOne(cust_id, "S");
 				} else if (ResultValue >= 200000) {
 					cudao.updateOne(cust_id, "G");
@@ -339,24 +325,20 @@ public class TtonamadeOrderController {
 					cudao.updateOne(cust_id, "B");
 				}
 			}
-			pidao.UpdateProductCount(cust_id);// 재고정리
-
-			/////////////// 주문디테일저장/////////////////////////////
-
-			oddao.insertOne(orderId, cust_id);// 주문디테일성공
+			pidao.UpdateProductCount(cust_id);
+			oddao.insertOne(orderId, cust_id);
 			log.info("  주문DETAIL : " + "저장 ");
-			cartdao.deleteAll(cust_id);// 장바구니 비우기
+			cartdao.deleteAll(cust_id);
 
 			model.addAttribute("data", "주문이 정상적으로 이루어졌습니다..");
 			model.addAttribute("url", "prodList");
-			return "prodList";
+			model.addAttribute("res_cd", res_cd);
+			return "orderSuccess";
 		}
 
 	}
 
 	public String OrderNoReturn() {
-		//////////////////////////// order table에 값을 저장하기 위한 구문.////////////////////////
-		// 주문번호 생성
 		Calendar cal = Calendar.getInstance();
 		int year = cal.get(Calendar.YEAR);
 		String ym = year + new DecimalFormat("00").format(cal.get(Calendar.MONTH) + 1);
@@ -366,50 +348,8 @@ public class TtonamadeOrderController {
 		for (int i = 1; i <= 6; i++) {
 			subNum += (int) (Math.random() * 10);
 		}
-		String orderId = ymd + "_" + subNum; // 주문번호 생성
+		String orderId = ymd + "_" + subNum;
 
 		return orderId;
-	}
-	// 카트에 담지않고 주문저장을 바로 눌렸을 경우 해당값을 catt_info table에 저장한다.
-
-	@RequestMapping("/insertOrder")
-	public String directOrder(Product_infoDto dto, HttpSession session) throws Exception {
-
-		String cust_id = "";
-
-		if (session.getAttribute("customer") != null) {
-			cust_id = (((Customer_infoDto) session.getAttribute("customer")).getCust_id());
-
-		} else {
-			System.out.println("로그인 해주세요.");
-			return "redirect:/login";
-		}
-
-		log.info("상품이름 :" + dto.getProd_name());
-		log.info(" 상품 아이디 :" + dto.getProd_id());
-
-		Cart_infoDto cartDto = new Cart_infoDto();
-		cartDto.setCart_id(0);
-		cartDto.setCust_id(cust_id); // 세션을 통한 cust_id값을 가지고 와야한다.
-		cartDto.setProd_id(dto.getProd_id());
-
-		cartDto.setProd_name(dto.getProd_name());
-		cartDto.setProd_count(dto.getProd_count());
-
-		int prodprice = (int) dto.getProd_count() * (int) dto.getProd_price();
-		cartDto.setProd_price(prodprice);
-
-		int count = 0;
-		count = cartdao.countCart(cartDto.getProd_id(), cartDto.getCust_id());
-
-		if (count == 0) {
-			// 없는 상품이라면 상품을 저장한다.
-			cartdao.insertOne(cartDto);
-		} else {// 카트에 정보를 업데이트 한다.
-			cartdao.updateCart(cartDto);
-		}
-
-		return "redirect:/CartContainView";
-
 	}
 }
