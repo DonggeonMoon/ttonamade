@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	<mapper namespace="category_Mapper">
+	
+		<select id="selectAll" resultType= "cateDto">
+			select level, cateName, cateCode, cateCodeRef from goods_category start with cateCodeRef is null connect by prior cateCode = cateCodeRef
+		</select>
+		
+	</mapper>

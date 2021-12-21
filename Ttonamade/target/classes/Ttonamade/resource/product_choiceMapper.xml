@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+	<mapper namespace="product_choiceMapper">
+	
+		<select id="selectAll" parameterType="String" resultType="pcDto" >
+			 	select * from product_choice where cust_id = #{cust_id}
+		</select>
+		
+		<select id="selectOne" parameterType="String" resultType="pcDto">
+				select * from product_choice where cust_id = #{cust_id}
+		</select>
+		
+		<insert id="insertOne" parameterType="pcDto">
+		 	insert into product_choice (cust_id, prod_id)
+		select #{cust_id}, #{prod_id} from dual
+		where not exists (select 0 from product_choice where cust_id = #{cust_id} and prod_id = #{prod_id})
+		</insert>
+		
+		 <delete id="deleteOne" parameterType="pcDto">
+				delete from product_choice 
+				where cust_id = #{cust_id} and prod_id = #{prod_id}
+		 </delete>
+		 
+		 <delete id="deleteAll" parameterType ="String">
+				delete from product_choice
+				where cust_id = #{cust_id}
+		 </delete>
+	  
+	</mapper>

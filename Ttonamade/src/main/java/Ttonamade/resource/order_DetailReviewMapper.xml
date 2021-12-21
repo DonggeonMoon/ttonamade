@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="order_DetailReviewMapper">
+
+		<!--  나의 주문현황을 보기위한 구문 -->
+		<select id = "selectAllDetail" parameterType ="String" resultType ="ODReview">					
+					select  b.cust_id,
+		                   ORDER_SEQ,
+				        a.ORDER_ID,
+				        a.PROD_ID,
+				        a.PROD_NAME,
+				       a.PROD_PRICE,
+				       a.order_count, 
+				       c.prod_imgsrc,
+				       b.order_date	    
+				       
+				from order_detail a, order_info  b  , product_info c
+				where a.ORDER_ID = b.ORDER_ID and a.prod_id = c.prod_id
+				and cust_id = #{cust_id}
+		           and b.order_status ='T'
+		           order by b.order_date desc
+		</select>
+		
+		<select id ="selectGubun" parameterType ="String" resultType ="ODReview" >
+			     select a.cust_id, a.order_id, b.order_seq, b.prod_id, b.prod_name , b.prod_price, b.order_count , c.prod_imgsrc 
+		           from order_info a, order_detail b, product_info c
+		           where a.order_id = b.order_id 
+		           and b.prod_id = c.prod_id
+		           and a.order_status ='T'
+		           and a.order_id = #{order_id}
+		      		order by a.order_date desc
+		</select>
+		
+	</mapper>
